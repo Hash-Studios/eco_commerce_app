@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -80,7 +81,9 @@ class PreSignUpSlider extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(40, 60, 40, 0),
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, LoginRoute);
+                  },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   color: Color(0xFF004445),
@@ -90,7 +93,7 @@ class PreSignUpSlider extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          'Sign Up',
+                          'Continue',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Roboto',
@@ -108,39 +111,42 @@ class PreSignUpSlider extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-                child: FlatButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Text(
-                            'Already have an account?  ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'Login',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 17,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF000000),
-                          ),
-                        ),
-                      ],
-                    )),
-              )
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+              //   child: FlatButton(
+              //     onPressed: () {},
+              //     shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.all(Radius.circular(10))),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         Padding(
+              //           padding: const EdgeInsets.all(0.0),
+              //           child: Text(
+              //             'Already have an account?  ',
+              //             textAlign: TextAlign.center,
+              //             style: TextStyle(
+              //               fontFamily: 'Roboto',
+              //               fontSize: 17,
+              //               fontWeight: FontWeight.w500,
+              //               color: Color(0xFF000000),
+              //             ),
+              //           ),
+              //         ),
+              //         Text(
+              //           'Login',
+              //           textAlign: TextAlign.center,
+              //           style: TextStyle(
+              //             fontFamily: 'Roboto',
+              //             fontSize: 17,
+              //             fontWeight: FontWeight.w900,
+              //             color: Color(0xFF000000),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),
