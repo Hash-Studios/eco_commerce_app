@@ -1,7 +1,10 @@
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
+import 'package:eco_commerce_app/ui/widgets/headerText.dart';
+import 'package:eco_commerce_app/ui/widgets/orDivider.dart';
+import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -40,57 +43,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Color(0xFF000000),
-                        fontSize: 50,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
+              HeaderText(
+                text: 'Sign Up',
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
-                child: FlatButton(
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  color: Color(0xFF004445),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/icons/google.png',
-                        width: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Sign in with Google',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Image.asset('assets/images/divider.png'),
-              ),
+              GoogleButton(),
+              OrDivider(),
               Form(
                 autovalidate: true,
                 child: Column(
@@ -448,43 +405,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, LoginRoute);
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: Text(
-                          'Already have an account?  ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF000000),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Login',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 17,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xFF000000),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              SecondarySubmitButton(
+                text: 'Already have an account',
+                boldText: 'Login',
+                routeName: LoginRoute,
               )
             ],
           ),
