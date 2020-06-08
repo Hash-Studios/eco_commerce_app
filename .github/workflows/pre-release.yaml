@@ -69,4 +69,4 @@ jobs:
           title: "Latest dev build"
           files: |
             build/app/outputs/apk/release/*.apk
-            build/ios/iphoneos/*.ipa
+            build/ios/iphoneos/*.app
