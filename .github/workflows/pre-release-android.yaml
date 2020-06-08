@@ -1,4 +1,4 @@
-name:  Analyze, build and deploy a pre-release
+name: "Android debug build workflow"
 on:
   push:
     tags:
@@ -11,6 +11,7 @@ on:
 jobs:
 
   test:
+  name: "Testing pre-release"
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
@@ -46,7 +47,7 @@ jobs:
   pre-release:
     if: github.event_name != 'pull_request'
     name: "Build and deploy pre-release"
-    runs-on: macOS-latest
+    runs-on: windows-latest
     needs: test
     steps:
       - uses: actions/checkout@v1
@@ -63,21 +64,11 @@ jobs:
       - run: mv build/app/outputs/apk/release/*.apk APK/
       - run: flutter build apk --split-per-abi
       - run: mv build/app/outputs/apk/release/*.apk APK/
-#       - run: mkdir -p Payload
-      - run: flutter clean
-      - run: flutter build ios --release --no-codesign
-      - run: ls build/ios/iphoneos/
-#       - run: cp build/ios/iphoneos/*.app Payload/
-#       - uses: montudor/action-zip@v0.1.0
-#         with:
-#           args: zip -qq -r -y Payload.zip Payload/Runner.app
-#       - run: mv Payload.zip Payload.ipa
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Latest dev build"
+          title: "Latest dev build for Android"
           files: |
             APK/*.apk
-            build/ios/iphoneos/*
