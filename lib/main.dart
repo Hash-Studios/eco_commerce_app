@@ -1,4 +1,3 @@
-import 'package:eco_commerce_app/ui/pages/home.dart';
 import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
 import 'package:flutter/material.dart';
 

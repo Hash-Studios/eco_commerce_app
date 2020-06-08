@@ -39,7 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
               const SizedBox(height: kToolbarHeight),
               Text(
                 "Welcome",
-                style: Theme.of(context).textTheme.display2.copyWith(
+                style: Theme.of(context).textTheme.headline3.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
                     fontFamily: "Frank"),

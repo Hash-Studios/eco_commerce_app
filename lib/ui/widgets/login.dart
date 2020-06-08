@@ -13,7 +13,7 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController _password;
   FocusNode _passwordField;
   final _formKey = GlobalKey<FormState>();
-  final _key = GlobalKey<ScaffoldState>();
+  // final _key = GlobalKey<ScaffoldState>();
   UserRepository user;
 
   @override

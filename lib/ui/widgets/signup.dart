@@ -15,7 +15,7 @@ class _SignupFormState extends State<SignupForm> {
   FocusNode _passwordField;
   FocusNode _confirmPasswordField;
   final _formKey = GlobalKey<FormState>();
-  final _key = GlobalKey<ScaffoldState>();
+  // final _key = GlobalKey<ScaffoldState>();
   UserRepository user;
 
   @override

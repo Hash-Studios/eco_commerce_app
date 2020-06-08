@@ -21,6 +21,7 @@ class AuthHomePage extends StatelessWidget {
             case Status.Authenticated:
               return UserInfoPage(user: user.user);
           }
+          return Container();
         },
       ),
     );
