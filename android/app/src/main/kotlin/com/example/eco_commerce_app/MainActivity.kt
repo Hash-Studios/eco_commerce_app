@@ -1,4 +1,4 @@
-package com.example.eco_commerce_app
+package com.hash.eco_commerce
 
 import io.flutter.embedding.android.FlutterActivity
 

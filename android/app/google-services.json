@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "934275664054",
+    "firebase_url": "https://ecocommerce-26ad0.firebaseio.com",
+    "project_id": "ecocommerce-26ad0",
+    "storage_bucket": "ecocommerce-26ad0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934275664054:android:4add4487bb0d82700abe17",
+        "android_client_info": {
+          "package_name": "com.hash.eco_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934275664054-lopdmdbbo6rbobcil81op3g1lj51jupn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.eco_commerce",
+            "certificate_hash": "184f2ebd0086d454f6ab1ba5149343ac04e85a11"
+          }
+        },
+        {
+          "client_id": "934275664054-37tv53h6rpfb76u51vti6l9ccpea003f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKinYz5_sF-U0USVCzVfQ4qSCqH9lJk14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934275664054-37tv53h6rpfb76u51vti6l9ccpea003f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
