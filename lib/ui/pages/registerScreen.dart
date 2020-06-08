@@ -236,7 +236,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 isPassValid = false;
                               });
                             });
-                            return 'Password must be at least 4 characters,\nno more than 12 characters, and must include at least\none upper case letter, one lower case letter,\nand one numeric digit.';
+                            return 'Password must be at least 4 characters,\nno more than 12 characters, and must include\nat least one upper case letter, one lower\ncase letter, and one numeric digit.';
                           }
                           Future.delayed(Duration(seconds: 0)).then((value) {
                             setState(() {
@@ -455,8 +455,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'password': passwordController.text
     }).then((http.Response response) {
       res = (json.decode(response.body));
-      _showSuccessSnackbar();
-    }).catchError((e) => _showErrorSnackbar());
+      print(res);
+      if (response.statusCode == 200)
+        _showSuccessSnackbar();
+      else {
+        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+      }
+    });
   }
 
   void _showSuccessSnackbar() {
@@ -473,13 +478,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _redirectUser();
   }
 
-  void _showErrorSnackbar() {
+  void _showErrorSnackbar(String errorMessage) {
     setState(() {
       isLoading = false;
     });
     final SnackBar snack = SnackBar(
         content: Text(
-      'Registration failed!',
+      errorMessage,
       style: TextStyle(color: Colors.red),
     ));
     _scaffoldKey.currentState.showSnackBar(snack);
