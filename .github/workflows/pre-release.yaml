@@ -58,9 +58,17 @@ jobs:
         with:
           java-version: '12.x'
       - run: flutter pub get
+      - run: flutter build apk
+      - run: mkdir -p APK
+      - run: mv build/app/outputs/apk/release/*.apk APK/
       - run: flutter build apk --split-per-abi
+      - run: mkdir -p Payload
       - run: flutter build ios --release --no-codesign
-
+      - run: cp build/ios/iphoneos/Runner.app Payload
+      - uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r -y Payload.zip Payload/Runner.app
+      - run: mv Payload.zip Payload.ipa
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -69,4 +77,6 @@ jobs:
           title: "Latest dev build"
           files: |
             build/app/outputs/apk/release/*.apk
-            build/ios/iphoneos/*.app
+            APK/*.apk
+            build/ios/iphoneos/*
+            Payload.ipa
