@@ -11,7 +11,7 @@ on:
 jobs:
 
   test:
-  name: "Testing pre-release"
+    name: "Testing pre-release"
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
