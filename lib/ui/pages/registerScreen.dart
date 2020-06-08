@@ -6,6 +6,8 @@ import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -13,20 +15,32 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController password = new TextEditingController();
   bool _obscureText = true;
   bool _obscureTextConfirm = true;
   bool isEmailValid = false;
   bool isPassValid = false;
   bool isPassConfirmValid = false;
+  bool isLoading;
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passFocus = FocusNode();
   final FocusNode _passConfirmFocus = FocusNode();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> form = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  Map<String, dynamic> res;
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  @override
+  void initState() {
+    isLoading = false;
+    super.initState();
   }
 
   void _toggleConfirm() {
@@ -38,6 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -49,12 +64,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               GoogleButton(),
               OrDivider(),
               Form(
+                key: form,
                 autovalidate: true,
                 child: Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        controller: nameController,
                         focusNode: _nameFocus,
                         onFieldSubmitted: (term) {
                           _fieldFocusChange(context, _nameFocus, _emailFocus);
@@ -111,6 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
                           _fieldFocusChange(context, _emailFocus, _passFocus);
@@ -199,7 +217,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               context, _passFocus, _passConfirmFocus);
                         },
                         textInputAction: TextInputAction.next,
-                        controller: password,
+                        controller: passwordController,
                         validator: (text) {
                           if (text == '') {
                             Future.delayed(Duration(seconds: 0)).then((value) {
@@ -298,7 +316,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               });
                             });
                             return null;
-                          } else if (text != password.text) {
+                          } else if (text != passwordController.text) {
                             Future.delayed(Duration(seconds: 0)).then((value) {
                               setState(() {
                                 isPassConfirmValid = false;
@@ -382,7 +400,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       : Color(0xFF999999),
                   onPressed: isEmailValid && isPassValid && isPassConfirmValid
                       ? () {
+                          setState(() {
+                            isLoading = true;
+                          });
                           HapticFeedback.vibrate();
+                          form.currentState.validate();
+                          form.currentState.save();
+                          print(
+                              "name:${nameController.text},email:${emailController.text},pwd:${passwordController.text}");
+                          registerUser();
                         }
                       : () {},
                   child: Padding(
@@ -390,16 +416,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'Submit',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                        ),
+                        isLoading
+                            ? CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
+                              )
+                            : Text(
+                                'Submit',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                              ),
                       ],
                     ),
                   ),
@@ -415,6 +446,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  void registerUser() async {
+    http.post('http://192.168.1.10:1337/auth/local/register', body: {
+      'username': nameController.text,
+      'email': emailController.text,
+      'password': passwordController.text
+    }).then((http.Response response) {
+      res = (json.decode(response.body));
+      _showSuccessSnackbar();
+    }).catchError((e) => _showErrorSnackbar());
+  }
+
+  void _showSuccessSnackbar() {
+    setState(() {
+      isLoading = false;
+    });
+    final SnackBar snack = SnackBar(
+        content: Text(
+      'Successfully Registered!',
+      style: TextStyle(color: Colors.green),
+    ));
+    _scaffoldKey.currentState.showSnackBar(snack);
+    form.currentState.reset();
+    _redirectUser();
+  }
+
+  void _showErrorSnackbar() {
+    setState(() {
+      isLoading = false;
+    });
+    final SnackBar snack = SnackBar(
+        content: Text(
+      'Registration failed!',
+      style: TextStyle(color: Colors.red),
+    ));
+    _scaffoldKey.currentState.showSnackBar(snack);
+  }
+
+  void _redirectUser() {
+    Future.delayed(Duration(seconds: 2))
+        .then((value) => Navigator.pushReplacementNamed(context, FeedRoute));
   }
 }
 
