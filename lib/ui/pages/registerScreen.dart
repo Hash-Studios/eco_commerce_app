@@ -398,7 +398,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: isEmailValid && isPassValid && isPassConfirmValid
                       ? Color(0xFF044455)
                       : Color(0xFF999999),
-                  onPressed: isEmailValid && isPassValid && isPassConfirmValid
+                  onPressed: isEmailValid &&
+                          isPassValid &&
+                          isPassConfirmValid &&
+                          !isLoading
                       ? () {
                           setState(() {
                             isLoading = true;

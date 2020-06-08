@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
@@ -6,6 +8,7 @@ import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,8 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   bool isEmailValid = false;
   bool isPassValid = false;
+  bool isLoading;
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passFocus = FocusNode();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formLogin = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldLoginKey = GlobalKey<ScaffoldState>();
+  Map<String, dynamic> res;
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
@@ -25,8 +34,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    isLoading = false;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldLoginKey,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -38,12 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
               GoogleButton(),
               OrDivider(),
               Form(
+                key: formLogin,
                 autovalidate: true,
                 child: Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
                           _fieldFocusChange(context, _emailFocus, _passFocus);
@@ -125,6 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        controller: passwordController,
                         focusNode: _passFocus,
                         onFieldSubmitted: (term) {
                           _passFocus.unfocus();
@@ -223,9 +242,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: isEmailValid && isPassValid
                       ? Color(0xFF004445)
                       : Color(0xFF999999),
-                  onPressed: isEmailValid && isPassValid
+                  onPressed: isEmailValid && isPassValid && !isLoading
                       ? () {
                           HapticFeedback.vibrate();
+                          setState(() {
+                            isLoading = true;
+                          });
+                          HapticFeedback.vibrate();
+                          formLogin.currentState.validate();
+                          formLogin.currentState.save();
+                          print(
+                              "email:${emailController.text},pwd:${passwordController.text}");
+                          loginUser();
                         }
                       : () {},
                   child: Row(
@@ -258,6 +286,52 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void loginUser() async {
+    http.post('http://192.168.1.10:1337/auth/local/', body: {
+      'identifier': emailController.text,
+      'password': passwordController.text
+    }).then((http.Response response) {
+      res = (json.decode(response.body));
+      print(res);
+      if (response.statusCode == 200)
+        _showSuccessSnackbar();
+      else {
+        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+      }
+    });
+  }
+
+  void _showSuccessSnackbar() {
+    setState(() {
+      isLoading = false;
+    });
+    final SnackBar snack = SnackBar(
+        content: Text(
+      'Login Successful!',
+      style: TextStyle(color: Colors.green),
+    ));
+    _scaffoldLoginKey.currentState.showSnackBar(snack);
+    formLogin.currentState.reset();
+    _redirectUser();
+  }
+
+  void _showErrorSnackbar(String errorMessage) {
+    setState(() {
+      isLoading = false;
+    });
+    final SnackBar snack = SnackBar(
+        content: Text(
+      errorMessage,
+      style: TextStyle(color: Colors.red),
+    ));
+    _scaffoldLoginKey.currentState.showSnackBar(snack);
+  }
+
+  void _redirectUser() {
+    Future.delayed(Duration(seconds: 2))
+        .then((value) => Navigator.pushReplacementNamed(context, FeedRoute));
   }
 }
 
