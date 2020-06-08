@@ -62,9 +62,11 @@ jobs:
       - run: mkdir -p APK
       - run: mv build/app/outputs/apk/release/*.apk APK/
       - run: flutter build apk --split-per-abi
+      - run: mv build/app/outputs/apk/release/*.apk APK/
 #       - run: mkdir -p Payload
       - run: flutter clean
       - run: flutter build ios --release --no-codesign
+      - run: ls build/ios/iphoneos/
 #       - run: cp build/ios/iphoneos/*.app Payload/
 #       - uses: montudor/action-zip@v0.1.0
 #         with:
@@ -77,6 +79,5 @@ jobs:
           prerelease: true
           title: "Latest dev build"
           files: |
-            build/app/outputs/apk/release/*.apk
             APK/*.apk
             build/ios/iphoneos/*
