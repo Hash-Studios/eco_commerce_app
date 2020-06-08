@@ -41,7 +41,7 @@ jobs:
       - run: flutter clean
       - run: flutter build ios --release --no-codesign
       - run: ls build/ios/iphoneos/
-      - run: cp build/ios/iphoneos/Runner.app/ Payload/Runner.app/
+      - run: cp build/ios/iphoneos/Runner.app/ Payload/
       - uses: montudor/action-zip@v0.1.0
         with:
           args: zip -qq -r -y Payload.zip Payload/Runner.app
