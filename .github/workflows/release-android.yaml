@@ -1,13 +1,13 @@
-name: "Android debug build workflow"
+name: "Android build workflow"
 on:
   push:
     tags:
-    - 'dev*'
+    - 'v*'
 
 jobs:
 
   test:
-    name: "Testing pre-release"
+    name: "Testing release"
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
@@ -40,9 +40,9 @@ jobs:
 #           profile: Nexus 6
 #           script: flutter drive --target=test_driver/app.dart
 
-  pre-release:
+  release:
     if: github.event_name != 'pull_request'
-    name: "Build and deploy pre-release"
+    name: "Build and deploy release"
     runs-on: windows-latest
     needs: test
     steps:
@@ -63,8 +63,6 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest-android"
-          prerelease: true
-          title: "Latest dev build for Android"
+          prerelease: false
           files: |
             APK/*.apk
