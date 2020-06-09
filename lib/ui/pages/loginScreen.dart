@@ -234,6 +234,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    onPressed: () {
+                      HapticFeedback.vibrate();
+                      print("email:${emailController.text}");
+                      forgotPassword();
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Text('Forgot Password'),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
                 padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
                 child: FlatButton(
                   colorBrightness: Brightness.dark,
@@ -244,7 +263,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       : Color(0xFF999999),
                   onPressed: isEmailValid && isPassValid && !isLoading
                       ? () {
-                          HapticFeedback.vibrate();
                           setState(() {
                             isLoading = true;
                           });
@@ -256,23 +274,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           loginUser();
                         }
                       : () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Submit',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        isLoading
+                            ? CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
+                              )
+                            : Text(
+                                'Submit',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                              ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -288,6 +311,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void forgotPassword() async {
+    http.post('http://192.168.1.10:1337/auth/forgot-password',
+        body: {'email': emailController.text}).then((http.Response response) {
+      res = (json.decode(response.body));
+      print(res);
+      if (response.statusCode == 200)
+        _showSuccessSnackbarFP();
+      else {
+        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+      }
+    });
+  }
+
   void loginUser() async {
     http.post('http://192.168.1.10:1337/auth/local/', body: {
       'identifier': emailController.text,
@@ -301,6 +337,16 @@ class _LoginScreenState extends State<LoginScreen> {
         _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
       }
     });
+  }
+
+  void _showSuccessSnackbarFP() {
+    final SnackBar snack = SnackBar(
+        content: Text(
+      'Verification code sent to ${emailController.text}',
+      style: TextStyle(color: Colors.green),
+    ));
+    _scaffoldLoginKey.currentState.showSnackBar(snack);
+    formLogin.currentState.reset();
   }
 
   void _showSuccessSnackbar() {
