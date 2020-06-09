@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
 class ImageSlider extends StatelessWidget {
   const ImageSlider({
     Key key,
@@ -11,7 +12,7 @@ class ImageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 50),
+      padding: const EdgeInsets.only(top: 0),
       child: CarouselSlider(
         items: [
           Padding(

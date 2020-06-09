@@ -15,6 +15,7 @@ class PreSignUpSlider extends StatelessWidget {
         child: Container(
           height: height,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ImageSlider(height: height),
               AppNameText(),
