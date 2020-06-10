@@ -1,8 +1,8 @@
-import 'package:eco_commerce_app/core/model/user.dart';
-import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
+import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
+import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:flutter/material.dart';
-import 'package:eco_commerce_app/globals.dart' as globals;
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    // final height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
               print("Nav Drawer");
             },
             color: Colors.black,
-            icon: Icon(Icons.menu),
+            icon: Icon(LineAwesomeIcons.navicon),
           ),
           actions: <Widget>[
             IconButton(
@@ -38,14 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 print("Nav Drawer");
               },
               color: Colors.black,
-              icon: Icon(Icons.search),
+              icon: Icon(LineAwesomeIcons.search),
             ),
             IconButton(
               onPressed: () {
                 print("Nav Drawer");
               },
               color: Colors.black,
-              icon: Icon(Icons.bookmark),
+              icon: Icon(LineAwesomeIcons.bookmark),
             )
           ],
         ),
@@ -54,7 +54,19 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[TrendingSlider()],
+            children: <Widget>[
+              TrendingSlider(),
+              SectionHeader(
+                text: "Categories",
+              ),
+              SectionHeader(
+                text: "Trending Products",
+              ),
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile()
+            ],
           ),
         ));
   }
