@@ -1,3 +1,4 @@
+import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
@@ -11,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isLoaded;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -21,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -28,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           leading: IconButton(
             onPressed: () {
               print("Nav Drawer");
+              _scaffoldKey.currentState.openDrawer();
             },
             color: Colors.black,
             icon: Icon(LineAwesomeIcons.navicon),
@@ -35,14 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                print("Nav Drawer");
+                print("Search");
               },
               color: Colors.black,
               icon: Icon(LineAwesomeIcons.search),
             ),
             IconButton(
               onPressed: () {
-                print("Nav Drawer");
+                print("Bookmark");
               },
               color: Colors.black,
               icon: Icon(LineAwesomeIcons.bookmark),
@@ -50,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         backgroundColor: Colors.white,
+        drawer: MainDrawer(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
