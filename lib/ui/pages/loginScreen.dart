@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
+import 'package:eco_commerce_app/globals.dart' as globals;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -330,6 +332,16 @@ class _LoginScreenState extends State<LoginScreen> {
       'password': passwordController.text
     }).then((http.Response response) {
       res = (json.decode(response.body));
+      globals.currentUser = CurrentUser(
+        jwt: res["jwt"],
+        confirmed: res["user"]["confirmed"].toString(),
+        blocked: res["user"]["blocked"].toString(),
+        id: res["user"]["id"],
+        username: res["user"]["username"],
+        email: res["user"]["email"],
+        createdAt: res["user"]["createdAt"],
+      );
+      globals.currentUser.saveUsertoSP();
       print(res);
       if (response.statusCode == 200)
         _showSuccessSnackbar();
