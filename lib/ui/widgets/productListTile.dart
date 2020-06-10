@@ -12,96 +12,108 @@ class ProductListTile extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
-      child: FlatButton(
-        onPressed: () {
-          print('card');
-          // Navigator.pushNamed(context, LoginRoute);
-        },
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        color: Color(0xFFFFFFFF),
-        child: SizedBox(
-          height: 160,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                    width: height * 0.16,
-                    height: height * 0.16,
-                    child: Image.asset(
-                      'assets/images/papers.jpg',
-                      fit: BoxFit.cover,
-                    )),
+      padding: const EdgeInsets.fromLTRB(17, 10, 17, 10),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.07),
+                blurRadius: 10,
+                offset: Offset(0, 3),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                    child: Text(
-                      'PRODUCT NAME',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF044455),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                    child: SizedBox(
-                      width: width * 0.45,
+            ]),
+        child: FlatButton(
+          onPressed: () {
+            print('card');
+            // Navigator.pushNamed(context, LoginRoute);
+          },
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          color: Color(0xFFFFFFFF),
+          child: SizedBox(
+            height: 160,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                      width: height * 0.16,
+                      height: height * 0.16,
+                      child: Image.asset(
+                        'assets/images/papers.jpg',
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 15),
                       child: Text(
-                        'Lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+                        'PRODUCT NAME',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xFF7A7A7A),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF044455),
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 15),
+                      child: SizedBox(
+                        width: width * 0.45,
                         child: Text(
-                          ' ₹ 180 / pc',
+                          'Lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF044455),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0xFF7A7A7A),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: width * 0.1,
+                    ),
+                    SizedBox(
+                      width: width * 0.52,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 15),
+                            child: Text(
+                              ' ₹ 180 / pc',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF044455),
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          IconButton(
+                              icon: Icon(LineAwesomeIcons.heart_o),
+                              onPressed: () {
+                                print('heart');
+                              })
+                        ],
                       ),
-                      IconButton(
-                          icon: Icon(LineAwesomeIcons.heart_o),
-                          onPressed: () {
-                            print('heart');
-                          })
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
