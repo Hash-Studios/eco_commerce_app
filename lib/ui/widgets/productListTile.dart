@@ -1,11 +1,31 @@
+import 'dart:math';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class ProductListTile extends StatelessWidget {
+class ProductListTile extends StatefulWidget {
   const ProductListTile({
     Key key,
   }) : super(key: key);
+
+  @override
+  _ProductListTileState createState() => _ProductListTileState();
+}
+
+class _ProductListTileState extends State<ProductListTile> {
+  var images = [
+    "assets/images/papers.jpg",
+    "assets/images/mugs.jpg",
+    "assets/images/cups.jpg",
+    "assets/images/pencils.jpg",
+    "assets/images/pens.jpg",
+    "assets/images/erasers.jpg"
+  ];
+  String getImage() {
+    final _random = new Random();
+    var element = images[_random.nextInt(images.length)];
+    return element;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +62,7 @@ class ProductListTile extends StatelessWidget {
                       width: height * 0.16,
                       height: height * 0.16,
                       child: Image.asset(
-                        'assets/images/papers.jpg',
+                        getImage(),
                         fit: BoxFit.cover,
                       )),
                 ),
