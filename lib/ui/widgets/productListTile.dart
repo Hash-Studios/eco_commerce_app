@@ -68,7 +68,7 @@ class ProductListTile extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 15),
                       child: SizedBox(
-                        width: width * 0.45,
+                        width: width * 0.435,
                         child: Text(
                           'Lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
                           textAlign: TextAlign.left,
@@ -82,7 +82,7 @@ class ProductListTile extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: width * 0.52,
+                      width: width * 0.514,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
