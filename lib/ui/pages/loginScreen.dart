@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
@@ -326,28 +327,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async {
-    http.post('http://192.168.1.10:1337/auth/local/', body: {
-      'identifier': emailController.text,
-      'password': passwordController.text
-    }).then((http.Response response) {
-      res = (json.decode(response.body));
-      globals.currentUser = CurrentUser(
-        jwt: res["jwt"],
-        confirmed: res["user"]["confirmed"].toString(),
-        blocked: res["user"]["blocked"].toString(),
-        id: res["user"]["id"],
-        username: res["user"]["username"],
-        email: res["user"]["email"],
-        createdAt: res["user"]["createdAt"],
+    try {
+      http.post('http://192.168.1.10:1337/auth/local/', body: {
+        'identifier': emailController.text,
+        'password': passwordController.text
+      }).then((http.Response response) {
+        res = (json.decode(response.body));
+        print(res);
+        if (response.statusCode == 200) {
+          _showSuccessSnackbar();
+          globals.currentUser = CurrentUser(
+            jwt: res["jwt"],
+            confirmed: res["user"]["confirmed"].toString(),
+            blocked: res["user"]["blocked"].toString(),
+            id: res["user"]["id"],
+            username: res["user"]["username"],
+            email: res["user"]["email"],
+            createdAt: res["user"]["createdAt"],
+          );
+          globals.currentUser.saveUsertoSP();
+        } else {
+          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+        }
+      }).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          _showErrorSnackbar('Connection Timeout Error!');
+        },
       );
-      globals.currentUser.saveUsertoSP();
-      print(res);
-      if (response.statusCode == 200)
-        _showSuccessSnackbar();
-      else {
-        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
-      }
-    });
+    } on SocketException {
+      _showErrorSnackbar('Network Not Connected!');
+    }
   }
 
   void _showSuccessSnackbarFP() {
@@ -388,7 +398,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _redirectUser() {
     Future.delayed(Duration(seconds: 2))
-        .then((value) => Navigator.pushReplacementNamed(context, FeedRoute));
+        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }
 

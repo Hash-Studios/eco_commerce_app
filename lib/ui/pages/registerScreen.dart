@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
@@ -8,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:eco_commerce_app/globals.dart' as globals;
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -452,19 +456,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void registerUser() async {
-    http.post('http://192.168.1.10:1337/auth/local/register', body: {
-      'username': nameController.text,
-      'email': emailController.text,
-      'password': passwordController.text
-    }).then((http.Response response) {
-      res = (json.decode(response.body));
-      print(res);
-      if (response.statusCode == 200)
-        _showSuccessSnackbar();
-      else {
-        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
-      }
-    });
+    try {
+      http.post('http://192.168.1.10:1337/auth/local/register', body: {
+        'username': nameController.text,
+        'email': emailController.text,
+        'password': passwordController.text
+      }).then((http.Response response) {
+        res = (json.decode(response.body));
+        print(res);
+        if (response.statusCode == 200) {
+          _showSuccessSnackbar();
+          globals.currentUser = CurrentUser(
+            jwt: res["jwt"],
+            confirmed: res["user"]["confirmed"].toString(),
+            blocked: res["user"]["blocked"].toString(),
+            id: res["user"]["id"],
+            username: res["user"]["username"],
+            email: res["user"]["email"],
+            createdAt: res["user"]["createdAt"],
+          );
+          globals.currentUser.saveUsertoSP();
+        } else {
+          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+        }
+      }).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          _showErrorSnackbar('Connection Timeout Error!');
+        },
+      );
+    } on SocketException {
+      _showErrorSnackbar('Network Not Connected!');
+    }
   }
 
   void _showSuccessSnackbar() {
@@ -495,7 +518,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _redirectUser() {
     Future.delayed(Duration(seconds: 2))
-        .then((value) => Navigator.pushReplacementNamed(context, FeedRoute));
+        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }
 
