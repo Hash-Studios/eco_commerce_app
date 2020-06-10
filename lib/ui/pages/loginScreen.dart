@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
