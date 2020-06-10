@@ -4,6 +4,7 @@ import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
 import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
 import 'package:eco_commerce_app/ui/pages/registerScreen.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
+import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -16,6 +17,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => RegisterScreen());
     case FeedRoute:
       return MaterialPageRoute(builder: (context) => FeedScreen());
+    case UserOptionalRoute:
+      return MaterialPageRoute(builder: (context) => UserOptionalScreen());
     default:
       return MaterialPageRoute(
           builder: (context) => UndefinedScreen(
