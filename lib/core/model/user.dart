@@ -57,4 +57,19 @@ class CurrentUser {
       );
     }
   }
+
+  bool deleteUser() {
+    try {
+      removeValue('jwt');
+      removeValue('id');
+      removeValue('confirmed');
+      removeValue('blocked');
+      removeValue('username');
+      removeValue('email');
+      removeValue('createdAt');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

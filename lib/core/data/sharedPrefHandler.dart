@@ -43,3 +43,8 @@ getDoubleFromSP(String key) async {
   double doubleValue = prefs.getDouble(key);
   return doubleValue;
 }
+
+removeValue(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove(key);
+}
