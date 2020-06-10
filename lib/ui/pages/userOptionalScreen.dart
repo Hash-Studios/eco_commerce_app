@@ -316,7 +316,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                       //       }
                       //     :
                       () {
-                    Navigator.pushReplacementNamed(context, FeedRoute);
+                    Navigator.pushReplacementNamed(context, HomeRoute);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -431,7 +431,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
 
   void _redirectUser() {
     Future.delayed(Duration(seconds: 2))
-        .then((value) => Navigator.pushReplacementNamed(context, FeedRoute));
+        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }
 
