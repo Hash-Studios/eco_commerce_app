@@ -3,6 +3,8 @@ import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/router.dart' as router;
 
+import 'routing_constants.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: PreSignUpRoute,
+      initialRoute: HomeRoute,
     );
   }
 }
