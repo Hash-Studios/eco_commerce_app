@@ -51,7 +51,7 @@ class _CategoryListState extends State<CategoryList> {
           decoration: BoxDecoration(
             color: Colors.white,
           ),
-          height: 120,
+          
           child: ListView(
             scrollDirection: Axis.vertical,
             children: <Widget>[
