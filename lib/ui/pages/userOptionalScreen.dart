@@ -344,7 +344,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
         'username': name,
         'email': email,
         'password': password,
-        'corporate_email': emailController.text,
+        'orgemail': emailController.text,
         'organisation': orgController.text,
         'phone': phoneController.text
       }).then((http.Response response) {
