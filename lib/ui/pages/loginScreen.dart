@@ -314,7 +314,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void forgotPassword() async {
-    http.post('http://192.168.1.10:1337/auth/forgot-password',
+    http.post('https://ecocommerce.herokuapp.com/auth/forgot-password',
         body: {'email': emailController.text}).then((http.Response response) {
       res = (json.decode(response.body));
       print(res);
@@ -328,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginUser() async {
     try {
-      http.post('http://192.168.1.10:1337/auth/local/', body: {
+      http.post('https://ecocommerce.herokuapp.com/auth/local/', body: {
         'identifier': emailController.text,
         'password': passwordController.text
       }).then((http.Response response) {

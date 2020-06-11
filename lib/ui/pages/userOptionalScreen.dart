@@ -340,7 +340,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
 
   void registerUser() async {
     try {
-      http.post('http://192.168.1.10:1337/auth/local/register', body: {
+      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
         'username': name,
         'email': email,
         'password': password,

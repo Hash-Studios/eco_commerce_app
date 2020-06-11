@@ -462,7 +462,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 //   void registerUser() async {
 //     try {
-//       http.post('http://192.168.1.10:1337/auth/local/register', body: {
+//       http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
 //         'username': nameController.text,
 //         'email': emailController.text,
 //         'password': passwordController.text
