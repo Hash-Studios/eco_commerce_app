@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
-import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -10,11 +10,17 @@ import 'package:http/http.dart' as http;
 import 'package:eco_commerce_app/globals.dart' as globals;
 
 class UserOptionalScreen extends StatefulWidget {
+  final List<String> arguements;
+  UserOptionalScreen({this.arguements});
+
   @override
   _UserOptionalScreenState createState() => _UserOptionalScreenState();
 }
 
 class _UserOptionalScreenState extends State<UserOptionalScreen> {
+  String name;
+  String email;
+  String password;
   bool isEmailValid = false;
   bool isPhoneValid = false;
   bool isLoading;
@@ -32,6 +38,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   void initState() {
     isLoading = false;
     super.initState();
+    name = widget.arguements[0];
+    email = widget.arguements[1];
+    password = widget.arguements[2];
   }
 
   @override
@@ -275,25 +284,6 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                   ],
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-              //   child: Align(
-              //     alignment: Alignment.centerRight,
-              //     child: FlatButton(
-              //       shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(10)),
-              //       onPressed: () {
-              //         HapticFeedback.vibrate();
-              //         print("email:${emailController.text}");
-              //         forgotPassword();
-              //       },
-              //       child: Padding(
-              //         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              //         child: Text('Forgot Password'),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
                 child: FlatButton(
@@ -301,23 +291,21 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   color: isEmailValid ? Color(0xFF004445) : Color(0xFF999999),
-                  onPressed:
-                      // sEmailValid && isPassValid && !isLoading
-                      //     ? () {
-                      //         setState(() {
-                      //           isLoading = true;
-                      //         });
-                      //         HapticFeedback.vibrate();
-                      //         formOptional.currentState.validate();
-                      //         formOptional.currentState.save();
-                      //         print(
-                      //             "email:${emailController.text},pwd:${passwordController.text}");
-                      //         loginUser();
-                      //       }
-                      //     :
-                      () {
-                    Navigator.pushReplacementNamed(context, HomeRoute);
-                  },
+                  onPressed: isEmailValid && !isLoading
+                      ? () {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          HapticFeedback.vibrate();
+                          formOptional.currentState.validate();
+                          formOptional.currentState.save();
+                          print(
+                              "corporate_email:${emailController.text},org_name:${orgController.text}");
+                          registerUser();
+                        }
+                      : () {
+                          Navigator.pushReplacementNamed(context, HomeRoute);
+                        },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -343,11 +331,6 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                   ),
                 ),
               ),
-              // SecondarySubmitButton(
-              //   text: 'New user',
-              //   boldText: 'Register',
-              //   routeName: RegisterRoute,
-              // )
             ],
           ),
         ),
@@ -355,52 +338,42 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     );
   }
 
-  // void forgotPassword() async {
-  //   http.post('http://192.168.1.10:1337/auth/forgot-password',
-  //       body: {'email': emailController.text}).then((http.Response response) {
-  //     res = (json.decode(response.body));
-  //     print(res);
-  //     if (response.statusCode == 200)
-  //       _showSuccessSnackbarFP();
-  //     else {
-  //       _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
-  //     }
-  //   });
-  // }
-
-  void loginUser() async {
-    http.post('http://192.168.1.10:1337/auth/local/', body: {
-      'identifier': emailController.text,
-      // 'password': passwordController.text
-    }).then((http.Response response) {
-      res = (json.decode(response.body));
-      globals.currentUser = CurrentUser(
-        jwt: res["jwt"],
-        confirmed: res["user"]["confirmed"].toString(),
-        blocked: res["user"]["blocked"].toString(),
-        id: res["user"]["id"],
-        username: res["user"]["username"],
-        email: res["user"]["email"],
-        createdAt: res["user"]["createdAt"],
+  void registerUser() async {
+    try {
+      http.post('http://192.168.1.10:1337/auth/local/register', body: {
+        'username': name,
+        'email': email,
+        'password': password,
+        'corporate_email': emailController.text,
+        'organisation': orgController.text,
+        'phone': phoneController.text
+      }).then((http.Response response) {
+        res = (json.decode(response.body));
+        print(res);
+        if (response.statusCode == 200) {
+          _showSuccessSnackbar();
+          globals.currentUser = CurrentUser(
+            jwt: res["jwt"],
+            confirmed: res["user"]["confirmed"].toString(),
+            blocked: res["user"]["blocked"].toString(),
+            id: res["user"]["id"],
+            username: res["user"]["username"],
+            email: res["user"]["email"],
+            createdAt: res["user"]["createdAt"],
+          );
+          globals.currentUser.saveUsertoSP();
+        } else {
+          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+        }
+      }).timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          _showErrorSnackbar('Connection Timeout Error!');
+        },
       );
-      globals.currentUser.saveUsertoSP();
-      print(res);
-      if (response.statusCode == 200)
-        _showSuccessSnackbar();
-      else {
-        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
-      }
-    });
-  }
-
-  void _showSuccessSnackbarFP() {
-    final SnackBar snack = SnackBar(
-        content: Text(
-      'Verification code sent to ${emailController.text}',
-      style: TextStyle(color: Colors.green),
-    ));
-    _scaffoldOptionalKey.currentState.showSnackBar(snack);
-    formOptional.currentState.reset();
+    } on SocketException {
+      _showErrorSnackbar('Network Not Connected!');
+    }
   }
 
   void _showSuccessSnackbar() {
@@ -409,7 +382,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     });
     final SnackBar snack = SnackBar(
         content: Text(
-      'Login Successful!',
+      'Successfully Registered!',
       style: TextStyle(color: Colors.green),
     ));
     _scaffoldOptionalKey.currentState.showSnackBar(snack);

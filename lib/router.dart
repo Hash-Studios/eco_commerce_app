@@ -18,7 +18,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeRoute:
       return MaterialPageRoute(builder: (context) => HomeScreen());
     case UserOptionalRoute:
-      return MaterialPageRoute(builder: (context) => UserOptionalScreen());
+      return MaterialPageRoute(
+          builder: (context) => UserOptionalScreen(
+                arguements: settings.arguments,
+              ));
     default:
       return MaterialPageRoute(
           builder: (context) => UndefinedScreen(

@@ -350,7 +350,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
         }
       }).timeout(
-        const Duration(seconds: 10),
+        const Duration(seconds: 30),
         onTimeout: () {
           _showErrorSnackbar('Connection Timeout Error!');
         },
