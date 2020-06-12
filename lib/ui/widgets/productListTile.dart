@@ -19,7 +19,12 @@ class _ProductListTileState extends State<ProductListTile> {
     "assets/images/cups.jpg",
     "assets/images/pencils.jpg",
     "assets/images/pens.jpg",
-    "assets/images/erasers.jpg"
+    "assets/images/erasers.jpg",
+    "assets/images/rulers.jpg",
+    "assets/images/spoons.jpg",
+    "assets/images/picture_frames.jpg",
+    "assets/images/calendars.jpg",
+    "assets/images/mousepads.jpg",
   ];
   String getImage() {
     final _random = new Random();
