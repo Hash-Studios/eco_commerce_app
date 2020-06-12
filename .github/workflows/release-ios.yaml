@@ -1,50 +1,50 @@
-name: "iOS build workflow"
-on:
-  push:
-    tags:
-    - 'v*'
+# name: "iOS build workflow"
+# on:
+#   push:
+#     tags:
+#     - 'v*'
     
-jobs:
+# jobs:
 
-  test:
-    name: "Testing release"
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '1.17.0'
-          channel: 'stable'
-      - run: flutter pub get
-      - run: flutter analyze
+#   test:
+#     name: "Testing release"
+#     runs-on: macOS-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: subosito/flutter-action@v1
+#         with:
+#           flutter-version: '1.17.0'
+#           channel: 'stable'
+#       - run: flutter pub get
+#       - run: flutter analyze
 
-  release:
-    if: github.event_name != 'pull_request'
-    name: "Build and deploy release"
-    runs-on: macOS-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '1.17.0'
-          channel: 'stable'
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - run: flutter pub get
-      - run: mkdir -p Payload
-      - run: flutter clean
-      - run: flutter build ios --release --no-codesign
-      # - run: ls build/ios/iphoneos/
-      # - run: cp build/ios/iphoneos/Runner.app/ Payload/
-      # - uses: montudor/action-zip@v0.1.0
-      #   with:
-      #     args: zip -qq -r -y Payload.zip Payload/Runner.app
-      # - run: mv Payload.zip Payload.ipa
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            build/ios/*
+#   release:
+#     if: github.event_name != 'pull_request'
+#     name: "Build and deploy release"
+#     runs-on: macOS-latest
+#     needs: test
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: subosito/flutter-action@v1
+#         with:
+#           flutter-version: '1.17.0'
+#           channel: 'stable'
+#       - uses: actions/setup-java@v1
+#         with:
+#           java-version: '12.x'
+#       - run: flutter pub get
+#       - run: mkdir -p Payload
+#       - run: flutter clean
+#       - run: flutter build ios --release --no-codesign
+#       # - run: ls build/ios/iphoneos/
+#       # - run: cp build/ios/iphoneos/Runner.app/ Payload/
+#       # - uses: montudor/action-zip@v0.1.0
+#       #   with:
+#       #     args: zip -qq -r -y Payload.zip Payload/Runner.app
+#       # - run: mv Payload.zip Payload.ipa
+#       - uses: "marvinpinto/action-automatic-releases@latest"
+#         with:
+#           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#           prerelease: false
+#           files: |
+#             build/ios/*
