@@ -56,7 +56,7 @@ class _CategoryListState extends State<CategoryList> {
             scrollDirection: Axis.vertical,
             children: <Widget>[
               Text(
-                '  Pen',
+                ' Pen',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontFamily: 'Poppins',
