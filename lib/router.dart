@@ -1,7 +1,6 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 
-import 'package:eco_commerce_app/ui/pages/about.dart';
-
+import 'package:eco_commerce_app/ui/pages/terms.dart';
 
 import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
 
