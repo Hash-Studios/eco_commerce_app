@@ -1,3 +1,5 @@
+import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
+import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
@@ -6,17 +8,6 @@ class MainDrawer extends StatelessWidget {
   const MainDrawer({
     Key key,
   }) : super(key: key);
-
-  String getInitials(String nameString) {
-    if (nameString.isEmpty) return " ";
-
-    List<String> nameArray =
-        nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
-    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") +
-        (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
-
-    return initials;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +21,15 @@ class MainDrawer extends StatelessWidget {
                   margin: EdgeInsets.all(0),
                   padding: EdgeInsets.all(0),
                   child: UserAccountsDrawerHeader(
+                    arrowColor: Colors.black,
+                    onDetailsPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, ProfileRoute);
+                    },
                     currentAccountPicture: CircleAvatar(
                       backgroundColor: Color(0xFFC4C4C4),
                       child: Text(
-                        getInitials(globals.currentUser.username),
+                        globals.getInitials(globals.currentUser.username),
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFFE0E0E0),
@@ -78,6 +74,10 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, HomeRoute);
+                          },
                         ),
                       ),
                       Padding(
@@ -90,6 +90,10 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, CategoryRoute);
+                          },
                         ),
                       ),
                       Padding(
@@ -210,6 +214,20 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            removeValue('jwt');
+                            removeValue('id');
+                            removeValue('confirmed');
+                            removeValue('blocked');
+                            removeValue('username');
+                            removeValue('email');
+                            removeValue('organisation');
+                            removeValue('orgemail');
+                            removeValue('phone');
+                            removeValue('createdAt');
+                            Navigator.pushReplacementNamed(context, LoginRoute);
+                          },
                         ),
                       ),
                       Padding(
