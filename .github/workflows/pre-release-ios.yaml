@@ -45,8 +45,6 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest-ios"
           prerelease: true
-          title: "Latest dev build for iOS"
           files: |
             build/ios/*

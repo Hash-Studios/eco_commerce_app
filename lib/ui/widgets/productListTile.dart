@@ -44,6 +44,7 @@ class _ProductListTileState extends State<ProductListTile> {
               ),
             ]),
         child: FlatButton(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           onPressed: () {
             print('card');
             // Navigator.pushNamed(context, LoginRoute);
@@ -72,7 +73,7 @@ class _ProductListTileState extends State<ProductListTile> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 15),
+                          vertical: 7, horizontal: 15),
                       child: Text(
                         'PRODUCT NAME',
                         textAlign: TextAlign.left,
@@ -103,31 +104,34 @@ class _ProductListTileState extends State<ProductListTile> {
                     ),
                     SizedBox(
                       width: width * 0.514,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 15),
-                            child: Text(
-                              ' ₹ 180 / pc',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF044455),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 15),
+                              child: Text(
+                                ' ₹ 180 / pc',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF044455),
+                                ),
                               ),
                             ),
-                          ),
-                          Spacer(),
-                          IconButton(
-                              icon: Icon(LineAwesomeIcons.heart_o),
-                              onPressed: () {
-                                print('heart');
-                              })
-                        ],
+                            Spacer(),
+                            IconButton(
+                                icon: Icon(LineAwesomeIcons.heart_o),
+                                onPressed: () {
+                                  print('heart');
+                                })
+                          ],
+                        ),
                       ),
                     ),
                   ],

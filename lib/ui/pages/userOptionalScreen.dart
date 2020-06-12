@@ -359,6 +359,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
             id: res["user"]["id"],
             username: res["user"]["username"],
             email: res["user"]["email"],
+            organisation: res["user"]["organisation"],
+            orgemail: res["user"]["orgemail"],
+            phone: res["user"]["phone"],
             createdAt: res["user"]["createdAt"],
           );
           globals.currentUser.saveUsertoSP();
