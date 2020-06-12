@@ -1,5 +1,6 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/model/user.dart';
+import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
@@ -60,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               onPressed: () {
                 print("Search");
+                Navigator.pushNamed(context, SearchRoute);
               },
               color: Colors.black,
               icon: Icon(LineAwesomeIcons.search),

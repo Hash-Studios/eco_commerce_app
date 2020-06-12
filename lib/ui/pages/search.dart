@@ -94,18 +94,20 @@ class SearchScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    FlatButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.black,
-                          fontStyle: FontStyle.normal,
-                          decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'Poppins',
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 20, 5, 5),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.black,
+                            fontStyle: FontStyle.normal,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ),
                     ),

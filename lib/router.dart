@@ -27,7 +27,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SearchScreen());
     case TnCRoute:
       return MaterialPageRoute(builder: (context) => TermsConditions());
-
     case HomeRoute:
       return MaterialPageRoute(builder: (context) => HomeScreen());
     case CategoryRoute:
