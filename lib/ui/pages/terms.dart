@@ -8,12 +8,19 @@ class TermsConditions extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Colors.black,
-          icon: Icon(LineAwesomeIcons.arrow_left),
+        leading: Hero(
+          tag: 'menu',
+          child: Card(
+            elevation: 0,
+            color: Colors.transparent,
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: Colors.black,
+              icon: Icon(LineAwesomeIcons.arrow_left),
+            ),
+          ),
         ),
         elevation: 0,
       ),

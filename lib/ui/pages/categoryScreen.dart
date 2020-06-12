@@ -20,21 +20,35 @@ class _CategoryScreenState extends State<CategoryScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
-        leading: IconButton(
-          onPressed: () {
-            print("Nav Drawer");
-            _scaffoldKey.currentState.openDrawer();
-          },
-          color: Colors.black,
-          icon: Icon(LineAwesomeIcons.navicon),
+        leading: Hero(
+          tag: 'menu',
+          child: Card(
+            elevation: 0,
+            color: Colors.transparent,
+            child: IconButton(
+              onPressed: () {
+                print("Nav Drawer");
+                _scaffoldKey.currentState.openDrawer();
+              },
+              color: Colors.black,
+              icon: Icon(LineAwesomeIcons.navicon),
+            ),
+          ),
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              print("Search");
-            },
-            color: Colors.black,
-            icon: Icon(LineAwesomeIcons.search),
+          Hero(
+            tag: 'search',
+            child: Card(
+              elevation: 0,
+              color: Colors.transparent,
+              child: IconButton(
+                onPressed: () {
+                  print("Search");
+                },
+                color: Colors.black,
+                icon: Icon(LineAwesomeIcons.search),
+              ),
+            ),
           ),
           IconButton(
             onPressed: () {

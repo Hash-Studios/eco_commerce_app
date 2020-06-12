@@ -36,12 +36,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   stretch: true,
                   backgroundColor: Colors.white,
                   excludeHeaderSemantics: true,
-                  leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.black,
-                    icon: Icon(LineAwesomeIcons.arrow_left),
+                  leading: Hero(
+                    tag: 'menu',
+                    child: Card(
+                      elevation: 0,
+                      color: Colors.transparent,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        color: Colors.black,
+                        icon: Icon(LineAwesomeIcons.arrow_left),
+                      ),
+                    ),
                   ),
                   actions: <Widget>[
                     IconButton(

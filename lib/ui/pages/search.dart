@@ -28,12 +28,19 @@ class SearchScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Colors.black,
-          icon: Icon(LineAwesomeIcons.arrow_left),
+        leading: Hero(
+          tag: 'menu',
+          child: Card(
+            elevation: 0,
+            color: Colors.transparent,
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: Colors.black,
+              icon: Icon(LineAwesomeIcons.arrow_left),
+            ),
+          ),
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
