@@ -1,109 +1,166 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-void main() {
-  runApp(
-    new MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          )),
-      body: new landing(),
-    )),
-  );
-}
-
-class landing extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
+  final FocusNode _searchFocus = FocusNode();
+  TextEditingController searchController = TextEditingController();
+  Map<String, dynamic> res;
+  List<String> searchQuery = [
+    'Stationery',
+    'Mug',
+    'Cup',
+    'Plants',
+    'Lorem Ipsum Lorem',
+    'Stationery',
+    'Mug',
+    'Cup',
+    'Plants',
+    'Lorem Ipsum Lorem'
+  ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                padding: EdgeInsets.all(8.0),
-                alignment: Alignment.centerLeft,
-                width: 240,
-                height: 35,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0),
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.search,color: Colors.black,),
-                    
-             
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20, 20, 5, 5),
+                      child: Container(
+                        width: width * 0.7,
+                        child: TextFormField(
+                          controller: searchController,
+                          focusNode: _searchFocus,
+                          onFieldSubmitted: (term) {
+                            _searchFocus.unfocus();
+                          },
+                          textInputAction: TextInputAction.next,
+                          cursorColor: Color(0xFF000000),
+                          cursorRadius: Radius.circular(8),
+                          cursorWidth: 4,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide(
+                                  color: Color(0xFF000000), width: 2),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide(
+                                  color: Color(0xFF000000), width: 2),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide(
+                                  color: Color(0xFF044455), width: 2),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFFF0000), width: 2),
+                            ),
+                            errorText: null,
+                            hintText: "Search",
+                            labelText: "Search for products",
+                            labelStyle: TextStyle(
+                              color: Color(0xFF000000),
+                            ),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 30),
+                              child: Icon(
+                                LineAwesomeIcons.search,
+                                color: Color(0xFF000000),
+                              ),
+                            ),
+                          ),
+                          expands: false,
+                          inputFormatters: [
+                            BlacklistingTextInputFormatter.singleLineFormatter
+                          ],
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                        ),
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black,
+                          fontStyle: FontStyle.normal,
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
+                SizedBox(
+                  height: height * 0.08,
+                  width: width,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: searchQuery.length,
+                    itemBuilder: (context, index) => SearchChip(
+                      label: searchQuery[index],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              'Cancel',
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.black,
-                fontStyle: FontStyle.normal,
-                decoration: TextDecoration.underline,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-              ),
-            ),
-           ],
-         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-           chip('STATIONARY', Colors.white ) ,
-           chip('MUG', Colors.white ) ,
-           chip('CUP', Colors.white ) ,
-           ], ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            chip('PLANTS', Colors.white ) ,
-             chip('LOREM IPSUM LOREM', Colors.white ) ,
-          ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }
 
+class SearchChip extends StatelessWidget {
+  final String label;
+  const SearchChip({
+    this.label,
+    Key key,
+  }) : super(key: key);
 
-Widget chip (String label,Color color)
-{
-  return Container(
-    margin: EdgeInsets.all(6.0),
-      child: Chip(
-    label: Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.blueAccent,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  backgroundColor: color,
-              padding: EdgeInsets.all(10.0),
-              shape: StadiumBorder(
-                side: BorderSide(
-                  width: 1,
-                  color: Colors.blueAccent)
-              ),
-    ),
-  );
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
+      child: ActionChip(
+        onPressed: () {},
+        label: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF044455),
+            fontFamily: 'Poppins',
+          ),
+        ),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
+            width: 1,
+            color: Color(0xFF044455),
+          ),
+        ),
+      ),
+    );
+  }
 }
-
