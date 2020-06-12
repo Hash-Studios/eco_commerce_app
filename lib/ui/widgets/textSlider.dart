@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
 
 class TextSlider extends StatefulWidget {
@@ -19,6 +20,8 @@ class _TextSliderState extends State<TextSlider> {
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: true,
+        pauseAutoPlayOnTouch: false,
+        enlargeCenterPage: true,
         autoPlayInterval: Duration(seconds: 5),
         height: 240,
         viewportFraction: 1.0,
@@ -32,39 +35,45 @@ class _TextSliderState extends State<TextSlider> {
       items: images.map((image) {
         return Builder(
           builder: (BuildContext context) {
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              height: 200,
+            return GestureDetector(
               child: Container(
-                alignment: AlignmentDirectional.bottomEnd,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                height: 200,
                 child: Container(
-                  width: width * 0.6,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                          images[images.indexOf(image)]
-                              .toString()
-                              .replaceAll(".jpg", "")
-                              .replaceAll("assets/images/", "")
-                              .replaceAll("_", " ")
-                              .toUpperCase(),
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Color(0xFF004445),
-                              fontFamily: "Poppins",
-                              fontWeight: FontWeight.w700)),
-                    ],
+                  alignment: AlignmentDirectional.bottomEnd,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: width * 0.6,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                            images[images.indexOf(image)]
+                                .toString()
+                                .replaceAll(".jpg", "")
+                                .replaceAll("assets/images/", "")
+                                .replaceAll("_", " ")
+                                .toUpperCase(),
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Color(0xFF004445),
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w700)),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              onTap: () {
+                Navigator.pushNamed(context, CategoriesRoute);
+              },
             );
           },
         );
