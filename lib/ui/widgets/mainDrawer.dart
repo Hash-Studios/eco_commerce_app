@@ -1,5 +1,6 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
@@ -40,7 +41,7 @@ class MainDrawer extends StatelessWidget {
                     accountName: Padding(
                       padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),
                       child: Text(
-                        "Hello, ${globals.currentUser.username}",
+                        "Hello, ${globals.currentUser.username.split(' ')[0]}",
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFF000000),
@@ -76,7 +77,8 @@ class MainDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, HomeRoute);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                HomeRoute, (Route<dynamic> route) => false);
                           },
                         ),
                       ),
@@ -219,18 +221,30 @@ class MainDrawer extends StatelessWidget {
                                 fontSize: 16),
                           ),
                           onTap: () {
-                            Navigator.pop(context);
-                            removeValue('jwt');
-                            removeValue('id');
-                            removeValue('confirmed');
-                            removeValue('blocked');
-                            removeValue('username');
-                            removeValue('email');
-                            removeValue('organisation');
-                            removeValue('orgemail');
-                            removeValue('phone');
-                            removeValue('createdAt');
-                            Navigator.pushReplacementNamed(context, LoginRoute);
+                            popUpAlertDialog(
+                                context: context,
+                                text: "Are you sure want to log out?",
+                                twoButtons: true,
+                                func1: () {
+                                  Navigator.pop(context);
+                                  removeValue('jwt');
+                                  removeValue('id');
+                                  removeValue('confirmed');
+                                  removeValue('blocked');
+                                  removeValue('username');
+                                  removeValue('email');
+                                  removeValue('organisation');
+                                  removeValue('orgemail');
+                                  removeValue('phone');
+                                  removeValue('createdAt');
+                                  Navigator.pushReplacementNamed(
+                                      context, LoginRoute);
+                                },
+                                button1text: "Yes",
+                                func2: () {
+                                  Navigator.pop(context);
+                                },
+                                button2text: "No");
                           },
                         ),
                       ),

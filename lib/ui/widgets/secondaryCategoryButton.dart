@@ -15,6 +15,7 @@ class SecondaryCategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width * 0.415,
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
           color: Color(0xFFFFFFFF),

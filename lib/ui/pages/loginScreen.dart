@@ -362,6 +362,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } on SocketException {
       _showErrorSnackbar('Network Not Connected!');
+    } catch (e) {
+      print(e);
+      _showErrorSnackbar(e.toString());
     }
   }
 

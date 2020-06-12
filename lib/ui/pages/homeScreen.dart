@@ -3,6 +3,7 @@ import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
+import 'package:eco_commerce_app/ui/widgets/halfCardsSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
@@ -151,7 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   SecondaryCategoryButton(
                     width: width,
                     text: "See All",
-                    function: () {},
+                    function: () {
+                      Navigator.pushNamed(context, CategoriesRoute);
+                    },
                   ),
                 ],
               ),
@@ -161,7 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ProductListTile(),
               ProductListTile(),
               ProductListTile(),
-              ProductListTile()
+              ProductListTile(),
+              SectionHeader(
+                text: "Ceramics",
+              ),
+              HalfCardsSlider(),
             ],
           ),
         ));

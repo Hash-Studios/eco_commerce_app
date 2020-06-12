@@ -131,7 +131,7 @@ class _ProductListTileState extends State<ProductListTile> {
                             ),
                             Spacer(),
                             IconButton(
-                                icon: Icon(LineAwesomeIcons.heart_o),
+                                icon: Icon(LineAwesomeIcons.bookmark_o),
                                 onPressed: () {
                                   print('heart');
                                 })
