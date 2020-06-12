@@ -1,4 +1,5 @@
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/pages/categoriesScreen.dart';
 
 import 'package:eco_commerce_app/ui/pages/terms.dart';
 
@@ -31,6 +32,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => HomeScreen());
     case CategoryRoute:
       return MaterialPageRoute(builder: (context) => CategoryScreen());
+    case CategoriesRoute:
+      return MaterialPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:
       return MaterialPageRoute(builder: (context) => ProfileScreen());
     case UserOptionalRoute:

@@ -84,8 +84,8 @@ class _TrendingSliderState extends State<TrendingSlider> {
                         Radius.circular(8),
                       ),
                       color: _current == images.indexOf(image)
-                          ? Color(0xFF044455)
-                          : Color(0xFF044455).withOpacity(0.4)),
+                          ? Color(0xFF004445)
+                          : Color(0xFF004445).withOpacity(0.4)),
                 );
               }).toList(),
             ),

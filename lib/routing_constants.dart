@@ -5,6 +5,6 @@ const String SearchRoute = '/search';
 const String TnCRoute = '/terms';
 const String HomeRoute = '/home';
 const String UserOptionalRoute = '/useropdata';
-const String CategoryRoute = '/Categorylist';
+const String CategoryRoute = '/category';
+const String CategoriesRoute = '/categories';
 const String ProfileRoute = '/profile';
-

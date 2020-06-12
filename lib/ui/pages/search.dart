@@ -64,7 +64,7 @@ class SearchScreen extends StatelessWidget {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
                               borderSide: BorderSide(
-                                  color: Color(0xFF044455), width: 2),
+                                  color: Color(0xFF004445), width: 2),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
@@ -150,7 +150,7 @@ class SearchChip extends StatelessWidget {
           label,
           style: TextStyle(
             fontSize: 12.0,
-            color: Color(0xFF044455),
+            color: Color(0xFF004445),
             fontFamily: 'Poppins',
           ),
         ),
@@ -159,7 +159,7 @@ class SearchChip extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
             width: 1,
-            color: Color(0xFF044455),
+            color: Color(0xFF004445),
           ),
         ),
       ),

@@ -91,7 +91,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -255,7 +255,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
