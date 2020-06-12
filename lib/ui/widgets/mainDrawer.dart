@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:eco_commerce_app/globals.dart' as globals;
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
     Key key,
   }) : super(key: key);
+
+  String getInitials(String nameString) {
+    if (nameString.isEmpty) return " ";
+
+    List<String> nameArray =
+        nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
+    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") +
+        (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
+
+    return initials;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +33,7 @@ class MainDrawer extends StatelessWidget {
                     currentAccountPicture: CircleAvatar(
                       backgroundColor: Color(0xFFC4C4C4),
                       child: Text(
-                        'AM',
+                        getInitials(globals.currentUser.username),
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFFE0E0E0),
@@ -30,9 +42,9 @@ class MainDrawer extends StatelessWidget {
                     ),
                     margin: EdgeInsets.all(0),
                     accountName: Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 20, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),
                       child: Text(
-                        "Hello, Akshay",
+                        "Hello, ${globals.currentUser.username}",
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFF000000),
@@ -42,7 +54,7 @@ class MainDrawer extends StatelessWidget {
                     accountEmail: Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                       child: Text(
-                        "akshaymaurya3006@gmail.com",
+                        globals.currentUser.email,
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFF000000),
