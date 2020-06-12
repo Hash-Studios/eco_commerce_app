@@ -1,21 +1,21 @@
+import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class SearchScreen extends StatelessWidget {
   final FocusNode _searchFocus = FocusNode();
-  TextEditingController searchController = TextEditingController();
-  Map<String, dynamic> res;
-  List<String> searchQuery = [
+  final TextEditingController searchController = TextEditingController();
+  final List<String> searchQuery = [
+    'Stationery',
+    'Mug',
+    'Cup',
+    'Plants',
     'Stationery',
     'Mug',
     'Cup',
     'Plants',
     'Lorem Ipsum Lorem',
-    'Stationery',
-    'Mug',
-    'Cup',
-    'Plants',
     'Lorem Ipsum Lorem'
   ];
   @override
@@ -23,109 +23,143 @@ class SearchScreen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(20, 20, 5, 5),
-                      child: Container(
-                        width: width * 0.7,
-                        child: TextFormField(
-                          controller: searchController,
-                          focusNode: _searchFocus,
-                          onFieldSubmitted: (term) {
-                            _searchFocus.unfocus();
-                          },
-                          textInputAction: TextInputAction.next,
-                          cursorColor: Color(0xFF000000),
-                          cursorRadius: Radius.circular(8),
-                          cursorWidth: 4,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
-                                  color: Color(0xFF000000), width: 2),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
-                                  color: Color(0xFF000000), width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
-                                  color: Color(0xFF004445), width: 2),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFFF0000), width: 2),
-                            ),
-                            errorText: null,
-                            hintText: "Search",
-                            labelText: "Search for products",
-                            labelStyle: TextStyle(
-                              color: Color(0xFF000000),
-                            ),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Icon(
-                                LineAwesomeIcons.search,
-                                color: Color(0xFF000000),
-                              ),
-                            ),
-                          ),
-                          expands: false,
-                          inputFormatters: [
-                            BlacklistingTextInputFormatter.singleLineFormatter
-                          ],
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.words,
-                        ),
-                      ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        brightness: Brightness.light,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Colors.black,
+          icon: Icon(LineAwesomeIcons.arrow_left),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Container(
+                width: width * 0.66,
+                child: TextFormField(
+                  controller: searchController,
+                  focusNode: _searchFocus,
+                  onFieldSubmitted: (term) {
+                    _searchFocus.unfocus();
+                  },
+                  textInputAction: TextInputAction.next,
+                  cursorColor: Color(0xFF000000),
+                  cursorRadius: Radius.circular(8),
+                  cursorWidth: 4,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100),
+                      borderSide:
+                          BorderSide(color: Color(0xFF000000), width: 2),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 20, 5, 5),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.black,
-                            fontStyle: FontStyle.normal,
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Poppins',
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100),
+                      borderSide:
+                          BorderSide(color: Color(0xFF000000), width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100),
+                      borderSide:
+                          BorderSide(color: Color(0xFF004445), width: 2),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100),
+                      borderSide:
+                          BorderSide(color: Color(0xFFFF0000), width: 2),
+                    ),
+                    errorText: null,
+                    hintText: "Search",
+                    labelText: "Search for products",
+                    labelStyle: TextStyle(
+                      color: Color(0xFF000000),
+                    ),
+                    suffixIcon: Hero(
+                      tag: 'search',
+                      child: Card(
+                        elevation: 0,
+                        color: Colors.transparent,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Icon(
+                            LineAwesomeIcons.search,
+                            color: Color(0xFF000000),
                           ),
                         ),
                       ),
                     ),
+                  ),
+                  expands: false,
+                  inputFormatters: [
+                    BlacklistingTextInputFormatter.singleLineFormatter
                   ],
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.words,
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.black,
+                    fontStyle: FontStyle.normal,
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        bottom: PreferredSize(
+            child: Column(
+              children: <Widget>[
                 SizedBox(
-                  height: height * 0.08,
+                  height: height * 0.06,
                   width: width,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: searchQuery.length,
-                    itemBuilder: (context, index) => SearchChip(
-                      label: searchQuery[index],
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: SearchChip(
+                        label: searchQuery[index],
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
+            preferredSize: Size(width * 1, height * 0.06)),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile(),
+              ProductListTile(),
+            ],
           ),
         ),
       ),

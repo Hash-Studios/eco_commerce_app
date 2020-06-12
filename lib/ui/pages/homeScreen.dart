@@ -60,13 +60,20 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(LineAwesomeIcons.navicon),
           ),
           actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                print("Search");
-                Navigator.pushNamed(context, SearchRoute);
-              },
-              color: Colors.black,
-              icon: Icon(LineAwesomeIcons.search),
+            Hero(
+              tag: 'search',
+              child: Card(
+                elevation: 0,
+                color: Colors.transparent,
+                child: IconButton(
+                  onPressed: () {
+                    print("Search");
+                    Navigator.pushNamed(context, SearchRoute);
+                  },
+                  color: Colors.black,
+                  icon: Icon(LineAwesomeIcons.search),
+                ),
+              ),
             ),
             IconButton(
               onPressed: () {
