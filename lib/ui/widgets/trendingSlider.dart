@@ -75,12 +75,17 @@ class _TrendingSliderState extends State<TrendingSlider> {
                   height: 7.0,
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
+                      border: Border.all(
+                          color: _current == images.indexOf(image)
+                              ? Colors.white
+                              : Colors.white70,
+                          width: 1),
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       color: _current == images.indexOf(image)
                           ? Color(0xFF044455)
-                          : Color(0xFF044455).withOpacity(0.5)),
+                          : Color(0xFF044455).withOpacity(0.4)),
                 );
               }).toList(),
             ),
