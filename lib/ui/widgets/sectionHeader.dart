@@ -19,7 +19,7 @@ class SectionHeader extends StatelessWidget {
                 text,
                 style: TextStyle(
                     fontSize: 25,
-                    fontFamily: "Roboto",
+                    fontFamily: "Poppins",
                     fontWeight: FontWeight.w700),
               ),
             ),
