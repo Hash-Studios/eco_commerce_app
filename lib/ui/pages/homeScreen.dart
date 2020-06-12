@@ -1,8 +1,10 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
+import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -85,6 +87,59 @@ class _HomeScreenState extends State<HomeScreen> {
               TrendingSlider(),
               SectionHeader(
                 text: "Categories",
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CategoryButton(
+                    width: width,
+                    text: "Cups",
+                    image: "assets/icons/cup.png",
+                    function: () {},
+                  ),
+                  CategoryButton(
+                    width: width,
+                    text: "Pens",
+                    image: "assets/icons/pen.png",
+                    function: () {},
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CategoryButton(
+                    width: width,
+                    text: "Plants",
+                    image: "assets/icons/plant.png",
+                    function: () {},
+                  ),
+                  CategoryButton(
+                    width: width,
+                    text: "Masks",
+                    image: "assets/icons/mask.png",
+                    function: () {},
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CategoryButton(
+                    width: width,
+                    text: "Paper",
+                    image: "assets/icons/paper.png",
+                    function: () {},
+                  ),
+                  SecondaryCategoryButton(
+                    width: width,
+                    text: "See All",
+                    function: () {},
+                  ),
+                ],
               ),
               SectionHeader(
                 text: "Trending Products",
