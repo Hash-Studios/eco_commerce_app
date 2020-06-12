@@ -1,0 +1,142 @@
+[
+    {
+        "_id": "5ee0af6dd2cf4748f8c764c4",
+        "name": "mugs",
+        "createdAt": "2020-06-10T10:01:17.661Z",
+        "updatedAt": "2020-06-10T10:55:11.723Z",
+        "__v": 0,
+        "products": [
+            {
+                "images": [
+                    {
+                        "_id": "5ee0b767d2cf4748f8c764f3",
+                        "name": "mugs",
+                        "alternativeText": "",
+                        "caption": "",
+                        "hash": "mugs_bc2bad91f4",
+                        "ext": ".jpeg",
+                        "mime": "image/jpeg",
+                        "size": 30.77,
+                        "width": 640,
+                        "height": 512,
+                        "url": "/uploads/mugs_bc2bad91f4.jpeg",
+                        "formats": {
+                            "thumbnail": {
+                                "hash": "thumbnail_mugs_bc2bad91f4",
+                                "ext": ".jpeg",
+                                "mime": "image/jpeg",
+                                "width": 195,
+                                "height": 156,
+                                "size": 4.73,
+                                "path": null,
+                                "url": "/uploads/thumbnail_mugs_bc2bad91f4.jpeg"
+                            },
+                            "small": {
+                                "hash": "small_mugs_bc2bad91f4",
+                                "ext": ".jpeg",
+                                "mime": "image/jpeg",
+                                "width": 500,
+                                "height": 400,
+                                "size": 20.94,
+                                "path": null,
+                                "url": "/uploads/small_mugs_bc2bad91f4.jpeg"
+                            }
+                        },
+                        "provider": "local",
+                        "related": [
+                            "5ee0cd7c330abe6e393b9eb4"
+                        ],
+                        "createdAt": "2020-06-10T10:35:19.712Z",
+                        "updatedAt": "2020-06-10T12:09:33.312Z",
+                        "__v": 0,
+                        "id": "5ee0b767d2cf4748f8c764f3"
+                    }
+                ],
+                "categories": [
+                    "5ee0af6dd2cf4748f8c764c4"
+                ],
+                "users": [],
+                "_id": "5ee0cd7c330abe6e393b9eb4",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "name": "White Ceramic Mug",
+                "price": 259,
+                "createdAt": "2020-06-10T12:09:32.932Z",
+                "updatedAt": "2020-06-10T12:09:33.460Z",
+                "__v": 0,
+                "seller": "5ee0c70698602f6c5f4e1cb4",
+                "id": "5ee0cd7c330abe6e393b9eb4"
+            }
+        ],
+        "id": "5ee0af6dd2cf4748f8c764c4"
+    },
+    {
+        "_id": "5ee0af7cd2cf4748f8c764c5",
+        "name": "cups",
+        "createdAt": "2020-06-10T10:01:32.594Z",
+        "updatedAt": "2020-06-10T10:57:19.575Z",
+        "__v": 0,
+        "products": [
+            {
+                "images": [
+                    {
+                        "_id": "5ee0b762d2cf4748f8c764ee",
+                        "name": "cups",
+                        "alternativeText": "",
+                        "caption": "",
+                        "hash": "cups_3ddae25dcc",
+                        "ext": ".jpeg",
+                        "mime": "image/jpeg",
+                        "size": 35.7,
+                        "width": 640,
+                        "height": 427,
+                        "url": "/uploads/cups_3ddae25dcc.jpeg",
+                        "formats": {
+                            "thumbnail": {
+                                "hash": "thumbnail_cups_3ddae25dcc",
+                                "ext": ".jpeg",
+                                "mime": "image/jpeg",
+                                "width": 234,
+                                "height": 156,
+                                "size": 6.81,
+                                "path": null,
+                                "url": "/uploads/thumbnail_cups_3ddae25dcc.jpeg"
+                            },
+                            "small": {
+                                "hash": "small_cups_3ddae25dcc",
+                                "ext": ".jpeg",
+                                "mime": "image/jpeg",
+                                "width": 500,
+                                "height": 334,
+                                "size": 23.71,
+                                "path": null,
+                                "url": "/uploads/small_cups_3ddae25dcc.jpeg"
+                            }
+                        },
+                        "provider": "local",
+                        "related": [
+                            "5ee0cdc0330abe6e393b9eb6"
+                        ],
+                        "createdAt": "2020-06-10T10:35:14.602Z",
+                        "updatedAt": "2020-06-10T12:10:40.700Z",
+                        "__v": 0,
+                        "id": "5ee0b762d2cf4748f8c764ee"
+                    }
+                ],
+                "categories": [
+                    "5ee0af7cd2cf4748f8c764c5"
+                ],
+                "users": [],
+                "_id": "5ee0cdc0330abe6e393b9eb6",
+                "name": "White Coffee Cups (Set of 2)",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "price": 559,
+                "createdAt": "2020-06-10T12:10:40.427Z",
+                "updatedAt": "2020-06-10T12:10:41.030Z",
+                "__v": 0,
+                "seller": "5ee0c71e98602f6c5f4e1cb5",
+                "id": "5ee0cdc0330abe6e393b9eb6"
+            }
+        ],
+        "id": "5ee0af7cd2cf4748f8c764c5"
+    }
+]

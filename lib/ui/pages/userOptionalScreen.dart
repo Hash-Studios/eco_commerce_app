@@ -1,84 +1,74 @@
-// import 'dart:io';
-
-// import 'package:eco_commerce_app/core/model/user.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
-import 'package:eco_commerce_app/ui/widgets/orDivider.dart';
-import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-// import 'package:eco_commerce_app/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'package:eco_commerce_app/globals.dart' as globals;
 
-class RegisterScreen extends StatefulWidget {
+class UserOptionalScreen extends StatefulWidget {
+  final List<String> arguements;
+  UserOptionalScreen({this.arguements});
+
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _UserOptionalScreenState createState() => _UserOptionalScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  bool _obscureText = true;
-  bool _obscureTextConfirm = true;
+class _UserOptionalScreenState extends State<UserOptionalScreen> {
+  String name;
+  String email;
+  String password;
   bool isEmailValid = false;
-  bool isPassValid = false;
-  bool isPassConfirmValid = false;
+  bool isPhoneValid = false;
   bool isLoading;
-  final FocusNode _nameFocus = FocusNode();
+  final FocusNode _orgFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
-  final FocusNode _passFocus = FocusNode();
-  final FocusNode _passConfirmFocus = FocusNode();
-  TextEditingController nameController = TextEditingController();
+  final FocusNode _phoneFocus = FocusNode();
+  TextEditingController orgController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> form = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formOptional = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldOptionalKey =
+      GlobalKey<ScaffoldState>();
   Map<String, dynamic> res;
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
   @override
   void initState() {
     isLoading = false;
     super.initState();
-  }
-
-  void _toggleConfirm() {
-    setState(() {
-      _obscureTextConfirm = !_obscureTextConfirm;
-    });
+    name = widget.arguements[0];
+    email = widget.arguements[1];
+    password = widget.arguements[2];
   }
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      key: _scaffoldKey,
+      key: _scaffoldOptionalKey,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               HeaderText(
-                text: 'Sign Up',
+                text: 'More Info',
               ),
-              GoogleButton(),
-              OrDivider(),
+              SizedBox(height: height * 0.1),
               Form(
-                key: form,
+                key: formOptional,
                 autovalidate: true,
                 child: Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
-                        controller: nameController,
-                        focusNode: _nameFocus,
+                        controller: orgController,
+                        focusNode: _orgFocus,
                         onFieldSubmitted: (term) {
-                          _fieldFocusChange(context, _nameFocus, _emailFocus);
+                          _fieldFocusChange(context, _orgFocus, _emailFocus);
                         },
                         textInputAction: TextInputAction.next,
                         cursorColor: Color(0xFF000000),
@@ -108,8 +98,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 BorderSide(color: Color(0xFFFF0000), width: 2),
                           ),
                           errorText: null,
-                          hintText: "Name",
-                          labelText: "Name",
+                          hintText: "Organisation Name",
+                          labelText: "Organisation Name",
                           labelStyle: TextStyle(
                             color: Color(0xFF000000),
                           ),
@@ -135,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
-                          _fieldFocusChange(context, _emailFocus, _passFocus);
+                          _fieldFocusChange(context, _emailFocus, _phoneFocus);
                         },
                         textInputAction: TextInputAction.next,
                         validator: (text) {
@@ -174,8 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderSide:
                                 BorderSide(color: Color(0xFF000000), width: 2),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
+                          contentPadding: EdgeInsets.fromLTRB(30, 10, 10, 10),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
@@ -184,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -192,8 +181,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 BorderSide(color: Color(0xFFFF0000), width: 2),
                           ),
                           errorText: null,
-                          hintText: "Email Address",
-                          labelText: "Email Address",
+                          hintText: "Corporate Email Address",
+                          labelText: "Corporate Email Address",
                           labelStyle: TextStyle(
                             color: Color(0xFF000000),
                           ),
@@ -215,126 +204,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
-                        focusNode: _passFocus,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(
-                              context, _passFocus, _passConfirmFocus);
-                        },
-                        textInputAction: TextInputAction.next,
-                        controller: passwordController,
                         validator: (text) {
                           if (text == '') {
                             Future.delayed(Duration(seconds: 0)).then((value) {
                               setState(() {
-                                isPassValid = false;
+                                isPhoneValid = false;
                               });
                             });
                             return null;
-                          } else if (!RegExp(
-                            r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,12}$",
-                            caseSensitive: false,
-                            multiLine: false,
-                          ).hasMatch(text)) {
+                          } else if (text.length != 10) {
                             Future.delayed(Duration(seconds: 0)).then((value) {
                               setState(() {
-                                isPassValid = false;
+                                isPhoneValid = false;
                               });
                             });
-                            return 'Password must be at least 4 characters,\nno more than 12 characters, and must include\nat least one upper case letter, one lower\ncase letter, and one numeric digit.';
+                            return 'Please enter a valid phone number';
                           }
                           Future.delayed(Duration(seconds: 0)).then((value) {
                             setState(() {
-                              isPassValid = true;
+                              isPhoneValid = true;
                             });
                           });
                           return null;
                         },
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Password",
-                          labelText: "Password",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 17),
-                            child: IconButton(
-                              onPressed: () {
-                                _toggle();
-                              },
-                              icon: Icon(
-                                _obscureText
-                                    ? LineAwesomeIcons.eye
-                                    : LineAwesomeIcons.eye_slash,
-                                color: Color(0xFF000000),
-                              ),
-                            ),
-                          ),
-                        ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
-                        ],
-                        obscureText: _obscureText,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        focusNode: _passConfirmFocus,
+                        controller: phoneController,
+                        focusNode: _phoneFocus,
                         onFieldSubmitted: (term) {
-                          _passConfirmFocus.unfocus();
+                          _phoneFocus.unfocus();
                         },
                         textInputAction: TextInputAction.done,
-                        validator: (text) {
-                          if (text == '') {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPassConfirmValid = false;
-                              });
-                            });
-                            return null;
-                          } else if (text != passwordController.text) {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPassConfirmValid = false;
-                              });
-                            });
-                            return 'Both Passwords must match';
-                          }
-                          Future.delayed(Duration(seconds: 0)).then((value) {
-                            setState(() {
-                              isPassConfirmValid = true;
-                            });
-                          });
-                          return null;
-                        },
                         cursorColor: Color(0xFF000000),
                         cursorRadius: Radius.circular(8),
                         cursorWidth: 4,
@@ -362,23 +260,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 BorderSide(color: Color(0xFFFF0000), width: 2),
                           ),
                           errorText: null,
-                          hintText: "Confirm Password",
-                          labelText: "Confirm Password",
+                          hintText: "Phone Number",
+                          labelText: "Phone Number",
                           labelStyle: TextStyle(
                             color: Color(0xFF000000),
                           ),
                           suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 17),
-                            child: IconButton(
-                              onPressed: () {
-                                _toggleConfirm();
-                              },
-                              icon: Icon(
-                                _obscureTextConfirm
-                                    ? LineAwesomeIcons.eye
-                                    : LineAwesomeIcons.eye_slash,
-                                color: Color(0xFF000000),
-                              ),
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Icon(
+                              LineAwesomeIcons.phone,
+                              color: Color(0xFF000000),
                             ),
                           ),
                         ),
@@ -386,47 +277,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         inputFormatters: [
                           BlacklistingTextInputFormatter.singleLineFormatter
                         ],
-                        obscureText: _obscureTextConfirm,
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.phone,
+                        textCapitalization: TextCapitalization.words,
                       ),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(40, 40, 40, 0),
+                padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
                 child: FlatButton(
                   colorBrightness: Brightness.dark,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  color: isEmailValid && isPassValid && isPassConfirmValid
-                      ? Color(0xFF044455)
-                      : Color(0xFF999999),
-                  onPressed: isEmailValid &&
-                          isPassValid &&
-                          isPassConfirmValid &&
-                          !isLoading
+                  color: isEmailValid ? Color(0xFF004445) : Color(0xFF999999),
+                  onPressed: isEmailValid && !isLoading
                       ? () {
                           setState(() {
                             isLoading = true;
                           });
                           HapticFeedback.vibrate();
-                          form.currentState.validate();
-                          form.currentState.save();
+                          formOptional.currentState.validate();
+                          formOptional.currentState.save();
                           print(
-                              "name:${nameController.text},email:${emailController.text},pwd:${passwordController.text}");
-                          Navigator.pushReplacementNamed(
-                              context, UserOptionalRoute, arguments: [
-                            nameController.text,
-                            emailController.text,
-                            passwordController.text
-                          ]);
+                              "corporate_email:${emailController.text},org_name:${orgController.text}");
+                          registerUser();
                         }
-                      : () {},
+                      : () {
+                          Navigator.pushReplacementNamed(context, HomeRoute);
+                        },
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         isLoading
                             ? CircularProgressIndicator(
@@ -448,11 +331,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              SecondarySubmitButton(
-                text: 'Already have an account',
-                boldText: 'Login',
-                routeName: LoginRoute,
-              )
             ],
           ),
         ),
@@ -460,71 +338,77 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-//   void registerUser() async {
-//     try {
-//       http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
-//         'username': nameController.text,
-//         'email': emailController.text,
-//         'password': passwordController.text
-//       }).then((http.Response response) {
-//         res = (json.decode(response.body));
-//         print(res);
-//         if (response.statusCode == 200) {
-//           _showSuccessSnackbar();
-//           globals.currentUser = CurrentUser(
-//             jwt: res["jwt"],
-//             confirmed: res["user"]["confirmed"].toString(),
-//             blocked: res["user"]["blocked"].toString(),
-//             id: res["user"]["id"],
-//             username: res["user"]["username"],
-//             email: res["user"]["email"],
-//             createdAt: res["user"]["createdAt"],
-//           );
-//           globals.currentUser.saveUsertoSP();
-//         } else {
-//           _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
-//         }
-//       }).timeout(
-//         const Duration(seconds: 30),
-//         onTimeout: () {
-//           _showErrorSnackbar('Connection Timeout Error!');
-//         },
-//       );
-//     } on SocketException {
-//       _showErrorSnackbar('Network Not Connected!');
-//     }
-//   }
+  void registerUser() async {
+    try {
+      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
+        'username': name,
+        'email': email,
+        'password': password,
+        'orgemail': emailController.text,
+        'organisation': orgController.text,
+        'phone': phoneController.text
+      }).then((http.Response response) {
+        res = (json.decode(response.body));
+        print(res);
+        if (response.statusCode == 200) {
+          _showSuccessSnackbar();
+          globals.currentUser = CurrentUser(
+            jwt: res["jwt"],
+            confirmed: res["user"]["confirmed"].toString(),
+            blocked: res["user"]["blocked"].toString(),
+            id: res["user"]["id"],
+            username: res["user"]["username"],
+            email: res["user"]["email"],
+            organisation: res["user"]["organisation"],
+            orgemail: res["user"]["orgemail"],
+            phone: res["user"]["phone"],
+            createdAt: res["user"]["createdAt"],
+          );
+          globals.currentUser.saveUsertoSP();
+        } else {
+          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+        }
+      }).timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          _showErrorSnackbar('Connection Timeout Error!');
+        },
+      );
+    } on SocketException {
+      _showErrorSnackbar('Network Not Connected!');
+    }
+  }
 
-//   void _showSuccessSnackbar() {
-//     setState(() {
-//       isLoading = false;
-//     });
-//     final SnackBar snack = SnackBar(
-//         content: Text(
-//       'Successfully Registered!',
-//       style: TextStyle(color: Colors.green),
-//     ));
-//     _scaffoldKey.currentState.showSnackBar(snack);
-//     form.currentState.reset();
-//     _redirectUser();
-//   }
+  void _showSuccessSnackbar() {
+    setState(() {
+      isLoading = false;
+    });
+    final SnackBar snack = SnackBar(
+        content: Text(
+      'Successfully Registered!',
+      style: TextStyle(color: Colors.green),
+    ));
+    _scaffoldOptionalKey.currentState.showSnackBar(snack);
+    formOptional.currentState.reset();
+    _redirectUser();
+  }
 
-//   void _showErrorSnackbar(String errorMessage) {
-//     setState(() {
-//       isLoading = false;
-//     });
-//     final SnackBar snack = SnackBar(
-//         content: Text(
-//       errorMessage,
-//       style: TextStyle(color: Colors.red),
-//     ));
-//     _scaffoldKey.currentState.showSnackBar(snack);
-//   }
+  void _showErrorSnackbar(String errorMessage) {
+    setState(() {
+      isLoading = false;
+    });
+    final SnackBar snack = SnackBar(
+        content: Text(
+      errorMessage,
+      style: TextStyle(color: Colors.red),
+    ));
+    _scaffoldOptionalKey.currentState.showSnackBar(snack);
+  }
 
-//   void _redirectUser() {
-//     Future.delayed(Duration(seconds: 2))
-//         .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
-//   }
+  void _redirectUser() {
+    Future.delayed(Duration(seconds: 2))
+        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
+  }
 }
 
 _fieldFocusChange(

@@ -1,5 +1,6 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
+
 class ContinueButton extends StatelessWidget {
   const ContinueButton({
     Key key,
@@ -11,7 +12,7 @@ class ContinueButton extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(40, 60, 40, 0),
       child: FlatButton(
         onPressed: () {
-          Navigator.pushNamed(context, LoginRoute);
+          Navigator.pushReplacementNamed(context, LoginRoute);
         },
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
