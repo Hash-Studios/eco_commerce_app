@@ -196,15 +196,17 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                             fontSize: 24,
                             color: Color(0xff464646)),
                       )),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                        globals.currentUser.phone,
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: 24,
-                            color: Color(0xff464646)),
-                      )),
+                  globals.currentUser.phone == null
+                      ? Container()
+                      : Container(
+                          margin: EdgeInsets.only(left: 20),
+                          child: Text(
+                            globals.currentUser.phone,
+                            style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 24,
+                                color: Color(0xff464646)),
+                          )),
                   Container(
                       margin: EdgeInsets.only(left: 20),
                       child: Text(

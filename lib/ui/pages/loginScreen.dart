@@ -63,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
@@ -145,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: passwordController,
                         focusNode: _passFocus,
                         onFieldSubmitted: (term) {

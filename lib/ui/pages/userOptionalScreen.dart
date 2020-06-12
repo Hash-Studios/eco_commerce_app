@@ -65,6 +65,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: orgController,
                         focusNode: _orgFocus,
                         onFieldSubmitted: (term) {
@@ -122,6 +123,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
@@ -204,6 +206,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         validator: (text) {
                           if (text == '') {
                             Future.delayed(Duration(seconds: 0)).then((value) {
@@ -340,14 +343,25 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
 
   void registerUser() async {
     try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
-        'username': name,
-        'email': email,
-        'password': password,
-        'orgemail': emailController.text,
-        'organisation': orgController.text,
-        'phone': phoneController.text
-      }).then((http.Response response) {
+      http
+          .post('https://ecocommerce.herokuapp.com/auth/local/register',
+              body: phoneController.text == "" || phoneController.text == null
+                  ? {
+                      'username': name,
+                      'email': email,
+                      'password': password,
+                      'orgemail': emailController.text,
+                      'organisation': orgController.text,
+                    }
+                  : {
+                      'username': name,
+                      'email': email,
+                      'password': password,
+                      'orgemail': emailController.text,
+                      'organisation': orgController.text,
+                      'phone': phoneController.text
+                    })
+          .then((http.Response response) {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {

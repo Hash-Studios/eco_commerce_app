@@ -75,6 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: nameController,
                         focusNode: _nameFocus,
                         onFieldSubmitted: (term) {
@@ -132,6 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
@@ -215,6 +217,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         focusNode: _passFocus,
                         onFieldSubmitted: (term) {
                           _fieldFocusChange(
@@ -307,6 +310,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         focusNode: _passConfirmFocus,
                         onFieldSubmitted: (term) {
                           _passConfirmFocus.unfocus();
