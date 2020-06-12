@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
         onGenerateRoute: router.generateRoute,
         debugShowCheckedModeBanner: false,
         onUnknownRoute: (settings) => MaterialPageRoute(
@@ -29,5 +30,6 @@ class MyApp extends StatelessWidget {
             PreSignUpRoute
         // : HomeRoute,
         );
+
   }
 }
