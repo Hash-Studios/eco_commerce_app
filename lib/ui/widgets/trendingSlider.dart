@@ -35,29 +35,49 @@ class _TrendingSliderState extends State<TrendingSlider> {
           items: images.map((image) {
             return Builder(
               builder: (BuildContext context) {
-                return Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(image), fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(13),
-                  ),
-                  child: Container(
-                    alignment: AlignmentDirectional.bottomEnd,
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Container(
-                      width: width * 0.4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[],
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      height: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(image), fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(13),
+                      ),
+                      child: Container(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          width: width * 0.4,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      height: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(13),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white10,
+                            Colors.white70,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                    )
+                  ],
                 );
               },
             );
