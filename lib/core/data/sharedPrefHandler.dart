@@ -48,3 +48,8 @@ removeValue(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove(key);
 }
+
+checkValue(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.containsKey(key);
+}
