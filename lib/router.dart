@@ -12,7 +12,6 @@ import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
 import 'package:eco_commerce_app/ui/pages/categoryScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'ui/pages/homeScreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -30,7 +29,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeRoute:
       return CupertinoPageRoute(builder: (context) => HomeScreen());
     case CategoryRoute:
-      return CupertinoPageRoute(builder: (context) => CategoryScreen());
+      return CupertinoPageRoute(
+          builder: (context) => CategoryScreen(
+                arguements: settings.arguments,
+              ));
     case CategoriesRoute:
       return CupertinoPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:
