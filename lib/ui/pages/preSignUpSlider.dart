@@ -20,13 +20,6 @@ class PreSignUpSlider extends StatelessWidget {
             children: [
               ImageSlider(
                 height: height,
-                itemsList: [
-                  'assets/images/preSignUpSlider1.png',
-                  'assets/images/preSignUpSlider2.png',
-                  'assets/images/preSignUpSlider3.png',
-                ],
-                isAsset: true,
-                showIndicator: false,
               ),
               AppNameText(),
               AppDescText(),

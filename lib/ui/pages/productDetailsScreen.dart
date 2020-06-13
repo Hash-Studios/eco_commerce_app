@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/core/model/product.dart';
-import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
+// import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
+import 'package:eco_commerce_app/ui/widgets/newImageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -75,7 +76,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    ImageSlider(
+                    NewImageSlider(
                       itemsList: [
                         widget.product.images[0].url,
                         widget.product.images[1].url,
