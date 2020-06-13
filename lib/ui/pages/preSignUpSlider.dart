@@ -11,6 +11,7 @@ class PreSignUpSlider extends StatelessWidget {
     // final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           height: height,

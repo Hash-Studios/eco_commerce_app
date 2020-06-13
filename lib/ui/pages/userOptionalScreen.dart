@@ -48,6 +48,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldOptionalKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
