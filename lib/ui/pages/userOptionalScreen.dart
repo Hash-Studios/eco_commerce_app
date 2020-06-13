@@ -48,6 +48,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldOptionalKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -91,7 +92,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -255,7 +256,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -352,6 +353,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                       'password': password,
                       'orgemail': emailController.text,
                       'organisation': orgController.text,
+                      'phone': " "
                     }
                   : {
                       'username': name,
@@ -420,7 +422,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   }
 
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(seconds: 1))
         .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }

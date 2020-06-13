@@ -1,10 +1,7 @@
 import 'package:eco_commerce_app/routing_constants.dart';
-
-import 'package:eco_commerce_app/ui/pages/about.dart';
-
-
+import 'package:eco_commerce_app/ui/pages/categoriesScreen.dart';
+import 'package:eco_commerce_app/ui/pages/terms.dart';
 import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
-
 import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
 import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
 import 'package:eco_commerce_app/ui/pages/profileScreen.dart';
@@ -13,36 +10,40 @@ import 'package:eco_commerce_app/ui/pages/search.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
 import 'package:eco_commerce_app/ui/pages/categoryScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ui/pages/homeScreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case PreSignUpRoute:
-      return MaterialPageRoute(builder: (context) => PreSignUpSlider());
+      return CupertinoPageRoute(builder: (context) => PreSignUpSlider());
     case LoginRoute:
-      return MaterialPageRoute(builder: (context) => LoginScreen());
+      return CupertinoPageRoute(builder: (context) => LoginScreen());
     case RegisterRoute:
-      return MaterialPageRoute(builder: (context) => RegisterScreen());
+      return CupertinoPageRoute(builder: (context) => RegisterScreen());
     case SearchRoute:
-      return MaterialPageRoute(builder: (context) => SearchScreen());
+      return CupertinoPageRoute(builder: (context) => SearchScreen());
     case TnCRoute:
-      return MaterialPageRoute(builder: (context) => TermsConditions());
-
+      return CupertinoPageRoute(builder: (context) => TermsConditions());
     case HomeRoute:
-      return MaterialPageRoute(builder: (context) => HomeScreen());
+      return CupertinoPageRoute(builder: (context) => HomeScreen());
     case CategoryRoute:
-      return MaterialPageRoute(builder: (context) => CategoryScreen());
+      return CupertinoPageRoute(
+          builder: (context) => CategoryScreen(
+                arguements: settings.arguments,
+              ));
+    case CategoriesRoute:
+      return CupertinoPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:
-      return MaterialPageRoute(builder: (context) => ProfileScreen());
+      return CupertinoPageRoute(builder: (context) => ProfileScreen());
     case UserOptionalRoute:
-      return MaterialPageRoute(
+      return CupertinoPageRoute(
           builder: (context) => UserOptionalScreen(
                 arguements: settings.arguments,
               ));
-
     default:
-      return MaterialPageRoute(
+      return CupertinoPageRoute(
           builder: (context) => UndefinedScreen(
                 name: settings.name,
               ));

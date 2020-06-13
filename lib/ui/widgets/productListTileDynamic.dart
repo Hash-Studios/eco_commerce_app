@@ -1,23 +1,21 @@
 import 'dart:math';
 // import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/core/model/image.dart';
-import 'package:eco_commerce_app/core/model/product.dart';
-import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/pages/productDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class ProductListTile extends StatefulWidget {
-
-  const ProductListTile({
-    Key key,
-  }) : super(key: key);
+class ProductListTileDynamic extends StatefulWidget {
+  final List<String> arguements;
+  ProductListTileDynamic({this.arguements});
 
   @override
-  _ProductListTileState createState() => _ProductListTileState();
+  _ProductListTileDynamicState createState() => _ProductListTileDynamicState();
 }
 
-class _ProductListTileState extends State<ProductListTile> {
+class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
+  String image;
+  String name;
+  String desc;
+  String price;
   var images = [
     "assets/images/papers.jpg",
     "assets/images/mugs.jpg",
@@ -31,16 +29,19 @@ class _ProductListTileState extends State<ProductListTile> {
     "assets/images/calendars.jpg",
     "assets/images/mousepads.jpg",
   ];
-
-  //Dummy Data
-  static ProductImage productImage = new ProductImage(id: "1", name: "Hand Sanitizer", ext: ".png", size: "50", width: "200", height: "100", url: "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png", thumbnailUrl: "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png", smallUrl: "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png", createdAt: "8/6/20");
-  static List<ProductImage>  productImages = [productImage,productImage,productImage,productImage];
-  Product product = new Product(id: "1", name: "Hand Sanitizer", price: "341.00", images: productImages, category: "Health", desc: "Discover more great images on our sponsor's site,Discover more great images on our sponsor's site,Discover more great images on our sponsor's sit,Discover more great images on our sponsor's sitee.", features: "Advance Cleaning 100+ Protection More Protection les germs Blah Blah Blah Bla More Protection les germs Blah Blah Blah More Protection les germs Blah Blah Blah Bla Blah Blah Blah More Protection les germs Blah Blah Blah Bla", createdAt: "6/05/20");
-
   String getImage() {
     final _random = new Random();
     var element = images[_random.nextInt(images.length)];
     return element;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    image = widget.arguements[0];
+    name = widget.arguements[1];
+    desc = widget.arguements[2];
+    price = widget.arguements[3].toString();
   }
 
   @override
@@ -63,10 +64,6 @@ class _ProductListTileState extends State<ProductListTile> {
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           onPressed: () {
             print('card');
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProductDetailsScreen(product)),
-            );
             // Navigator.pushNamed(context, LoginRoute);
           },
           shape: RoundedRectangleBorder(
@@ -82,8 +79,9 @@ class _ProductListTileState extends State<ProductListTile> {
                   child: Container(
                       width: height * 0.16,
                       height: height * 0.16,
+                      // child: Image.network(
                       child: Image.asset(
-                        getImage(),
+                        image,
                         fit: BoxFit.cover,
                       )),
                 ),
@@ -94,14 +92,19 @@ class _ProductListTileState extends State<ProductListTile> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 7, horizontal: 15),
-                      child: Text(
-                        'PRODUCT NAME',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF004445),
+                      child: Container(
+                        width: width * 0.45,
+                        child: Text(
+                          name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF004445),
+                          ),
                         ),
                       ),
                     ),
@@ -111,7 +114,9 @@ class _ProductListTileState extends State<ProductListTile> {
                       child: SizedBox(
                         width: width * 0.435,
                         child: Text(
-                          'Lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+                          desc,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Roboto',
@@ -134,7 +139,7 @@ class _ProductListTileState extends State<ProductListTile> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 15),
                               child: Text(
-                                ' ₹ 180 / pc',
+                                ' ₹$price',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
