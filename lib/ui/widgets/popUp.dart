@@ -36,10 +36,10 @@ Future popUpAlertDialog(
                                 BoxShadow(
                                     offset: Offset(0, 3),
                                     blurRadius: 10,
-                                    color: Color(0xFF004445))
+                                    color: Color(0xFF004445).withOpacity(0.2))
                               ]),
                           child: RaisedButton(
-                            color: Color(0xFF004445),
+                            color: Color(0xFFFFFFFF),
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32.0),
@@ -49,7 +49,7 @@ Future popUpAlertDialog(
                               button1text == null ? "OK" : button1text,
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
-                                  color: Colors.white,
+                                  color: Color(0xFF004445),
                                   fontSize: 16),
                             ),
                           ),
@@ -66,7 +66,7 @@ Future popUpAlertDialog(
                                 BoxShadow(
                                     offset: Offset(0, 3),
                                     blurRadius: 10,
-                                    color: Color(0xFF004445))
+                                    color: Color(0xFF004445).withOpacity(0.5))
                               ]),
                           child: RaisedButton(
                             color: Color(0xFF004445),
@@ -98,7 +98,7 @@ Future popUpAlertDialog(
                             BoxShadow(
                                 offset: Offset(0, 3),
                                 blurRadius: 10,
-                                color: Color(0xFF004445))
+                                color: Color(0xFF004445).withOpacity(0.5))
                           ]),
                       child: RaisedButton(
                         color: Color(0xFF004445),

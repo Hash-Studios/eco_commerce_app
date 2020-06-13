@@ -421,7 +421,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   }
 
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(seconds: 1))
         .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }

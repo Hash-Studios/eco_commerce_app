@@ -248,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       HapticFeedback.vibrate();
                       print("email:${emailController.text}");
-                      forgotPassword();
+                      // forgotPassword();
                     },
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -406,7 +406,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(seconds: 1))
         .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }

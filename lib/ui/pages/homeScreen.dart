@@ -6,7 +6,6 @@ import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productCardSlider.dart';
-import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 // import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
@@ -238,6 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                       child: Builder(
                         builder: (context) {
+                          trending = [];
                           for (int index = 0; index < res.length; index++) {
                             trending.add(ProductListTileDynamic(arguements: [
                               'assets/images/' +

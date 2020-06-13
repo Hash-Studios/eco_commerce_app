@@ -15,19 +15,20 @@ class ProductCardsSlider extends StatefulWidget {
 class _ProductCardsSliderState extends State<ProductCardsSlider> {
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Container(
-      height: 220,
+      height: height * 0.29,
       child: Stack(
         children: [
           Positioned(
-            left: -80,
+            left: -85,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height / 4 -
+              height: MediaQuery.of(context).size.height * 0.27 -
                   MediaQuery.of(context).size.height / 100,
               width: MediaQuery.of(context).size.width * 1.205,
               child: CarouselSlider(
                 options: CarouselOptions(
-                  enableInfiniteScroll: false,
+                  enableInfiniteScroll: true,
                   scrollDirection: Axis.horizontal,
                   aspectRatio: 2,
                   enlargeCenterPage: true,
@@ -35,7 +36,6 @@ class _ProductCardsSliderState extends State<ProductCardsSlider> {
                 ),
                 items: widget.productCardData.map(
                   (i) {
-                    var index = widget.productCardData.indexOf(i);
                     return Builder(
                       builder: (BuildContext context) {
                         return GestureDetector(
