@@ -149,8 +149,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       return ProductListTileDynamic(arguements: [
-                        'https://ecocommerce.herokuapp.com' +
-                            products[index]["images"][0]["url"],
+                        'assets/images/' +
+                            // 'https://ecocommerce.herokuapp.com' +
+                            // products[index]["images"][0]["url"],
+                            products[index]["images"][0]["url"]
+                                .toString()
+                                .split("_")[0]
+                                .toString() +
+                            ".jpg",
                         products[index]["name"],
                         products[index]["desc"],
                         products[index]["price"].toString(),

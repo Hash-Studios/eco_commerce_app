@@ -79,7 +79,8 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
                   child: Container(
                       width: height * 0.16,
                       height: height * 0.16,
-                      child: Image.network(
+                      // child: Image.network(
+                      child: Image.asset(
                         image,
                         fit: BoxFit.cover,
                       )),
