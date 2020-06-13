@@ -51,12 +51,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   actions: <Widget>[
-                    IconButton(
-                      onPressed: () {
-                        print("Wishlist");
-                      },
-                      color: Colors.black,
-                      icon: Icon(LineAwesomeIcons.bookmark),
+                    Hero(
+                      tag: 'bookmark',
+                      child: Card(
+                        elevation: 0,
+                        color: Colors.transparent,
+                        child: IconButton(
+                          onPressed: () {
+                            print("Wishlist");
+                          },
+                          color: Colors.black,
+                          icon: Icon(LineAwesomeIcons.bookmark),
+                        ),
+                      ),
                     ),
                     IconButton(
                       onPressed: () {
@@ -226,7 +233,7 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                             globals.currentUser.phone,
                             style: TextStyle(
                                 fontFamily: "Poppins",
-                                fontSize:  width * 0.032,
+                                fontSize: width * 0.032,
                                 color: Color(0xff464646)),
                           )),
                   Container(
@@ -235,7 +242,7 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                         globals.currentUser.organisation,
                         style: TextStyle(
                             fontFamily: "Poppins",
-                            fontSize:  width * 0.032,
+                            fontSize: width * 0.032,
                             color: Color(0xff464646)),
                       )),
                   Container(
@@ -244,7 +251,7 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                         globals.currentUser.orgemail,
                         style: TextStyle(
                             fontFamily: "Poppins",
-                            fontSize:  width * 0.032,
+                            fontSize: width * 0.032,
                             color: Color(0xff464646)),
                       )),
                 ],

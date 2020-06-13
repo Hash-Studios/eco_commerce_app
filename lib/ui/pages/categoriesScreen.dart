@@ -107,12 +107,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
             ),
           ),
-          IconButton(
-            onPressed: () {
-              print("Bookmark");
-            },
-            color: Colors.black,
-            icon: Icon(LineAwesomeIcons.bookmark),
+          Hero(
+            tag: 'bookmark',
+            child: Card(
+              elevation: 0,
+              color: Colors.transparent,
+              child: IconButton(
+                onPressed: () {
+                  print("Bookmark");
+                },
+                color: Colors.black,
+                icon: Icon(LineAwesomeIcons.bookmark),
+              ),
+            ),
           )
         ],
       ),

@@ -83,12 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () {
-                print("Bookmark");
-              },
-              color: Colors.black,
-              icon: Icon(LineAwesomeIcons.bookmark),
+            Hero(
+              tag: 'bookmark',
+              child: Card(
+                elevation: 0,
+                color: Colors.transparent,
+                child: IconButton(
+                  onPressed: () {
+                    print("Bookmark");
+                  },
+                  color: Colors.black,
+                  icon: Icon(LineAwesomeIcons.bookmark),
+                ),
+              ),
             )
           ],
         ),
@@ -100,10 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               // Stack(
-                // children: <Widget>[
-                  TrendingSlider(),
-                  // TextSlider(),
-                // ],
+              // children: <Widget>[
+              TrendingSlider(),
+              // TextSlider(),
+              // ],
               // ),
               SectionHeader(
                 text: "Categories",

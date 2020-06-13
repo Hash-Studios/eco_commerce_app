@@ -47,9 +47,9 @@ class SearchScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: EdgeInsets.all(0),
               child: Container(
-                width: width * 0.66,
+                width: width * 0.67,
                 child: TextFormField(
                   controller: searchController,
                   focusNode: _searchFocus,
@@ -90,15 +90,21 @@ class SearchScreen extends StatelessWidget {
                       color: Color(0xFF000000),
                     ),
                     suffixIcon: Hero(
-                      tag: 'search',
+                      tag: 'bookmark',
                       child: Card(
+                        margin: EdgeInsets.all(0),
                         elevation: 0,
                         color: Colors.transparent,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Icon(
-                            LineAwesomeIcons.search,
-                            color: Color(0xFF000000),
+                          padding: const EdgeInsets.only(right: 5),
+                          child: IconButton(
+                            icon: Icon(
+                              LineAwesomeIcons.close,
+                              color: Color(0xFF000000),
+                            ),
+                            onPressed: () {
+                              searchController.text = "";
+                            },
                           ),
                         ),
                       ),
@@ -113,25 +119,25 @@ class SearchScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.normal,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
+        actions: <Widget>[
+          Hero(
+            tag: 'search',
+            child: Card(
+              margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              elevation: 0,
+              color: Colors.transparent,
+              child: IconButton(
+                icon: Icon(
+                  LineAwesomeIcons.search,
+                  color: Color(0xFF000000),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
         bottom: PreferredSize(
             child: Column(
               children: <Widget>[
@@ -145,6 +151,7 @@ class SearchScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(3.0),
                       child: SearchChip(
                         label: searchQuery[index],
+                        searchController: searchController,
                       ),
                     ),
                   ),
@@ -176,8 +183,10 @@ class SearchScreen extends StatelessWidget {
 
 class SearchChip extends StatelessWidget {
   final String label;
+  final TextEditingController searchController;
   const SearchChip({
     this.label,
+    this.searchController,
     Key key,
   }) : super(key: key);
 
@@ -186,7 +195,9 @@ class SearchChip extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
       child: ActionChip(
-        onPressed: () {},
+        onPressed: () {
+          searchController.text = label;
+        },
         label: Text(
           label,
           style: TextStyle(
