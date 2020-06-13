@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
@@ -112,6 +113,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               child: IconButton(
                 onPressed: () {
                   print("Search");
+                  Navigator.pushNamed(context, SearchRoute);
                 },
                 color: Colors.black,
                 icon: Icon(LineAwesomeIcons.search),
@@ -140,13 +142,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SectionHeader(text: categoryName),
+            Center(child: SectionHeader(text: categoryName)),
             isLoading
-                ? CircularProgressIndicator()
+                ? Padding(
+                    padding: const EdgeInsets.all(100.0),
+                    child: CircularProgressIndicator(),
+                  )
                 : ListView.builder(
                     shrinkWrap: true,
                     itemCount: products.length,
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     itemBuilder: (context, index) {
                       return ProductListTileDynamic(arguements: [
                         'assets/images/' +
@@ -155,7 +162,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             products[index]["images"][0]["url"]
                                 .toString()
                                 .split("_")[0]
-                                .toString() +
+                                .toString()
+                                .replaceAll("/uploads", "") +
                             ".jpg",
                         products[index]["name"],
                         products[index]["desc"],

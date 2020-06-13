@@ -252,7 +252,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        CategoryRoute,
+                        arguments: [sub],
+                      );
+                    },
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
                       padding:
@@ -314,7 +320,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        CategoryRoute,
+                        arguments: [sub],
+                      );
+                    },
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
                       padding:
