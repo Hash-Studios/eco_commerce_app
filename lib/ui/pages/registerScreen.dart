@@ -230,7 +230,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Stack(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(1.5, 40, 1.5, 0),
+                            padding: EdgeInsets.fromLTRB(
+                                1.5,
+                                MediaQuery.of(context).size.height * 0.0525,
+                                1.5,
+                                0),
                             child: ClipRRect(
                               child: LinearProgressIndicator(
                                 value: value,

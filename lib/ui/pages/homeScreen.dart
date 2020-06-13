@@ -3,6 +3,7 @@ import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
+import 'package:eco_commerce_app/ui/widgets/productCardSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
@@ -207,6 +208,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ProductListTile(),
               ProductListTile(),
               ProductListTile(),
+              SectionHeader(text: "Disposables"),
+              ProductCardsSlider(),
             ],
           ),
         ));
