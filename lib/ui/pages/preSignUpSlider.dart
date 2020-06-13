@@ -17,7 +17,16 @@ class PreSignUpSlider extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageSlider(height: height),
+              ImageSlider(
+                height: height,
+                itemsList: [
+                  'assets/images/preSignUpSlider1.png',
+                  'assets/images/preSignUpSlider2.png',
+                  'assets/images/preSignUpSlider3.png',
+                ],
+                isAsset: true,
+                showIndicator: false,
+              ),
               AppNameText(),
               AppDescText(),
               ContinueButton(),
