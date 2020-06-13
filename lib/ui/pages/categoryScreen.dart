@@ -54,23 +54,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
           });
         });
       }
-      //   _showSuccessSnackbar();
-      //   globals.currentUser = CurrentUser(
-      //     jwt: res["jwt"],
-      //     confirmed: res["user"]["confirmed"].toString(),
-      //     blocked: res["user"]["blocked"].toString(),
-      //     id: res["user"]["id"],
-      //     username: res["user"]["username"],
-      //     email: res["user"]["email"],
-      //     organisation: res["user"]["organisation"],
-      //     orgemail: res["user"]["orgemail"],
-      //     phone: res["user"]["phone"],
-      //     createdAt: res["user"]["createdAt"],
-      //   );
-      //   globals.currentUser.saveUsertoSP();
-      // } else {
-      //   _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
-      // }
     });
   }
 

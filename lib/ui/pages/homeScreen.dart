@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
@@ -5,6 +7,8 @@ import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productCardSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
+// import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
+import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 // import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
@@ -12,6 +16,7 @@ import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,7 +24,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = true;
   bool isLoaded;
+  List<dynamic> res;
+  List<Widget> trending = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   getUser() async {
@@ -37,11 +45,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    http
+        .get(
+      'https://ecocommerce.herokuapp.com/products',
+    )
+        .then((http.Response response) {
+      res = json.decode(response.body);
+      print(res);
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     isLoaded = false;
     getUser();
+    getData();
   }
 
   @override
@@ -201,13 +227,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SectionHeader(
-                text: "Trending Products",
-              ),
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
+
+              Center(child: SectionHeader(text: "Trending Products")),
+              isLoading
+                  ? Padding(
+                      padding: const EdgeInsets.all(100.0),
+                      child: CircularProgressIndicator(),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: Builder(
+                        builder: (context) {
+                          for (int index = 0; index < res.length; index++) {
+                            trending.add(ProductListTileDynamic(arguements: [
+                              'assets/images/' +
+                                  res[index]["images"][0]["url"]
+                                      .toString()
+                                      .split("_")[0]
+                                      .toString()
+                                      .replaceAll("/uploads", "") +
+                                  ".jpg",
+                              res[index]["name"],
+                              res[index]["desc"],
+                              res[index]["price"].toString(),
+                            ]));
+                          }
+                          return Column(children: trending);
+                        },
+                      ),
+                    ),
               SectionHeader(text: "Disposables"),
               ProductCardsSlider(),
             ],
