@@ -99,12 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Stack(
-                children: <Widget>[
+              // Stack(
+                // children: <Widget>[
                   TrendingSlider(),
-                  TextSlider(),
-                ],
-              ),
+                  // TextSlider(),
+                // ],
+              // ),
               SectionHeader(
                 text: "Categories",
               ),
