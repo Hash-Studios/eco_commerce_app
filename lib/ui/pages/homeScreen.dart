@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           trending = [];
                           for (int index = 0; index < res.length; index++) {
                             trending.add(ProductListTileDynamic(arguements: [
-                              'assets/images/' +
+                              'assets/images' +
                                   res[index]["images"][0]["url"]
                                       .toString()
                                       .split("_")[0]

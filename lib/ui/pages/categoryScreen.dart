@@ -139,7 +139,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     itemBuilder: (context, index) {
                       return ProductListTileDynamic(arguements: [
-                        'assets/images/' +
+                        'assets/images' +
                             // 'https://ecocommerce.herokuapp.com' +
                             // products[index]["images"][0]["url"],
                             products[index]["images"][0]["url"]
