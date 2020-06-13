@@ -19,6 +19,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  //   with SingleTickerProviderStateMixin {
+  // AnimationController controller;
+  // Animation<Color> colorTween;
   bool _obscureText = true;
   bool _obscureTextConfirm = true;
   bool isEmailValid = false;
@@ -47,6 +50,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void initState() {
     isLoading = false;
     super.initState();
+    // controller =
+    //     AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    // colorTween =
+    //     controller.drive(new ColorTween(begin: Colors.red, end: Colors.orange));
+    // controller.forward();
   }
 
   void _toggleConfirm() {
@@ -227,6 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: LinearProgressIndicator(
                                 value: value,
                                 backgroundColor: Colors.white,
+                                // valueColor: colorTween,
                                 valueColor: value <= 0.25
                                     ? AlwaysStoppedAnimation(Colors.red)
                                     : value <= 0.5
@@ -276,6 +285,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               for (int i = 0; i < validators.length; i++) {
                                 if (validators[i] == true) {
                                   value = value + 0.25;
+                                  // if (value <= 0.25) {
+                                  //   colorTween = controller.drive(
+                                  //       new ColorTween(
+                                  //           begin: Colors.white,
+                                  //           end: Colors.red));
+                                  //   controller.reset();
+                                  //   controller.forward();
+                                  // } else if (value <= 0.5) {
+                                  //   colorTween = controller.drive(
+                                  //       new ColorTween(
+                                  //           begin: Colors.red,
+                                  //           end: Colors.orange));
+                                  //   controller.reset();
+                                  //   controller.forward();
+                                  // } else if (value <= 0.75) {
+                                  //   colorTween = controller.drive(
+                                  //       new ColorTween(
+                                  //           begin: Colors.orange,
+                                  //           end: Colors.yellow));
+                                  //   controller.reset();
+                                  //   controller.forward();
+                                  // } else if (value <= 1) {
+                                  //   colorTween = controller.drive(
+                                  //       new ColorTween(
+                                  //           begin: Colors.yellow,
+                                  //           end: Colors.green));
+                                  //   controller.reset();
+                                  //   controller.forward();
+                                  // }
                                 }
                               }
                             },
