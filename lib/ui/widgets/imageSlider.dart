@@ -1,4 +1,4 @@
-import 'dart:collection';
+// import 'dart:collection';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +124,7 @@ class _ImageSliderState extends State<ImageSlider> {
       ),
     );
   }
+
   Widget networkWidget(String url) {
     return new Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -135,5 +136,4 @@ class _ImageSliderState extends State<ImageSlider> {
       ),
     );
   }
-
 }

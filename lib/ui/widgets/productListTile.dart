@@ -1,14 +1,13 @@
 import 'dart:math';
 // import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/core/model/image.dart';
-import 'package:eco_commerce_app/core/model/product.dart';
-import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/pages/productDetailsScreen.dart';
+// import 'package:eco_commerce_app/core/model/image.dart';
+// import 'package:eco_commerce_app/core/model/product.dart';
+// import 'package:eco_commerce_app/routing_constants.dart';
+// import 'package:eco_commerce_app/ui/pages/productDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class ProductListTile extends StatefulWidget {
-
   const ProductListTile({
     Key key,
   }) : super(key: key);
@@ -33,9 +32,37 @@ class _ProductListTileState extends State<ProductListTile> {
   ];
 
   //Dummy Data
-  static ProductImage productImage = new ProductImage(id: "1", name: "Hand Sanitizer", ext: ".png", size: "50", width: "200", height: "100", url: "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png", thumbnailUrl: "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png", smallUrl: "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png", createdAt: "8/6/20");
-  static List<ProductImage>  productImages = [productImage,productImage,productImage,productImage];
-  Product product = new Product(id: "1", name: "Hand Sanitizer", price: "341.00", images: productImages, category: "Health", desc: "Discover more great images on our sponsor's site,Discover more great images on our sponsor's site,Discover more great images on our sponsor's sit,Discover more great images on our sponsor's sitee.", features: "Advance Cleaning 100+ Protection More Protection les germs Blah Blah Blah Bla More Protection les germs Blah Blah Blah More Protection les germs Blah Blah Blah Bla Blah Blah Blah More Protection les germs Blah Blah Blah Bla", createdAt: "6/05/20");
+  // static ProductImage productImage = new ProductImage(
+  //     id: "1",
+  //     name: "Hand Sanitizer",
+  //     ext: ".png",
+  //     size: "50",
+  //     width: "200",
+  //     height: "100",
+  //     url:
+  //         "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png",
+  //     thumbnailUrl:
+  //         "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png",
+  //     smallUrl:
+  //         "https://cdn.pixabay.com/photo/2013/07/12/17/49/landscape-152502__340.png",
+  //     createdAt: "8/6/20");
+  // static List<ProductImage> productImages = [
+  //   productImage,
+  //   productImage,
+  //   productImage,
+  //   productImage
+  // ];
+  // Product product = new Product(
+  //     id: "1",
+  //     name: "Hand Sanitizer",
+  //     price: "341.00",
+  //     images: productImages,
+  //     category: "Health",
+  //     desc:
+  //         "Discover more great images on our sponsor's site,Discover more great images on our sponsor's site,Discover more great images on our sponsor's sit,Discover more great images on our sponsor's sitee.",
+  //     features:
+  //         "Advance Cleaning 100+ Protection More Protection les germs Blah Blah Blah Bla More Protection les germs Blah Blah Blah More Protection les germs Blah Blah Blah Bla Blah Blah Blah More Protection les germs Blah Blah Blah Bla",
+  //     createdAt: "6/05/20");
 
   String getImage() {
     final _random = new Random();
@@ -63,10 +90,11 @@ class _ProductListTileState extends State<ProductListTile> {
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           onPressed: () {
             print('card');
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProductDetailsScreen(product)),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //       builder: (context) => ProductDetailsScreen(product)),
+            // );
             // Navigator.pushNamed(context, LoginRoute);
           },
           shape: RoundedRectangleBorder(
