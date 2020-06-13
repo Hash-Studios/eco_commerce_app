@@ -24,7 +24,7 @@ class SecondaryCategoryButton extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-                color: Color(0xFF004445).withOpacity(0.3),
+                color: Color(0xFF004445).withOpacity(0.2),
                 blurRadius: 12,
                 offset: Offset(0, 3))
           ]),

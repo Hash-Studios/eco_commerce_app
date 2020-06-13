@@ -42,6 +42,7 @@ class SearchScreen extends StatelessWidget {
             ),
           ),
         ),
+        centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +50,7 @@ class SearchScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(0),
               child: Container(
-                width: width * 0.67,
+                width: width * 0.64,
                 child: TextFormField(
                   controller: searchController,
                   focusNode: _searchFocus,
@@ -85,7 +86,7 @@ class SearchScreen extends StatelessWidget {
                     ),
                     errorText: null,
                     hintText: "Search",
-                    labelText: "Search for products",
+                    labelText: "Search",
                     labelStyle: TextStyle(
                       color: Color(0xFF000000),
                     ),
