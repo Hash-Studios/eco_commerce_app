@@ -225,7 +225,8 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                             fontSize: width * 0.032,
                             color: Color(0xff464646)),
                       )),
-                  globals.currentUser.phone == null
+                  globals.currentUser.phone == null ||
+                          globals.currentUser.phone == " "
                       ? Container()
                       : Container(
                           margin: EdgeInsets.only(left: 20),
