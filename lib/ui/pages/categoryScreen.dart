@@ -1,11 +1,11 @@
 import 'dart:convert';
-
+import 'package:eco_commerce_app/core/model/image.dart';
+import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
-// import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,8 +19,7 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   String categoryName;
   String categoryId;
-  List<dynamic> products;
-  List<dynamic> res;
+  List<Product> products;
   bool isLoading = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,13 +32,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
       'https://ecocommerce.herokuapp.com/categories',
     )
         .then((http.Response response) {
-      res = json.decode(response.body);
-      // print(res);
       if (response.statusCode == 200) {
-        for (int c = 0; c < res.length; c++) {
-          if (res[c]["name"] ==
+        for (int c = 0; c < json.decode(response.body).length; c++) {
+          if (json.decode(response.body)[c]["name"] ==
               categoryName.toLowerCase().replaceAll(" ", "_")) {
-            categoryId = res[c]["id"];
+            categoryId = json.decode(response.body)[c]["id"];
           }
         }
         print(categoryId);
@@ -47,11 +44,51 @@ class _CategoryScreenState extends State<CategoryScreen> {
             .get(
           'https://ecocommerce.herokuapp.com/categories/$categoryId',
         )
-            .then((http.Response response) {
-          products = json.decode(response.body)["products"];
-          setState(() {
-            isLoading = false;
-          });
+            .then((http.Response res) {
+          products = [];
+          print(res.body);
+          if (res.statusCode == 200) {
+            for (int c = 0; c < json.decode(res.body)["products"].length; c++) {
+              products.add(Product(
+                  id: json.decode(res.body)["products"][c]["id"],
+                  name: json.decode(res.body)["products"][c]["name"],
+                  price:
+                      json.decode(res.body)["products"][c]["price"].toString(),
+                  images: new List<ProductImage>.generate(
+                      jsonDecode(res.body)["products"][c]["images"].length,
+                      (image) {
+                    return ProductImage(
+                        id: jsonDecode(res.body)["products"][c]["images"][image]
+                            ["id"],
+                        name: jsonDecode(res.body)["products"][c]["images"]
+                            [image]["name"],
+                        ext: jsonDecode(res.body)["products"][c]["images"]
+                            [image]["ext"],
+                        size: jsonDecode(res.body)["products"][c]["images"][image]["size"]
+                            .toString(),
+                        width: jsonDecode(res.body)["products"][c]["images"][image]["width"]
+                            .toString(),
+                        height: jsonDecode(res.body)["products"][c]["images"]
+                                [image]["height"]
+                            .toString(),
+                        url: jsonDecode(res.body)["products"][c]["images"]
+                            [image]["url"],
+                        thumbnailUrl: jsonDecode(res.body)["products"][c]
+                            ["images"][image]["formats"]["thumbnail"]["url"],
+                        smallUrl: jsonDecode(res.body)["products"][c]["images"]
+                            [image]["formats"]["small"]["url"],
+                        createdAt: jsonDecode(res.body)["products"][c]["images"][image]["createdAt"]);
+                  }),
+                  category: json.decode(res.body)["products"][c]["category"],
+                  desc: json.decode(res.body)["products"][c]["desc"],
+                  features: json.decode(res.body)["products"][c]["features"],
+                  createdAt: json.decode(res.body)["products"][c]
+                      ["createdAt"]));
+            }
+            setState(() {
+              isLoading = false;
+            });
+          }
         });
       }
     });
@@ -142,15 +179,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         'assets/images' +
                             // 'https://ecocommerce.herokuapp.com' +
                             // products[index]["images"][0]["url"],
-                            products[index]["images"][0]["url"]
+                            products[index]
+                                .images[0]
+                                .url
                                 .toString()
                                 .split("_")[0]
                                 .toString()
                                 .replaceAll("/uploads", "") +
                             ".jpg",
-                        products[index]["name"],
-                        products[index]["desc"],
-                        products[index]["price"].toString(),
+                        products[index].name,
+                        products[index].desc,
+                        products[index].price.toString(),
                       ]);
                     })
           ],
