@@ -124,6 +124,27 @@ class MainDrawer extends StatelessWidget {
                         child: ListTile(
                           dense: true,
                           title: Text(
+                            'Trending Products',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFF000000),
+                                fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 60, vertical: 10),
+                        child: Container(
+                          color: Color(0xFF929292).withOpacity(0.53),
+                          height: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: ListTile(
+                          dense: true,
+                          title: Text(
                             'Your Orders',
                             style: TextStyle(
                                 fontFamily: 'Poppins',
@@ -175,16 +196,12 @@ class MainDrawer extends StatelessWidget {
                         child: ListTile(
                           dense: true,
                           title: Text(
-                            'Terms and Conditions',
+                            'About us',
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, TnCRoute);
-                          },
                         ),
                       ),
                       Padding(
@@ -200,19 +217,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ListTile(
-                          dense: true,
-                          title: Text(
-                            'About us',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
-                          ),
-                        ),
-                      ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 60, vertical: 10),
@@ -239,7 +244,24 @@ class MainDrawer extends StatelessWidget {
                         child: ListTile(
                           dense: true,
                           title: Text(
-                            'Rate us',
+                            'Terms and Conditions',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFF000000),
+                                fontSize: 16),
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, TnCRoute);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: ListTile(
+                          dense: true,
+                          title: Text(
+                            'Frequently Asked Questions',
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 color: Color(0xFF000000),

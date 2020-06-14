@@ -25,7 +25,7 @@
 - [x] Remove social media icons, shift to about us
 - [x] remove share with friends
 - [ ] make help/FAQ screens
-- [ ] tnc, help, faq, rate us && settings, about us && home, trending products, shop by category, all products, wishlist, your profile
+- [x] tnc, help, faq, rate us && settings, about us && home, trending products, shop by category, all products, wishlist, your profile
 - [ ] Category pages should be filled with grids as much products as can be filled in 1 screen, with prices / name only
 - [ ] use linear loader below appbar
 - [ ] category name should be appbar title
