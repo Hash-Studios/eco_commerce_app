@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           } else if (!RegExp(
                             r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,12}$",
-                            caseSensitive: false,
+                            caseSensitive: true,
                             multiLine: false,
                           ).hasMatch(text)) {
                             Future.delayed(Duration(seconds: 0)).then((value) {
