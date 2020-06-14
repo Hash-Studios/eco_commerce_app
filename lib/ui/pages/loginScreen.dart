@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
               HeaderText(
                 text: 'Login',
               ),
-              GoogleButton(),
+              GoogleButton(login: true,),
               OrDivider(),
               Form(
                 key: formLogin,

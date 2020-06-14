@@ -1,5 +1,9 @@
+import 'package:eco_commerce_app/core/auth/google_auth.dart';
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:flutter/material.dart';
+import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
+
+final GoogleAuth gAuth = googleButton.gAuth;
 
 class CurrentUser extends ChangeNotifier {
   String jwt;
@@ -86,6 +90,7 @@ class CurrentUser extends ChangeNotifier {
 
   bool deleteUser() {
     try {
+      gAuth.signOutGoogle();
       removeValue('jwt');
       removeValue('id');
       removeValue('confirmed');

@@ -77,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               HeaderText(
                 text: 'Sign Up',
               ),
-              GoogleButton(),
+              GoogleButton(login: false,),
               OrDivider(),
               Form(
                 key: form,

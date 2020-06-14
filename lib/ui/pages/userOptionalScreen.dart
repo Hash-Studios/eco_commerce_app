@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:eco_commerce_app/core/auth/google_auth.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
+
+final GoogleAuth gAuth = googleButton.gAuth;
 
 class UserOptionalScreen extends StatefulWidget {
   final List<String> arguements;
@@ -375,15 +379,18 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
           currentUser.getUserfromResp(res);
           currentUser.saveUsertoSP();
         } else {
+          gAuth.signOutGoogle();
           _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
         }
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
+          gAuth.signOutGoogle();
           _showErrorSnackbar('Connection Timeout Error!');
         },
       );
     } on SocketException {
+      gAuth.signOutGoogle();
       _showErrorSnackbar('Network Not Connected!');
     }
   }
