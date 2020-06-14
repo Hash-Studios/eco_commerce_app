@@ -1,10 +1,11 @@
 import 'dart:math';
 // import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class ProductListTileDynamic extends StatefulWidget {
-  final List<String> arguements;
+  final List<Product> arguements;
   ProductListTileDynamic({this.arguements});
 
   @override
@@ -38,10 +39,18 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
   @override
   void initState() {
     super.initState();
-    image = widget.arguements[0];
-    name = widget.arguements[1];
-    desc = widget.arguements[2];
-    price = widget.arguements[3].toString();
+    // 'https://ecocommerce.herokuapp.com' +
+    // products[index]["images"][0]["url"],
+    image = 'assets/images' +
+        widget.arguements[0].images[0].url
+            .toString()
+            .split("_")[0]
+            .toString()
+            .replaceAll("/uploads", "") +
+        ".jpg";
+    name = widget.arguements[0].name;
+    desc = widget.arguements[0].desc;
+    price = widget.arguements[0].price.toString();
   }
 
   @override

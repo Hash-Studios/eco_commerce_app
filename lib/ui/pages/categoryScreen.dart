@@ -83,7 +83,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   desc: json.decode(res.body)["products"][c]["desc"],
                   features: json.decode(res.body)["products"][c]["features"],
                   createdAt: json.decode(res.body)["products"][c]
-                      ["createdAt"]));
+                      ["createdAt"],),);
             }
             setState(() {
               isLoading = false;
@@ -175,22 +175,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     itemCount: products.length,
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     itemBuilder: (context, index) {
-                      return ProductListTileDynamic(arguements: [
-                        'assets/images' +
-                            // 'https://ecocommerce.herokuapp.com' +
-                            // products[index]["images"][0]["url"],
-                            products[index]
-                                .images[0]
-                                .url
-                                .toString()
-                                .split("_")[0]
-                                .toString()
-                                .replaceAll("/uploads", "") +
-                            ".jpg",
-                        products[index].name,
-                        products[index].desc,
-                        products[index].price.toString(),
-                      ]);
+                      return ProductListTileDynamic(
+                          arguements: [products[index]]);
                     })
           ],
         ),

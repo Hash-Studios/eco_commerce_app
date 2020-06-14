@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
+import 'package:eco_commerce_app/core/model/image.dart';
+import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
@@ -22,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = true;
   bool isLoaded;
-  List<dynamic> res;
+  List<Product> products;
   List<Widget> trending = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,12 +37,47 @@ class _HomeScreenState extends State<HomeScreen> {
         .get(
       'https://ecocommerce.herokuapp.com/products',
     )
-        .then((http.Response response) {
-      res = json.decode(response.body);
-      print(res);
-      setState(() {
-        isLoading = false;
-      });
+        .then((http.Response res) {
+      print(json.decode(res.body));
+      products = [];
+      if (res.statusCode == 200) {
+        for (int c = 0; c < json.decode(res.body).length; c++) {
+          products.add(
+            Product(
+              id: json.decode(res.body)[c]["id"],
+              name: json.decode(res.body)[c]["name"],
+              price: json.decode(res.body)[c]["price"].toString(),
+              images: new List<ProductImage>.generate(
+                  jsonDecode(res.body)[c]["images"].length, (image) {
+                return ProductImage(
+                    id: jsonDecode(res.body)[c]["images"][image]["id"],
+                    name: jsonDecode(res.body)[c]["images"][image]["name"],
+                    ext: jsonDecode(res.body)[c]["images"][image]["ext"],
+                    size: jsonDecode(res.body)[c]["images"][image]["size"]
+                        .toString(),
+                    width: jsonDecode(res.body)[c]["images"][image]["width"]
+                        .toString(),
+                    height: jsonDecode(res.body)[c]["images"][image]["height"]
+                        .toString(),
+                    url: jsonDecode(res.body)[c]["images"][image]["url"],
+                    thumbnailUrl: jsonDecode(res.body)[c]["images"][image]
+                        ["formats"]["thumbnail"]["url"],
+                    smallUrl: jsonDecode(res.body)[c]["images"][image]
+                        ["formats"]["small"]["url"],
+                    createdAt: jsonDecode(res.body)[c]["images"][image]
+                        ["createdAt"]);
+              }),
+              category: json.decode(res.body)[c]["category"],
+              desc: json.decode(res.body)[c]["desc"],
+              features: json.decode(res.body)[c]["features"],
+              createdAt: json.decode(res.body)[c]["createdAt"],
+            ),
+          );
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -222,19 +260,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Builder(
                           builder: (context) {
                             trending = [];
-                            for (int index = 0; index < res.length; index++) {
-                              trending.add(ProductListTileDynamic(arguements: [
-                                'assets/images' +
-                                    res[index]["images"][0]["url"]
-                                        .toString()
-                                        .split("_")[0]
-                                        .toString()
-                                        .replaceAll("/uploads", "") +
-                                    ".jpg",
-                                res[index]["name"],
-                                res[index]["desc"],
-                                res[index]["price"].toString(),
-                              ]));
+                            for (int index = 0;
+                                index < products.length;
+                                index++) {
+                              trending.add(ProductListTileDynamic(
+                                  arguements: [products[index]]));
                             }
                             return Column(children: trending);
                           },
