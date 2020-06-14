@@ -53,19 +53,15 @@ class CategoryButton extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 15, 10, 15),
-              child: Hero(
-                transitionOnUserGestures: true,
-                tag: text,
-                child: Container(
-                  width: width * 0.24,
-                  child: Center(
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 20,
-                          color: Colors.white),
-                    ),
+              child: Container(
+                width: width * 0.24,
+                child: Center(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                        fontFamily: "Poppins",
+                        fontSize: 20,
+                        color: Colors.white),
                   ),
                 ),
               ),

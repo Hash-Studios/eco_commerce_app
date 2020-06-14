@@ -170,10 +170,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Center(
-                child: Hero(
-                      transitionOnUserGestures: true,
-                    tag: categoryName,
-                    child: SectionHeader(text: categoryName))),
+                child: SectionHeader(text: categoryName)),
             isLoading
                 ? Padding(
                     padding: const EdgeInsets.all(100.0),
