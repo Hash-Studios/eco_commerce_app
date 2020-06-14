@@ -20,64 +20,74 @@ class MainDrawer extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                DrawerHeader(
-                  margin: EdgeInsets.all(0),
-                  padding: EdgeInsets.all(0),
-                  child: Consumer<CurrentUser>(
-                    builder: (_, currentUser, __) => UserAccountsDrawerHeader(
-                      arrowColor: Colors.black,
-                      onDetailsPressed: () {
+                Consumer<CurrentUser>(
+                  builder: (_, currentUser, __) => SafeArea(
+                    child: InkWell(
+                      onTap: () {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, ProfileRoute);
                       },
-                      currentAccountPicture:
-                          main.prefs.getString('googleimage') == null ||
-                                  main.prefs.getString('googleimage') == ""
-                              ? CircleAvatar(
-                                  backgroundColor: Color(0xFFC4C4C4),
+                      child: Container(
+                        color: Colors.teal[300],
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                main.prefs.getString('googleimage') == null ||
+                                        main.prefs.getString('googleimage') ==
+                                            ""
+                                    ? Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            30, 10, 0, 10),
+                                        child: CircleAvatar(
+                                          radius: 25,
+                                          backgroundColor: Color(0xFFE0E0E0),
+                                          child: Text(
+                                            globals.getInitials(
+                                                currentUser.username),
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.teal[300],
+                                                fontSize: 22),
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            30, 10, 0, 10),
+                                        child: CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: NetworkImage(main
+                                                .prefs
+                                                .getString("googleimage"))),
+                                      ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text(
-                                    globals.getInitials(currentUser.username),
+                                    "Hello, ${currentUser.username.split(' ')[0]}",
                                     style: TextStyle(
                                         fontFamily: 'Poppins',
-                                        color: Color(0xFFE0E0E0),
+                                        color: Color(0xFF000000),
                                         fontSize: 22),
                                   ),
-                                )
-                              : CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      main.prefs.getString("googleimage"))),
-                      margin: EdgeInsets.all(0),
-                      accountName: Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),
-                        child: Text(
-                          "Hello, ${currentUser.username.split(' ')[0]}",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF000000),
-                              fontSize: 22),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      accountEmail: Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                        child: Text(
-                          currentUser.email,
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF000000),
-                              fontSize: 12),
-                        ),
-                      ),
-                      decoration: BoxDecoration(color: Color(0xFFE0E0E0)),
                     ),
                   ),
                 ),
                 Container(
-                  color: Color(0xFFE0E0E0),
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 16, 8, 0),
+                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'Home',
                             style: TextStyle(
@@ -95,8 +105,9 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
-                            'Categories',
+                            'Shop by Category',
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 color: Color(0xFF000000),
@@ -111,8 +122,9 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
-                            'Wishlist',
+                            'Your Orders',
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 color: Color(0xFF000000),
@@ -121,8 +133,38 @@ class MainDrawer extends StatelessWidget {
                         ),
                       ),
                       Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: ListTile(
+                          dense: true,
+                          title: Text(
+                            'Your Wishlist',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFF000000),
+                                fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: ListTile(
+                          dense: true,
+                          title: Text(
+                            'Your Account',
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFF000000),
+                                fontSize: 16),
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, ProfileRoute);
+                          },
+                        ),
+                      ),
+                      Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 60, vertical: 20),
+                            horizontal: 60, vertical: 10),
                         child: Container(
                           color: Color(0xFF929292).withOpacity(0.53),
                           height: 1,
@@ -131,6 +173,7 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'Terms and Conditions',
                             style: TextStyle(
@@ -147,6 +190,7 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'Contact us',
                             style: TextStyle(
@@ -159,6 +203,7 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'About us',
                             style: TextStyle(
@@ -170,7 +215,7 @@ class MainDrawer extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 60, vertical: 20),
+                            horizontal: 60, vertical: 10),
                         child: Container(
                           color: Color(0xFF929292).withOpacity(0.53),
                           height: 1,
@@ -179,6 +224,7 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'Help',
                             style: TextStyle(
@@ -191,6 +237,7 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'Share with friends',
                             style: TextStyle(
@@ -203,6 +250,7 @@ class MainDrawer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: ListTile(
+                          dense: true,
                           title: Text(
                             'Rate us',
                             style: TextStyle(
@@ -214,7 +262,7 @@ class MainDrawer extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 60, vertical: 20),
+                            horizontal: 60, vertical: 10),
                         child: Container(
                           color: Color(0xFF929292).withOpacity(0.53),
                           height: 1,
@@ -224,6 +272,7 @@ class MainDrawer extends StatelessWidget {
                         builder: (_, currentUser, __) => Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: ListTile(
+                            dense: true,
                             title: Text(
                               'Logout',
                               style: TextStyle(

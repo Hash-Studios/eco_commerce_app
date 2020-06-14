@@ -9,7 +9,7 @@
 - [ ] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
 - [ ] UI update PreSignUp Intro Slider
 - [ ] Snackbars to popup with GIFs
-- [ ] Search should be woring
+- [ ] Search should be working
 - [ ] tags should be relevant
 - [ ] tags should be choiceChips
 - [ ] wishlist working using shared prefs
@@ -20,8 +20,8 @@
 - [ ] home screen categories grid fix
 - [ ] home screen widget redsign (need more types of widgets)
 - [ ] product widget grids, different types
-- [ ] drawer redesign (Category to Shop by Category, Your Order/Your Wishlist, Your Account, no email,white should be the bg, header color should be teal)
-- [ ] Padding issue in drawer
+- [x] drawer redesign (Category to Shop by Category, Your Order/Your Wishlist, Your Account, no email,white should be the bg, header color should be teal)
+- [x] Padding issue in drawer
 - [ ] Remove social media icons, shift to about us
 - [ ] remove share with friends
 - [ ] make help/FAQ screens
