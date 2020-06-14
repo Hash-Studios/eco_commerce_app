@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
-import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:provider/provider.dart';
 
 class UserOptionalScreen extends StatefulWidget {

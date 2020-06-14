@@ -1,20 +1,16 @@
 import 'dart:convert';
 
-import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productCardSlider.dart';
-// import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
-// import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 

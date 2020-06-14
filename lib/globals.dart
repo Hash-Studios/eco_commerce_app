@@ -1,5 +1,3 @@
-import 'package:eco_commerce_app/core/model/user.dart';
-
 String getInitials(String nameString) {
   if (nameString.isEmpty) return " ";
 
