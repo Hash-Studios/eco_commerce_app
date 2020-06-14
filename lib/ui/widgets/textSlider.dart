@@ -8,19 +8,31 @@ class TextSlider extends StatefulWidget {
 }
 
 class _TextSliderState extends State<TextSlider> {
+  bool autoplay = false;
   int _current = 0;
   List<String> images = [
     "assets/images/greeting_cards.jpg",
     "assets/images/journals.jpg",
     "assets/images/mugs.jpg"
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (this.mounted) {
+      setState(() {
+        autoplay = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print(_current);
     final width = MediaQuery.of(context).size.width;
     return CarouselSlider(
       options: CarouselOptions(
-        autoPlay: true,
+        autoPlay: autoplay,
         pauseAutoPlayOnTouch: false,
         enlargeCenterPage: true,
         autoPlayInterval: Duration(seconds: 5),
