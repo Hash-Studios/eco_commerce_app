@@ -10,10 +10,11 @@ import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
 // import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
 import 'package:eco_commerce_app/ui/pages/profileScreen.dart';
 import 'package:eco_commerce_app/ui/pages/registerScreen.dart';
-import 'package:eco_commerce_app/ui/pages/search.dart';
+
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
-import 'package:eco_commerce_app/ui/pages/categoryScreen.dart';
+
+import 'package:eco_commerce_app/ui/pages/contactUs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ui/pages/homeScreen.dart';
@@ -27,11 +28,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case RegisterRoute:
       return CupertinoPageRoute(builder: (context) => RegisterScreen());
     case SearchRoute:
-      return CupertinoPageRoute(builder: (context) => SearchScreen());
-    case TnCRoute:
-      return CupertinoPageRoute(builder: (context) => TermsConditions());
-    case HomeRoute:
       return CupertinoPageRoute(builder: (context) => HomeScreen());
+    case ContactUsRoute:
+      return MaterialPageRoute(builder: (context) =>  ContactUs());  
     case CategoriesRoute:
       return CupertinoPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:

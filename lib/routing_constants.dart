@@ -8,6 +8,7 @@ const String UserOptionalRoute = '/useropdata';
 const String CategoryRoute = '/category';
 const String CategoriesRoute = '/categories';
 const String ProfileRoute = '/profile';
+const String ContactUsRoute = '/contactus';
 const String ProductRoute = '/product';
 const String OnboardRoute1 = '/onboard1';
 const String OnboardRoute2 = '/onboard2';
