@@ -1,5 +1,5 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
-import 'package:eco_commerce_app/core/model/user.dart';
+import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
@@ -69,35 +69,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        popUpAlertDialog(
-                            context: context,
-                            text: "Are you sure want to log out?",
-                            twoButtons: true,
-                            func1: () {
-                              Navigator.pop(context);
-                              removeValue('jwt');
-                              removeValue('id');
-                              removeValue('confirmed');
-                              removeValue('blocked');
-                              removeValue('username');
-                              removeValue('email');
-                              removeValue('organisation');
-                              removeValue('orgemail');
-                              removeValue('phone');
-                              removeValue('createdAt');
-                              Navigator.pushReplacementNamed(
-                                  context, LoginRoute);
-                            },
-                            button1text: "Yes",
-                            func2: () {
-                              Navigator.pop(context);
-                            },
-                            button2text: "No");
-                      },
-                      color: Colors.black,
-                      icon: Icon(LineAwesomeIcons.sign_out),
+                    Consumer<CurrentUser>(
+                      builder: (_, currentUser, __) => IconButton(
+                        onPressed: () {
+                          popUpAlertDialog(
+                              context: context,
+                              text: "Are you sure want to log out?",
+                              twoButtons: true,
+                              func1: () {
+                                Navigator.pop(context);
+                                currentUser.deleteUser();
+                                Navigator.pushReplacementNamed(
+                                    context, LoginRoute);
+                              },
+                              button1text: "Yes",
+                              func2: () {
+                                Navigator.pop(context);
+                              },
+                              button2text: "No");
+                        },
+                        color: Colors.black,
+                        icon: Icon(LineAwesomeIcons.sign_out),
+                      ),
                     ),
                   ],
                   pinned: true,

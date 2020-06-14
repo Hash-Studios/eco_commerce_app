@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:eco_commerce_app/core/model/user.dart';
+import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:flutter/material.dart';

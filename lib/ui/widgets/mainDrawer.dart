@@ -1,5 +1,5 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
-import 'package:eco_commerce_app/core/model/user.dart';
+import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:flutter/material.dart';
@@ -214,42 +214,35 @@ class MainDrawer extends StatelessWidget {
                           height: 1,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ListTile(
-                          title: Text(
-                            'Logout',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                      Consumer<CurrentUser>(
+                        builder: (_, currentUser, __) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ListTile(
+                            title: Text(
+                              'Logout',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFF000000),
+                                  fontSize: 16),
+                            ),
+                            onTap: () {
+                              popUpAlertDialog(
+                                  context: context,
+                                  text: "Are you sure want to log out?",
+                                  twoButtons: true,
+                                  func1: () {
+                                    Navigator.pop(context);
+                                    currentUser.deleteUser();
+                                    Navigator.pushReplacementNamed(
+                                        context, LoginRoute);
+                                  },
+                                  button1text: "Yes",
+                                  func2: () {
+                                    Navigator.pop(context);
+                                  },
+                                  button2text: "No");
+                            },
                           ),
-                          onTap: () {
-                            popUpAlertDialog(
-                                context: context,
-                                text: "Are you sure want to log out?",
-                                twoButtons: true,
-                                func1: () {
-                                  Navigator.pop(context);
-                                  removeValue('jwt');
-                                  removeValue('id');
-                                  removeValue('confirmed');
-                                  removeValue('blocked');
-                                  removeValue('username');
-                                  removeValue('email');
-                                  removeValue('organisation');
-                                  removeValue('orgemail');
-                                  removeValue('phone');
-                                  removeValue('createdAt');
-                                  Navigator.pushReplacementNamed(
-                                      context, LoginRoute);
-                                },
-                                button1text: "Yes",
-                                func2: () {
-                                  Navigator.pop(context);
-                                },
-                                button2text: "No");
-                          },
                         ),
                       ),
                       Padding(
