@@ -239,19 +239,6 @@ class MainDrawer extends StatelessWidget {
                         child: ListTile(
                           dense: true,
                           title: Text(
-                            'Share with friends',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ListTile(
-                          dense: true,
-                          title: Text(
                             'Rate us',
                             style: TextStyle(
                                 fontFamily: 'Poppins',
@@ -300,56 +287,56 @@ class MainDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                LineAwesomeIcons.facebook,
-                                size: 36,
-                              ),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                LineAwesomeIcons.instagram,
-                                size: 36,
-                              ),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                LineAwesomeIcons.linkedin_square,
-                                size: 36,
-                              ),
-                              onPressed: () {},
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                LineAwesomeIcons.twitter_square,
-                                size: 36,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ListTile(
-                          dense: true,
-                          title: Text(
-                            'All rights reserved XYZ Pvt Ltd.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 10),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       IconButton(
+                      //         icon: Icon(
+                      //           LineAwesomeIcons.facebook,
+                      //           size: 36,
+                      //         ),
+                      //         onPressed: () {},
+                      //       ),
+                      //       IconButton(
+                      //         icon: Icon(
+                      //           LineAwesomeIcons.instagram,
+                      //           size: 36,
+                      //         ),
+                      //         onPressed: () {},
+                      //       ),
+                      //       IconButton(
+                      //         icon: Icon(
+                      //           LineAwesomeIcons.linkedin_square,
+                      //           size: 36,
+                      //         ),
+                      //         onPressed: () {},
+                      //       ),
+                      //       IconButton(
+                      //         icon: Icon(
+                      //           LineAwesomeIcons.twitter_square,
+                      //           size: 36,
+                      //         ),
+                      //         onPressed: () {},
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 8),
+                      //   child: ListTile(
+                      //     dense: true,
+                      //     title: Text(
+                      //       'All rights reserved XYZ Pvt Ltd.',
+                      //       textAlign: TextAlign.center,
+                      //       style: TextStyle(
+                      //           fontFamily: 'Poppins',
+                      //           color: Color(0xFF000000),
+                      //           fontSize: 10),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

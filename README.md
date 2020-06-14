@@ -22,8 +22,8 @@
 - [ ] product widget grids, different types
 - [x] drawer redesign (Category to Shop by Category, Your Order/Your Wishlist, Your Account, no email,white should be the bg, header color should be teal)
 - [x] Padding issue in drawer
-- [ ] Remove social media icons, shift to about us
-- [ ] remove share with friends
+- [x] Remove social media icons, shift to about us
+- [x] remove share with friends
 - [ ] make help/FAQ screens
 - [ ] tnc, help, faq, rate us && settings, about us && home, trending products, shop by category, all products, wishlist, your profile
 - [ ] Category pages should be filled with grids as much products as can be filled in 1 screen, with prices / name only
