@@ -1,13 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:eco_commerce_app/core/model/user.dart';
+import 'package:eco_commerce_app/core/auth/google_auth.dart';
+import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
-import 'package:eco_commerce_app/globals.dart' as globals;
+import 'package:provider/provider.dart';
+import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
+
+final GoogleAuth gAuth = googleButton.gAuth;
 
 class UserOptionalScreen extends StatefulWidget {
   final List<String> arguements;
@@ -216,7 +221,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                               });
                             });
                             return null;
-                          } else if (text.length != 10) {
+                          } else if (!RegExp(
+                                  r"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$")
+                              .hasMatch(text)) {
                             Future.delayed(Duration(seconds: 0)).then((value) {
                               setState(() {
                                 isPhoneValid = false;
@@ -288,49 +295,51 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
-                child: FlatButton(
-                  colorBrightness: Brightness.dark,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: isEmailValid ? Color(0xFF004445) : Color(0xFF999999),
-                  onPressed: isEmailValid && !isLoading
-                      ? () {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          HapticFeedback.vibrate();
-                          formOptional.currentState.validate();
-                          formOptional.currentState.save();
-                          print(
-                              "corporate_email:${emailController.text},org_name:${orgController.text}");
-                          registerUser();
-                        }
-                      : () {
-                          Navigator.pushReplacementNamed(context, HomeRoute);
-                        },
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        isLoading
-                            ? CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                              )
-                            : Text(
-                                'Submit',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFFFFFF),
+              Consumer<CurrentUser>(
+                builder: (_, currentUser, __) => Padding(
+                  padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
+                  child: FlatButton(
+                    colorBrightness: Brightness.dark,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    color: isEmailValid && isPhoneValid
+                        ? Color(0xFF004445)
+                        : Color(0xFF999999),
+                    onPressed: isEmailValid && !isLoading && isPhoneValid
+                        ? () {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            HapticFeedback.vibrate();
+                            formOptional.currentState.validate();
+                            formOptional.currentState.save();
+                            print(
+                                "corporate_email:${emailController.text},org_name:${orgController.text}");
+                            registerUser(currentUser);
+                          }
+                        : () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          isLoading
+                              ? CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : Text(
+                                  'Submit',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
                                 ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -342,88 +351,79 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     );
   }
 
-  void registerUser() async {
+  void registerUser(CurrentUser currentUser) async {
     try {
-      http
-          .post('https://ecocommerce.herokuapp.com/auth/local/register',
-              body: phoneController.text == "" || phoneController.text == null
-                  ? {
-                      'username': name,
-                      'email': email,
-                      'password': password,
-                      'orgemail': emailController.text,
-                      'organisation': orgController.text,
-                      'phone': " "
-                    }
-                  : {
-                      'username': name,
-                      'email': email,
-                      'password': password,
-                      'orgemail': emailController.text,
-                      'organisation': orgController.text,
-                      'phone': phoneController.text
-                    })
-          .then((http.Response response) {
+      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
+        'username': name,
+        'email': email,
+        'password': password,
+        'orgemail': emailController.text,
+        'organisation': orgController.text,
+        'phone': phoneController.text
+      }).then((http.Response response) {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          _showSuccessSnackbar();
-          globals.currentUser = CurrentUser(
-            jwt: res["jwt"],
-            confirmed: res["user"]["confirmed"].toString(),
-            blocked: res["user"]["blocked"].toString(),
-            id: res["user"]["id"],
-            username: res["user"]["username"],
-            email: res["user"]["email"],
-            organisation: res["user"]["organisation"],
-            orgemail: res["user"]["orgemail"],
-            phone: res["user"]["phone"],
-            createdAt: res["user"]["createdAt"],
-          );
-          globals.currentUser.saveUsertoSP();
+          Fluttertoast.showToast(
+              msg: "Successfully Registered!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
+          currentUser.getUserfromResp(res);
+          currentUser.saveUsertoSP();
+          _redirectUser();
         } else {
-          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+          gAuth.signOutGoogle();
+          Fluttertoast.showToast(
+              msg: res['message'][0]['messages'][0]['message'],
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              backgroundColor: Colors.red[400],
+              fontSize: 16.0);
+          formOptional.currentState.reset();
         }
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
-          _showErrorSnackbar('Connection Timeout Error!');
+          gAuth.signOutGoogle();
+          Fluttertoast.showToast(
+              msg: "Connection Timeout Error!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
+          formOptional.currentState.reset();
+          setState(() {
+            isLoading = false;
+          });
         },
       );
     } on SocketException {
-      _showErrorSnackbar('Network Not Connected!');
+      gAuth.signOutGoogle();
+      Fluttertoast.showToast(
+          msg: "Network Not Connected!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red[400],
+          textColor: Colors.white,
+          fontSize: 16.0);
+      formOptional.currentState.reset();
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  void _showSuccessSnackbar() {
-    setState(() {
-      isLoading = false;
-    });
-    final SnackBar snack = SnackBar(
-        content: Text(
-      'Successfully Registered!',
-      style: TextStyle(color: Colors.green),
-    ));
-    _scaffoldOptionalKey.currentState.showSnackBar(snack);
-    formOptional.currentState.reset();
-    _redirectUser();
-  }
-
-  void _showErrorSnackbar(String errorMessage) {
-    setState(() {
-      isLoading = false;
-    });
-    final SnackBar snack = SnackBar(
-        content: Text(
-      errorMessage,
-      style: TextStyle(color: Colors.red),
-    ));
-    _scaffoldOptionalKey.currentState.showSnackBar(snack);
-  }
-
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 1))
-        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
+    Navigator.pushReplacementNamed(context, HomeRoute);
   }
 }
 

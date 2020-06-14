@@ -8,12 +8,24 @@ class TrendingSlider extends StatefulWidget {
 }
 
 class _TrendingSliderState extends State<TrendingSlider> {
+  bool autoplay = false;
   int _current = 0;
   List<String> images = [
     "assets/images/greeting_cards.jpg",
     "assets/images/journals.jpg",
     "assets/images/mugs.jpg"
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (this.mounted) {
+      setState(() {
+        autoplay = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -22,7 +34,7 @@ class _TrendingSliderState extends State<TrendingSlider> {
       children: <Widget>[
         CarouselSlider(
           options: CarouselOptions(
-            autoPlay: true,
+            autoPlay: autoplay,
             autoPlayInterval: Duration(seconds: 5),
             height: 240,
             viewportFraction: 1.0,

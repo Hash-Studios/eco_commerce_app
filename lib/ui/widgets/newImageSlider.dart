@@ -22,6 +22,7 @@ class NewImageSlider extends StatefulWidget {
 }
 
 class _NewImageSliderState extends State<NewImageSlider> {
+  bool autoplay = false;
   List<Widget> items;
   List<Widget> dots;
   int idx = 0;
@@ -35,6 +36,11 @@ class _NewImageSliderState extends State<NewImageSlider> {
     }
     idx = 0;
     super.initState();
+    if (this.mounted) {
+      setState(() {
+        autoplay = true;
+      });
+    }
   }
 
   @override
@@ -51,7 +57,7 @@ class _NewImageSliderState extends State<NewImageSlider> {
                   height: widget.height * 0.5,
                   viewportFraction: 1,
                   enlargeCenterPage: true,
-                  autoPlay: true,
+                  autoPlay: autoplay,
                   autoPlayCurve: Curves.easeInOutExpo,
                   onPageChanged: (i, r) {
                     if (widget.showIndicator) {

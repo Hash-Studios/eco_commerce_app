@@ -1,4 +1,4 @@
-const String PreSignUpRoute = '/';
+// const String PreSignUpRoute = '/presignupslider';
 const String LoginRoute = '/login';
 const String RegisterRoute = '/register';
 const String SearchRoute = '/search';
@@ -8,4 +8,8 @@ const String UserOptionalRoute = '/useropdata';
 const String CategoryRoute = '/category';
 const String CategoriesRoute = '/categories';
 const String ProfileRoute = '/profile';
-const String ContactUsRoute = '/contactUs';
+const String ContactUsRoute = '/contactus';
+const String ProductRoute = '/product';
+const String OnboardRoute1 = '/onboard1';
+const String OnboardRoute2 = '/onboard2';
+const String OnboardRoute3 = '/onboard3';

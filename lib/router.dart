@@ -1,10 +1,14 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/categoriesScreen.dart';
+import 'package:eco_commerce_app/ui/pages/onboardScreen1.dart';
+import 'package:eco_commerce_app/ui/pages/onboardScreen2.dart';
+import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
+import 'package:eco_commerce_app/ui/pages/productScreen.dart';
 import 'package:eco_commerce_app/ui/pages/terms.dart';
 import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
 import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
-import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
-
+// import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
+import 'package:eco_commerce_app/ui/pages/profileScreen.dart';
 import 'package:eco_commerce_app/ui/pages/registerScreen.dart';
 
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
@@ -17,26 +21,49 @@ import 'ui/pages/homeScreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case PreSignUpRoute:
-      return CupertinoPageRoute(builder: (context) => PreSignUpSlider());
+    // case PreSignUpRoute:
+    //   return CupertinoPageRoute(builder: (context) => PreSignUpSlider());
     case LoginRoute:
       return CupertinoPageRoute(builder: (context) => LoginScreen());
     case RegisterRoute:
       return CupertinoPageRoute(builder: (context) => RegisterScreen());
     case SearchRoute:
       return CupertinoPageRoute(builder: (context) => HomeScreen());
-
     case ContactUsRoute:
       return MaterialPageRoute(builder: (context) =>  ContactUs());  
+    case CategoriesRoute:
+      return CupertinoPageRoute(builder: (context) => CategoriesScreen());
+    case ProfileRoute:
+      return CupertinoPageRoute(builder: (context) => ProfileScreen());
+    case OnboardRoute1:
+      return CupertinoPageRoute(builder: (context) => OnboardScreen1());
+    case OnboardRoute2:
+      return CupertinoPageRoute(builder: (context) => OnboardScreen2());
+    case OnboardRoute3:
+      return CupertinoPageRoute(builder: (context) => OnboardScreen3());
+    case CategoryRoute:
+      return CupertinoPageRoute(
+        builder: (context) => CategoryScreen(
+          arguements: settings.arguments,
+        ),
+      );
     case UserOptionalRoute:
       return CupertinoPageRoute(
-          builder: (context) => UserOptionalScreen(
-                arguements: settings.arguments,
-              ));
+        builder: (context) => UserOptionalScreen(
+          arguements: settings.arguments,
+        ),
+      );
+    case ProductRoute:
+      return CupertinoPageRoute(
+        builder: (context) => ProductScreen(
+          arguements: settings.arguments,
+        ),
+      );
     default:
       return CupertinoPageRoute(
-          builder: (context) => UndefinedScreen(
-                name: settings.name,
-              ));
+        builder: (context) => UndefinedScreen(
+          name: settings.name,
+        ),
+      );
   }
 }
