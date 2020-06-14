@@ -5,14 +5,13 @@ import 'package:eco_commerce_app/ui/widgets/continueButton.dart';
 import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eco_commerce_app/main.dart' as main;
 
 class PreSignUpSlider extends StatelessWidget {
   var email = "";
   getLoggedIn() async {
     WidgetsFlutterBinding.ensureInitialized();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    email = prefs.getString('email');
+    email = main.prefs.getString('email');
   }
 
   @override

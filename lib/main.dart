@@ -8,9 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'routing_constants.dart';
 
+SharedPreferences prefs;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs = await SharedPreferences.getInstance();
   var email = prefs.getString('email');
   print(email);
   runApp(

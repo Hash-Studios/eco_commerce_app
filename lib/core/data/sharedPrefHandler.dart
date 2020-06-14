@@ -1,55 +1,44 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:eco_commerce_app/main.dart' as main;
 addStringToSP(String key, String value) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString(key, value);
+  main.prefs.setString(key, value);
 }
 
 addIntToSP(String key, int value) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setInt(key, value);
+  main.prefs.setInt(key, value);
 }
 
 addDoubleToSP(String key, double value) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setDouble(key, value);
+  main.prefs.setDouble(key, value);
 }
 
 addBoolToSP(String key, bool value) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setBool(key, value);
+  main.prefs.setBool(key, value);
 }
 
 getStringFromSP(String key) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String stringValue = prefs.getString(key);
+  String stringValue = main.prefs.getString(key);
   return stringValue;
 }
 
 getBoolFromSP(String key) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool boolValue = prefs.getBool(key);
+  bool boolValue = main.prefs.getBool(key);
   return boolValue;
 }
 
 getIntFromSP(String key) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  int intValue = prefs.getInt(key);
+  int intValue = main.prefs.getInt(key);
   return intValue;
 }
 
 getDoubleFromSP(String key) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  double doubleValue = prefs.getDouble(key);
+  double doubleValue = main.prefs.getDouble(key);
   return doubleValue;
 }
 
 removeValue(String key) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.remove(key);
+  main.prefs.remove(key);
 }
 
 checkValue(String key) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.containsKey(key);
+  return main.prefs.containsKey(key);
 }

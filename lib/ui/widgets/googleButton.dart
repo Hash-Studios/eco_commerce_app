@@ -7,6 +7,7 @@ import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eco_commerce_app/main.dart' as main;
 
 final GoogleAuth gAuth = GoogleAuth();
 
@@ -34,12 +35,10 @@ class _GoogleButtonState extends State<GoogleButton> {
               ? () {
                   gAuth.signInWithGoogle().whenComplete(() async {
                     try {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
                       http.post('https://ecocommerce.herokuapp.com/auth/local/',
                           body: {
-                            'identifier': prefs.getString('googleemail'),
-                            'password': prefs.getString('googleemail')
+                            'identifier': main.prefs.getString('googleemail'),
+                            'password': main.prefs.getString('googleemail')
                           }).then((http.Response response) {
                         res = (json.decode(response.body));
                         print(res);
@@ -72,13 +71,11 @@ class _GoogleButtonState extends State<GoogleButton> {
                 }
               : () {
                   gAuth.signInWithGoogle().whenComplete(() async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
                     Navigator.pushReplacementNamed(context, UserOptionalRoute,
                         arguments: [
-                          prefs.getString('googlename'),
-                          prefs.getString('googleemail'),
-                          prefs.getString('googleemail')
+                          main.prefs.getString('googleemail'),
+                          main.prefs.getString('googlename'),
+                          main.prefs.getString('googleemail')
                         ]);
                   });
                 },
