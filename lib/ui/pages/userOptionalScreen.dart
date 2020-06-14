@@ -216,7 +216,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                               });
                             });
                             return null;
-                          } else if (text.length != 10) {
+                          } else if (!RegExp(
+                                  r"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$")
+                              .hasMatch(text)) {
                             Future.delayed(Duration(seconds: 0)).then((value) {
                               setState(() {
                                 isPhoneValid = false;
@@ -295,8 +297,10 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     colorBrightness: Brightness.dark,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    color: isEmailValid ? Color(0xFF004445) : Color(0xFF999999),
-                    onPressed: isEmailValid && !isLoading
+                    color: isEmailValid && isPhoneValid
+                        ? Color(0xFF004445)
+                        : Color(0xFF999999),
+                    onPressed: isEmailValid && !isLoading && isPhoneValid
                         ? () {
                             setState(() {
                               isLoading = true;
@@ -308,9 +312,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 "corporate_email:${emailController.text},org_name:${orgController.text}");
                             registerUser(currentUser);
                           }
-                        : () {
-                            Navigator.pushReplacementNamed(context, HomeRoute);
-                          },
+                        : () {},
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(

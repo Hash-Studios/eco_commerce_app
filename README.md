@@ -1,7 +1,7 @@
 # TODO
 - [ ] Sign in with Google
 - [ ] Forgot Password
-- [ ] make phone required
+- [x] make phone required
 - [ ] Submit button login, to check mark when successful
 - [ ] Remove the clutter from sign up (google vs Free email,second - org, orgmail, phone|name,email,phone,third-org,orgmail,fourth-pswd,cofm pswd)
 - [ ] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
