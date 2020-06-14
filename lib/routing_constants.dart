@@ -8,3 +8,4 @@ const String UserOptionalRoute = '/useropdata';
 const String CategoryRoute = '/category';
 const String CategoriesRoute = '/categories';
 const String ProfileRoute = '/profile';
+const String ProductRoute = '/product';

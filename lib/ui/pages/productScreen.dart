@@ -8,19 +8,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-class ProductDetailsScreen extends StatefulWidget {
-  final Product product;
-
-  ProductDetailsScreen(this.product);
+class ProductScreen extends StatefulWidget {
+  final List<Product> arguements;
+  ProductScreen({this.arguements});
 
   @override
-  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+  _ProductScreenState createState() => _ProductScreenState();
 }
 
-class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+class _ProductScreenState extends State<ProductScreen> {
+  Product product;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double width;
   double height;
+
+  @override
+  void initState() {
+    super.initState();
+    product = widget.arguements[0];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +84,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   children: <Widget>[
                     NewImageSlider(
                       itemsList: [
-                        widget.product.images[0].url,
-                        widget.product.images[1].url,
-                        widget.product.images[2].url,
-                        widget.product.images[3].url
+                        'assets/images' +
+                            product.images[0].url
+                                .toString()
+                                .split("_")[0]
+                                .toString()
+                                .replaceAll("/uploads", "") +
+                            ".jpg"
+
+                        // product.images[1].url,
+                        // product.images[2].url,
+                        // product.images[3].url
                       ],
                       showIndicator: true,
-                      isAsset: false,
+                      isAsset: true,
                       height: 400,
                     ),
                   ],
@@ -104,7 +117,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         margin: EdgeInsets.all(2),
                         width: width / 2,
                         child: ExpandText(
-                          widget.product.name,
+                          product.name,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
@@ -117,7 +130,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           child: Column(
                             children: <Widget>[
                               ExpandText(
-                                widget.product.desc,
+                                product.desc,
                                 textAlign: TextAlign.justify,
                               )
                             ],
@@ -200,7 +213,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           padding: EdgeInsets.only(top: 10),
                           alignment: Alignment.centerLeft,
                           child: ExpandText(
-                            widget.product.features,
+                            product.features,
                             style: TextStyle(
                               fontSize: 15,
                             ),

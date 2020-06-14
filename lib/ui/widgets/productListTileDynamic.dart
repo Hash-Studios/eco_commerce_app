@@ -1,6 +1,7 @@
 import 'dart:math';
 // import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
+import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -73,7 +74,8 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           onPressed: () {
             print('card');
-            // Navigator.pushNamed(context, LoginRoute);
+            Navigator.pushNamed(context, ProductRoute,
+                arguments: widget.arguements);
           },
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),

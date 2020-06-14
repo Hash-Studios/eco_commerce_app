@@ -1,5 +1,6 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/categoriesScreen.dart';
+import 'package:eco_commerce_app/ui/pages/productScreen.dart';
 import 'package:eco_commerce_app/ui/pages/terms.dart';
 import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
 import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
@@ -28,24 +29,33 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return CupertinoPageRoute(builder: (context) => TermsConditions());
     case HomeRoute:
       return CupertinoPageRoute(builder: (context) => HomeScreen());
-    case CategoryRoute:
-      return CupertinoPageRoute(
-          builder: (context) => CategoryScreen(
-                arguements: settings.arguments,
-              ));
     case CategoriesRoute:
       return CupertinoPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:
       return CupertinoPageRoute(builder: (context) => ProfileScreen());
+    case CategoryRoute:
+      return CupertinoPageRoute(
+        builder: (context) => CategoryScreen(
+          arguements: settings.arguments,
+        ),
+      );
     case UserOptionalRoute:
       return CupertinoPageRoute(
-          builder: (context) => UserOptionalScreen(
-                arguements: settings.arguments,
-              ));
+        builder: (context) => UserOptionalScreen(
+          arguements: settings.arguments,
+        ),
+      );
+    case ProductRoute:
+      return CupertinoPageRoute(
+        builder: (context) => ProductScreen(
+          arguements: settings.arguments,
+        ),
+      );
     default:
       return CupertinoPageRoute(
-          builder: (context) => UndefinedScreen(
-                name: settings.name,
-              ));
+        builder: (context) => UndefinedScreen(
+          name: settings.name,
+        ),
+      );
   }
 }
