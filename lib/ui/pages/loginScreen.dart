@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:eco_commerce_app/globals.dart' as globals;
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -257,49 +258,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
-                child: FlatButton(
-                  colorBrightness: Brightness.dark,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: isEmailValid && isPassValid
-                      ? Color(0xFF004445)
-                      : Color(0xFF999999),
-                  onPressed: isEmailValid && isPassValid && !isLoading
-                      ? () {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          HapticFeedback.vibrate();
-                          formLogin.currentState.validate();
-                          formLogin.currentState.save();
-                          print(
-                              "email:${emailController.text},pwd:${passwordController.text}");
-                          loginUser();
-                        }
-                      : () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        isLoading
-                            ? CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                              )
-                            : Text(
-                                'Submit',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFFFFFF),
+              Consumer<CurrentUser>(
+                builder: (_, currentUser, __) => Padding(
+                  padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
+                  child: FlatButton(
+                    colorBrightness: Brightness.dark,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    color: isEmailValid && isPassValid
+                        ? Color(0xFF004445)
+                        : Color(0xFF999999),
+                    onPressed: isEmailValid && isPassValid && !isLoading
+                        ? () {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            HapticFeedback.vibrate();
+                            formLogin.currentState.validate();
+                            formLogin.currentState.save();
+                            print(
+                                "email:${emailController.text},pwd:${passwordController.text}");
+                            loginUser(currentUser);
+                          }
+                        : () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          isLoading
+                              ? CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : Text(
+                                  'Submit',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
                                 ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -329,7 +332,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void loginUser() async {
+  void loginUser(CurrentUser currentUser) async {
     try {
       http.post('https://ecocommerce.herokuapp.com/auth/local/', body: {
         'identifier': emailController.text,
@@ -339,19 +342,8 @@ class _LoginScreenState extends State<LoginScreen> {
         print(res);
         if (response.statusCode == 200) {
           _showSuccessSnackbar();
-          globals.currentUser = CurrentUser(
-            jwt: res["jwt"],
-            confirmed: res["user"]["confirmed"].toString(),
-            blocked: res["user"]["blocked"].toString(),
-            id: res["user"]["id"],
-            username: res["user"]["username"],
-            email: res["user"]["email"],
-            organisation: res["user"]["organisation"],
-            orgemail: res["user"]["orgemail"],
-            phone: res["user"]["phone"],
-            createdAt: res["user"]["createdAt"],
-          );
-          globals.currentUser.saveUsertoSP();
+          currentUser.getUserfromResp(res);
+          currentUser.saveUsertoSP();
         } else {
           _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
         }

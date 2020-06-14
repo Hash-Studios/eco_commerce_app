@@ -1,76 +1,87 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:flutter/material.dart';
 
-class CurrentUser {
-  final String jwt;
-  final String id;
-  final String confirmed;
-  final String blocked;
-  final String username;
-  final String email;
-  final String organisation;
-  final String orgemail;
-  final String phone;
-  final String createdAt;
+class CurrentUser extends ChangeNotifier {
+  String jwt;
+  String id;
+  String confirmed;
+  String blocked;
+  String username;
+  String email;
+  String organisation;
+  String orgemail;
+  String phone;
+  String createdAt;
   CurrentUser({
-    @required this.jwt,
-    @required this.id,
-    @required this.confirmed,
-    @required this.blocked,
-    @required this.username,
-    @required this.email,
-    @required this.organisation,
-    @required this.orgemail,
-    @required this.phone,
-    @required this.createdAt,
+    this.jwt,
+    this.id,
+    this.confirmed,
+    this.blocked,
+    this.username,
+    this.email,
+    this.organisation,
+    this.orgemail,
+    this.phone,
+    this.createdAt,
   });
 
   bool saveUsertoSP() {
     try {
-      addStringToSP('jwt', jwt);
-      addStringToSP('id', id);
-      addStringToSP('confirmed', confirmed);
-      addStringToSP('blocked', blocked);
-      addStringToSP('username', username);
-      addStringToSP('email', email);
-      addStringToSP('organisation', organisation);
-      addStringToSP('orgemail', orgemail);
-      addStringToSP('phone', phone);
-      addStringToSP('createdAt', createdAt);
+      addStringToSP('jwt', this.jwt);
+      addStringToSP('id', this.id);
+      addStringToSP('confirmed', this.confirmed);
+      addStringToSP('blocked', this.blocked);
+      addStringToSP('username', this.username);
+      addStringToSP('email', this.email);
+      addStringToSP('organisation', this.organisation);
+      addStringToSP('orgemail', this.orgemail);
+      addStringToSP('phone', this.phone);
+      addStringToSP('createdAt', this.createdAt);
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  Future<CurrentUser> getUserfromSP() async {
+  void getUserfromResp(var res) {
+    this.jwt = res["jwt"];
+    this.confirmed = res["user"]["confirmed"].toString();
+    this.blocked = res["user"]["blocked"].toString();
+    this.id = res["user"]["id"];
+    this.username = res["user"]["username"];
+    this.email = res["user"]["email"];
+    this.organisation = res["user"]["organisation"];
+    this.orgemail = res["user"]["orgemail"];
+    this.phone = res["user"]["phone"];
+    this.createdAt = res["user"]["createdAt"];
+    notifyListeners();
+  }
+
+  Future<void> getUserfromSP() async {
     try {
-      return CurrentUser(
-        jwt: await getStringFromSP('jwt'),
-        id: await getStringFromSP('id'),
-        confirmed: await getStringFromSP('confirmed'),
-        blocked: await getStringFromSP('blocked'),
-        username: await getStringFromSP('username'),
-        email: await getStringFromSP('email'),
-        organisation: await getStringFromSP('organisation'),
-        orgemail: await getStringFromSP('orgemail'),
-        phone: await getStringFromSP('phone'),
-        createdAt: await getStringFromSP('createdAt'),
-      );
+      this.jwt = await getStringFromSP('jwt');
+      this.id = await getStringFromSP('id');
+      this.confirmed = await getStringFromSP('confirmed');
+      this.blocked = await getStringFromSP('blocked');
+      this.username = await getStringFromSP('username');
+      this.email = await getStringFromSP('email');
+      this.organisation = await getStringFromSP('organisation');
+      this.orgemail = await getStringFromSP('orgemail');
+      this.phone = await getStringFromSP('phone');
+      this.createdAt = await getStringFromSP('createdAt');
     } catch (e) {
-      return CurrentUser(
-        jwt: await getStringFromSP('jwt'),
-        id: await getStringFromSP('id'),
-        confirmed: await getStringFromSP('confirmed'),
-        blocked: await getStringFromSP('blocked'),
-        username: await getStringFromSP('username'),
-        email: await getStringFromSP('email'),
-        organisation: await getStringFromSP('organisation'),
-        orgemail: await getStringFromSP('orgemail'),
-        phone: await getStringFromSP('phone'),
-        createdAt: await getStringFromSP('createdAt'),
-      );
+      this.jwt = await getStringFromSP('jwt');
+      this.id = await getStringFromSP('id');
+      this.confirmed = await getStringFromSP('confirmed');
+      this.blocked = await getStringFromSP('blocked');
+      this.username = await getStringFromSP('username');
+      this.email = await getStringFromSP('email');
+      this.organisation = await getStringFromSP('organisation');
+      this.orgemail = await getStringFromSP('orgemail');
+      this.phone = await getStringFromSP('phone');
+      this.createdAt = await getStringFromSP('createdAt');
     }
+    notifyListeners();
   }
 
   bool deleteUser() {
@@ -85,8 +96,20 @@ class CurrentUser {
       removeValue('orgemail');
       removeValue('phone');
       removeValue('createdAt');
+      this.jwt = "";
+      this.id = "";
+      this.confirmed = "";
+      this.blocked = "";
+      this.username = "";
+      this.email = "";
+      this.organisation = "";
+      this.orgemail = "";
+      this.phone = "";
+      this.createdAt = "";
+      notifyListeners();
       return true;
     } catch (e) {
+      notifyListeners();
       return false;
     }
   }

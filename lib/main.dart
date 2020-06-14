@@ -1,7 +1,9 @@
+import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/router.dart' as router;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'routing_constants.dart';
@@ -12,8 +14,15 @@ Future<void> main() async {
   var email = prefs.getString('email');
   print(email);
   runApp(
-    MyApp(
-      email: email,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CurrentUser>(
+          create: (context) => CurrentUser(),
+        ),
+      ],
+      child: MyApp(
+        email: email,
+      ),
     ),
   );
 }

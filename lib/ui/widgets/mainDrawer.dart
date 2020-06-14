@@ -1,9 +1,11 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
+import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
+import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
@@ -21,44 +23,46 @@ class MainDrawer extends StatelessWidget {
                 DrawerHeader(
                   margin: EdgeInsets.all(0),
                   padding: EdgeInsets.all(0),
-                  child: UserAccountsDrawerHeader(
-                    arrowColor: Colors.black,
-                    onDetailsPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, ProfileRoute);
-                    },
-                    currentAccountPicture: CircleAvatar(
-                      backgroundColor: Color(0xFFC4C4C4),
-                      child: Text(
-                        globals.getInitials(globals.currentUser.username),
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFFE0E0E0),
-                            fontSize: 22),
+                  child: Consumer<CurrentUser>(
+                    builder: (_, currentUser, __) => UserAccountsDrawerHeader(
+                      arrowColor: Colors.black,
+                      onDetailsPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, ProfileRoute);
+                      },
+                      currentAccountPicture: CircleAvatar(
+                        backgroundColor: Color(0xFFC4C4C4),
+                        child: Text(
+                          globals.getInitials(currentUser.username),
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFE0E0E0),
+                              fontSize: 22),
+                        ),
                       ),
-                    ),
-                    margin: EdgeInsets.all(0),
-                    accountName: Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),
-                      child: Text(
-                        "Hello, ${globals.currentUser.username.split(' ')[0]}",
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF000000),
-                            fontSize: 22),
+                      margin: EdgeInsets.all(0),
+                      accountName: Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),
+                        child: Text(
+                          "Hello, ${currentUser.username.split(' ')[0]}",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF000000),
+                              fontSize: 22),
+                        ),
                       ),
-                    ),
-                    accountEmail: Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                      child: Text(
-                        globals.currentUser.email,
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF000000),
-                            fontSize: 12),
+                      accountEmail: Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                        child: Text(
+                          currentUser.email,
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF000000),
+                              fontSize: 12),
+                        ),
                       ),
+                      decoration: BoxDecoration(color: Color(0xFFE0E0E0)),
                     ),
-                    decoration: BoxDecoration(color: Color(0xFFE0E0E0)),
                   ),
                 ),
                 Container(

@@ -1,4 +1,5 @@
 import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
+import 'package:eco_commerce_app/core/model/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -199,107 +201,108 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.only(
-                          left: 20, top: 0, right: 5, bottom: 4),
-                      child: Text(
-                        globals.currentUser.username,
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: width * 0.07,
-                            color: Color(0xff464646)),
-                      )),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                        globals.currentUser.email,
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: width * 0.032,
-                            color: Color(0xff464646)),
-                      )),
-                  globals.currentUser.phone == null ||
-                          globals.currentUser.phone == " "
-                      ? Container()
-                      : Container(
-                          margin: EdgeInsets.only(left: 20),
-                          child: Text(
-                            globals.currentUser.phone,
-                            style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: width * 0.032,
-                                color: Color(0xff464646)),
-                          )),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                        globals.currentUser.organisation,
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: width * 0.032,
-                            color: Color(0xff464646)),
-                      )),
-                  Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                        globals.currentUser.orgemail,
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: width * 0.032,
-                            color: Color(0xff464646)),
-                      )),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0),
-                    child: Container(
-                      margin: EdgeInsets.all(5),
-                      height: width * 0.2,
-                      width: width * 0.2,
-                      child: CircleAvatar(
-                        backgroundColor: Color(0xFFC4C4C4),
+          Consumer<CurrentUser>(
+            builder: (_, currentUser, __) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                        margin: EdgeInsets.only(
+                            left: 20, top: 0, right: 5, bottom: 4),
                         child: Text(
-                          globals.getInitials(globals.currentUser.username),
+                          currentUser.username,
                           style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFE0E0E0),
-                              fontSize: 30),
+                              fontFamily: "Poppins",
+                              fontSize: width * 0.07,
+                              color: Color(0xff464646)),
+                        )),
+                    Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Text(
+                          currentUser.email,
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: width * 0.032,
+                              color: Color(0xff464646)),
+                        )),
+                    currentUser.phone == null || currentUser.phone == " "
+                        ? Container()
+                        : Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: Text(
+                              currentUser.phone,
+                              style: TextStyle(
+                                  fontFamily: "Poppins",
+                                  fontSize: width * 0.032,
+                                  color: Color(0xff464646)),
+                            )),
+                    Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Text(
+                          currentUser.organisation,
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: width * 0.032,
+                              color: Color(0xff464646)),
+                        )),
+                    Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: Text(
+                          currentUser.orgemail,
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: width * 0.032,
+                              color: Color(0xff464646)),
+                        )),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: Container(
+                        margin: EdgeInsets.all(5),
+                        height: width * 0.2,
+                        width: width * 0.2,
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xFFC4C4C4),
+                          child: Text(
+                            globals.getInitials(currentUser.username),
+                            style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFFE0E0E0),
+                                fontSize: 30),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  FlatButton(
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    onPressed: () {
-                      HapticFeedback.vibrate();
-                      print("Edit");
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                      child: Text(
-                        "Edit",
-                        style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: width * 0.05,
-                            color: Color(0xff464646)),
+                    FlatButton(
+                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      onPressed: () {
+                        HapticFeedback.vibrate();
+                        print("Edit");
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Text(
+                          "Edit",
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: width * 0.05,
+                              color: Color(0xff464646)),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),
