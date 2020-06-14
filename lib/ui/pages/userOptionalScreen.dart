@@ -6,6 +6,7 @@ import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -352,78 +353,77 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
 
   void registerUser(CurrentUser currentUser) async {
     try {
-      http
-          .post('https://ecocommerce.herokuapp.com/auth/local/register',
-              body: phoneController.text == "" || phoneController.text == null
-                  ? {
-                      'username': name,
-                      'email': email,
-                      'password': password,
-                      'orgemail': emailController.text,
-                      'organisation': orgController.text,
-                      'phone': " "
-                    }
-                  : {
-                      'username': name,
-                      'email': email,
-                      'password': password,
-                      'orgemail': emailController.text,
-                      'organisation': orgController.text,
-                      'phone': phoneController.text
-                    })
-          .then((http.Response response) {
+      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
+        'username': name,
+        'email': email,
+        'password': password,
+        'orgemail': emailController.text,
+        'organisation': orgController.text,
+        'phone': phoneController.text
+      }).then((http.Response response) {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          _showSuccessSnackbar();
+          Fluttertoast.showToast(
+              msg: "Successfully Registered!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
           currentUser.getUserfromResp(res);
           currentUser.saveUsertoSP();
+          _redirectUser();
         } else {
           gAuth.signOutGoogle();
-          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+          Fluttertoast.showToast(
+              msg: res['message'][0]['messages'][0]['message'],
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              backgroundColor: Colors.red[400],
+              fontSize: 16.0);
+          formOptional.currentState.reset();
         }
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
           gAuth.signOutGoogle();
-          _showErrorSnackbar('Connection Timeout Error!');
+          Fluttertoast.showToast(
+              msg: "Connection Timeout Error!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
+          formOptional.currentState.reset();
+          setState(() {
+            isLoading = false;
+          });
         },
       );
     } on SocketException {
       gAuth.signOutGoogle();
-      _showErrorSnackbar('Network Not Connected!');
+      Fluttertoast.showToast(
+          msg: "Network Not Connected!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red[400],
+          textColor: Colors.white,
+          fontSize: 16.0);
+      formOptional.currentState.reset();
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  void _showSuccessSnackbar() {
-    setState(() {
-      isLoading = false;
-    });
-    final SnackBar snack = SnackBar(
-        content: Text(
-      'Successfully Registered!',
-      style: TextStyle(color: Colors.green),
-    ));
-    _scaffoldOptionalKey.currentState.showSnackBar(snack);
-    formOptional.currentState.reset();
-    _redirectUser();
-  }
-
-  void _showErrorSnackbar(String errorMessage) {
-    setState(() {
-      isLoading = false;
-    });
-    final SnackBar snack = SnackBar(
-        content: Text(
-      errorMessage,
-      style: TextStyle(color: Colors.red),
-    ));
-    _scaffoldOptionalKey.currentState.showSnackBar(snack);
-  }
-
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 1))
-        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
+    Navigator.pushReplacementNamed(context, HomeRoute);
   }
 }
 

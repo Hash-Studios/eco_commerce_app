@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -324,10 +325,28 @@ class _LoginScreenState extends State<LoginScreen> {
       res = (json.decode(response.body));
       print(res);
       if (response.statusCode == 200)
-        _showSuccessSnackbarFP();
+        Fluttertoast.showToast(
+            msg: "Verification code sent to ${emailController.text}",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            backgroundColor: Colors.green[400],
+            fontSize: 16.0);
       else {
-        _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+        Fluttertoast.showToast(
+            msg: res['message'][0]['messages'][0]['message'],
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            backgroundColor: Colors.red[400],
+            fontSize: 16.0);
+        formLogin.currentState.reset();
       }
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 
@@ -340,65 +359,79 @@ class _LoginScreenState extends State<LoginScreen> {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          _showSuccessSnackbar();
+          Fluttertoast.showToast(
+              msg: "Login Successful!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
           currentUser.getUserfromResp(res);
           currentUser.saveUsertoSP();
+          _redirectUser();
         } else {
-          _showErrorSnackbar(res['message'][0]['messages'][0]['message']);
+          Fluttertoast.showToast(
+              msg: res['message'][0]['messages'][0]['message'],
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              backgroundColor: Colors.red[400],
+              fontSize: 16.0);
+          formLogin.currentState.reset();
         }
+        setState(() {
+          isLoading = false;
+        });
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
-          _showErrorSnackbar('Connection Timeout Error!');
+          Fluttertoast.showToast(
+              msg: "Connection Timeout Error!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
+          formLogin.currentState.reset();
+          setState(() {
+            isLoading = false;
+          });
         },
       );
     } on SocketException {
-      _showErrorSnackbar('Network Not Connected!');
+      Fluttertoast.showToast(
+          msg: "Network Not Connected!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red[400],
+          textColor: Colors.white,
+          fontSize: 16.0);
+      formLogin.currentState.reset();
+      setState(() {
+        isLoading = false;
+      });
     } catch (e) {
       print(e);
-      _showErrorSnackbar(e.toString());
+      Fluttertoast.showToast(
+          msg: e.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red[400],
+          textColor: Colors.white,
+          fontSize: 16.0);
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  void _showSuccessSnackbarFP() {
-    final SnackBar snack = SnackBar(
-        content: Text(
-      'Verification code sent to ${emailController.text}',
-      style: TextStyle(color: Colors.green),
-    ));
-    _scaffoldLoginKey.currentState.showSnackBar(snack);
-    formLogin.currentState.reset();
-  }
-
-  void _showSuccessSnackbar() {
-    setState(() {
-      isLoading = false;
-    });
-    final SnackBar snack = SnackBar(
-        content: Text(
-      'Login Successful!',
-      style: TextStyle(color: Colors.green),
-    ));
-    _scaffoldLoginKey.currentState.showSnackBar(snack);
-    formLogin.currentState.reset();
-    _redirectUser();
-  }
-
-  void _showErrorSnackbar(String errorMessage) {
-    setState(() {
-      isLoading = false;
-    });
-    final SnackBar snack = SnackBar(
-        content: Text(
-      errorMessage,
-      style: TextStyle(color: Colors.red),
-    ));
-    _scaffoldLoginKey.currentState.showSnackBar(snack);
-  }
-
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 1))
-        .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
+    Navigator.pushReplacementNamed(context, HomeRoute);
   }
 }
 
