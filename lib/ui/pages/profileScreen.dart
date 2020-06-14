@@ -1,4 +1,3 @@
-import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
@@ -9,6 +8,7 @@ import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:eco_commerce_app/main.dart' as main;
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -263,16 +263,21 @@ class _ProfileFlexibleAppBarState extends State<ProfileFlexibleAppBar> {
                         margin: EdgeInsets.all(5),
                         height: width * 0.2,
                         width: width * 0.2,
-                        child: CircleAvatar(
-                          backgroundColor: Color(0xFFC4C4C4),
-                          child: Text(
-                            globals.getInitials(currentUser.username),
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFFE0E0E0),
-                                fontSize: 30),
-                          ),
-                        ),
+                        child: main.prefs.getString('googleimage') == null ||
+                                main.prefs.getString('googleimage') == ""
+                            ? CircleAvatar(
+                                backgroundColor: Color(0xFFC4C4C4),
+                                child: Text(
+                                  globals.getInitials(currentUser.username),
+                                  style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFE0E0E0),
+                                      fontSize: 30),
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    main.prefs.getString("googleimage"))),
                       ),
                     ),
                     FlatButton(

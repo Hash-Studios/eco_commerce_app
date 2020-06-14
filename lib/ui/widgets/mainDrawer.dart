@@ -1,4 +1,3 @@
-import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:provider/provider.dart';
+import 'package:eco_commerce_app/main.dart' as main;
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
@@ -30,16 +30,22 @@ class MainDrawer extends StatelessWidget {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, ProfileRoute);
                       },
-                      currentAccountPicture: CircleAvatar(
-                        backgroundColor: Color(0xFFC4C4C4),
-                        child: Text(
-                          globals.getInitials(currentUser.username),
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFE0E0E0),
-                              fontSize: 22),
-                        ),
-                      ),
+                      currentAccountPicture:
+                          main.prefs.getString('googleimage') == null ||
+                                  main.prefs.getString('googleimage') == ""
+                              ? CircleAvatar(
+                                  backgroundColor: Color(0xFFC4C4C4),
+                                  child: Text(
+                                    globals.getInitials(currentUser.username),
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFFE0E0E0),
+                                        fontSize: 22),
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      main.prefs.getString("googleimage"))),
                       margin: EdgeInsets.all(0),
                       accountName: Padding(
                         padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),

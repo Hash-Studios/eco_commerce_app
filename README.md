@@ -1,7 +1,7 @@
 # TODO
 - [x] Sign in with Google
 - [ ] Forgot Password
-- [ ] Profile photo implementation
+- [x] Profile photo implementation
 - [ ] Fluttertoast from snackbar
 - [x] make phone required
 - [ ] Submit button login, to check mark when successful
