@@ -11,6 +11,7 @@ class Product {
   final String discount;
   final String desc;
   final String features;
+  final String reviews;
   final String createdAt;
   Product({
     @required this.id,
@@ -18,10 +19,11 @@ class Product {
     @required this.price,
     @required this.images,
     @required this.category,
-    @required this.ratings,
-    @required this.discount,
+    this.ratings,
+    this.discount,
     @required this.desc,
     @required this.features,
+    this.reviews,
     @required this.createdAt,
   });
 }

@@ -19,12 +19,18 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  //   with SingleTickerProviderStateMixin {
+  // AnimationController controller;
+  // Animation<Color> colorTween;
   bool _obscureText = true;
   bool _obscureTextConfirm = true;
   bool isEmailValid = false;
   bool isPassValid = false;
   bool isPassConfirmValid = false;
   bool isLoading;
+
+  List<bool> validators = [false, false, false, false];
+  double value = 0;
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passFocus = FocusNode();
@@ -45,6 +51,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void initState() {
     isLoading = false;
     super.initState();
+    // controller =
+    //     AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    // colorTween =
+    //     controller.drive(new ColorTween(begin: Colors.red, end: Colors.orange));
+    // controller.forward();
   }
 
   void _toggleConfirm() {
@@ -57,6 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -75,6 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: nameController,
                         focusNode: _nameFocus,
                         onFieldSubmitted: (term) {
@@ -100,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -132,6 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
@@ -184,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -214,99 +228,201 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        focusNode: _passFocus,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(
-                              context, _passFocus, _passConfirmFocus);
-                        },
-                        textInputAction: TextInputAction.next,
-                        controller: passwordController,
-                        validator: (text) {
-                          if (text == '') {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPassValid = false;
-                              });
-                            });
-                            return null;
-                          } else if (!RegExp(
-                            r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,12}$",
-                            caseSensitive: false,
-                            multiLine: false,
-                          ).hasMatch(text)) {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPassValid = false;
-                              });
-                            });
-                            return 'Password must be at least 4 characters,\nno more than 12 characters, and must include\nat least one upper case letter, one lower\ncase letter, and one numeric digit.';
-                          }
-                          Future.delayed(Duration(seconds: 0)).then((value) {
-                            setState(() {
-                              isPassValid = true;
-                            });
-                          });
-                          return null;
-                        },
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Password",
-                          labelText: "Password",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 17),
-                            child: IconButton(
-                              onPressed: () {
-                                _toggle();
-                              },
-                              icon: Icon(
-                                _obscureText
-                                    ? LineAwesomeIcons.eye
-                                    : LineAwesomeIcons.eye_slash,
-                                color: Color(0xFF000000),
-                              ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          alignment: Alignment.topCenter,
+                          children: <Widget>[
+                            LinearProgressIndicator(
+                              value: value,
+                              backgroundColor: Colors.white,
+                              // valueColor: colorTween,
+                              valueColor: value <= 0.25
+                                  ? AlwaysStoppedAnimation(Colors.red)
+                                  : value <= 0.5
+                                      ? AlwaysStoppedAnimation(Colors.orange)
+                                      : value <= 0.75
+                                          ? AlwaysStoppedAnimation(
+                                              Colors.yellow)
+                                          : value <= 1
+                                              ? AlwaysStoppedAnimation(
+                                                  Colors.green)
+                                              : AlwaysStoppedAnimation(
+                                                  Colors.white),
                             ),
-                          ),
+                            TextFormField(
+                              enabled: !isLoading,
+                              focusNode: _passFocus,
+                              onChanged: (term) {
+                                if (term.length >= 6 && term.length <= 12) {
+                                  validators[0] = true;
+                                } else {
+                                  validators[0] = false;
+                                }
+                                if (term != term.toLowerCase()) {
+                                  validators[1] = true;
+                                } else {
+                                  validators[1] = false;
+                                }
+                                if (term != term.toUpperCase()) {
+                                  validators[2] = true;
+                                } else {
+                                  validators[2] = false;
+                                }
+                                if (RegExp(
+                                  r"\d",
+                                  caseSensitive: true,
+                                  multiLine: false,
+                                ).hasMatch(term)) {
+                                  validators[3] = true;
+                                } else {
+                                  validators[3] = false;
+                                }
+
+                                value = 0;
+                                for (int i = 0; i < validators.length; i++) {
+                                  if (validators[i] == true) {
+                                    value = value + 0.25;
+                                    // if (value <= 0.25) {
+                                    //   colorTween = controller.drive(
+                                    //       new ColorTween(
+                                    //           begin: Colors.white,
+                                    //           end: Colors.red));
+                                    //   controller.reset();
+                                    //   controller.forward();
+                                    // } else if (value <= 0.5) {
+                                    //   colorTween = controller.drive(
+                                    //       new ColorTween(
+                                    //           begin: Colors.red,
+                                    //           end: Colors.orange));
+                                    //   controller.reset();
+                                    //   controller.forward();
+                                    // } else if (value <= 0.75) {
+                                    //   colorTween = controller.drive(
+                                    //       new ColorTween(
+                                    //           begin: Colors.orange,
+                                    //           end: Colors.yellow));
+                                    //   controller.reset();
+                                    //   controller.forward();
+                                    // } else if (value <= 1) {
+                                    //   colorTween = controller.drive(
+                                    //       new ColorTween(
+                                    //           begin: Colors.yellow,
+                                    //           end: Colors.green));
+                                    //   controller.reset();
+                                    //   controller.forward();
+                                    // }
+                                  }
+                                }
+                              },
+                              onFieldSubmitted: (term) {
+                                _fieldFocusChange(
+                                    context, _passFocus, _passConfirmFocus);
+                              },
+                              textInputAction: TextInputAction.next,
+                              controller: passwordController,
+                              validator: (text) {
+                                if (text == '') {
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isPassValid = false;
+                                    });
+                                  });
+                                  return null;
+                                } else if (!RegExp(
+                                  r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$",
+                                  caseSensitive: true,
+                                  multiLine: false,
+                                ).hasMatch(text)) {
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isPassValid = false;
+                                    });
+                                  });
+                                  return 'Password must be at least 6 characters,\nno more than 12 characters, and must include\nat least one upper case letter, one lower\ncase letter, and one numeric digit.';
+                                }
+                                Future.delayed(Duration(seconds: 0))
+                                    .then((value) {
+                                  setState(() {
+                                    isPassValid = true;
+                                  });
+                                });
+                                return null;
+                              },
+                              cursorColor: Color(0xFF000000),
+                              cursorRadius: Radius.circular(8),
+                              cursorWidth: 4,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFF000000), width: 2),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFF000000), width: 2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFF004445), width: 2),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                      color: value <= 0.25
+                                          ? Colors.red
+                                          : value <= 0.5
+                                              ? Colors.orange
+                                              : value <= 0.75
+                                                  ? Colors.yellow
+                                                  : value <= 1
+                                                      ? Colors.green
+                                                      : Colors.white,
+                                      width: 2),
+                                ),
+                                errorText: null,
+                                hintText: "Password",
+                                // labelText: "Password",
+                                hintStyle: TextStyle(
+                                  color: Color(0xFF000000),
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 17),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _toggle();
+                                    },
+                                    icon: Icon(
+                                      _obscureText
+                                          ? LineAwesomeIcons.eye
+                                          : LineAwesomeIcons.eye_slash,
+                                      color: Color(0xFF000000),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              expands: false,
+                              inputFormatters: [
+                                BlacklistingTextInputFormatter
+                                    .singleLineFormatter
+                              ],
+                              obscureText: _obscureText,
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                          ],
                         ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
-                        ],
-                        obscureText: _obscureText,
-                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         focusNode: _passConfirmFocus,
                         onFieldSubmitted: (term) {
                           _passConfirmFocus.unfocus();
@@ -354,7 +470,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -400,7 +516,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   color: isEmailValid && isPassValid && isPassConfirmValid
-                      ? Color(0xFF044455)
+                      ? Color(0xFF004445)
                       : Color(0xFF999999),
                   onPressed: isEmailValid &&
                           isPassValid &&

@@ -45,7 +45,7 @@ class ImageSlider extends StatelessWidget {
         ],
         options: CarouselOptions(
           height: height * 0.5,
-          viewportFraction: 1,
+          viewportFraction: 0.95,
           enlargeCenterPage: true,
           autoPlay: true,
           autoPlayCurve: Curves.easeInOutExpo,

@@ -48,6 +48,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldOptionalKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -65,6 +66,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: orgController,
                         focusNode: _orgFocus,
                         onFieldSubmitted: (term) {
@@ -90,7 +92,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -122,6 +124,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
@@ -204,6 +207,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         validator: (text) {
                           if (text == '') {
                             Future.delayed(Duration(seconds: 0)).then((value) {
@@ -252,7 +256,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Color(0xFF044455), width: 2),
+                                BorderSide(color: Color(0xFF004445), width: 2),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -340,14 +344,26 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
 
   void registerUser() async {
     try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
-        'username': name,
-        'email': email,
-        'password': password,
-        'orgemail': emailController.text,
-        'organisation': orgController.text,
-        'phone': phoneController.text
-      }).then((http.Response response) {
+      http
+          .post('https://ecocommerce.herokuapp.com/auth/local/register',
+              body: phoneController.text == "" || phoneController.text == null
+                  ? {
+                      'username': name,
+                      'email': email,
+                      'password': password,
+                      'orgemail': emailController.text,
+                      'organisation': orgController.text,
+                      'phone': " "
+                    }
+                  : {
+                      'username': name,
+                      'email': email,
+                      'password': password,
+                      'orgemail': emailController.text,
+                      'organisation': orgController.text,
+                      'phone': phoneController.text
+                    })
+          .then((http.Response response) {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
@@ -359,6 +375,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
             id: res["user"]["id"],
             username: res["user"]["username"],
             email: res["user"]["email"],
+            organisation: res["user"]["organisation"],
+            orgemail: res["user"]["orgemail"],
+            phone: res["user"]["phone"],
             createdAt: res["user"]["createdAt"],
           );
           globals.currentUser.saveUsertoSP();
@@ -403,7 +422,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   }
 
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(seconds: 1))
         .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }

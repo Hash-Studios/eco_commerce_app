@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldLoginKey,
       body: SingleChildScrollView(
         child: Container(
@@ -63,6 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: emailController,
                         focusNode: _emailFocus,
                         onFieldSubmitted: (term) {
@@ -145,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                       child: TextFormField(
+                        enabled: !isLoading,
                         controller: passwordController,
                         focusNode: _passFocus,
                         onFieldSubmitted: (term) {
@@ -245,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       HapticFeedback.vibrate();
                       print("email:${emailController.text}");
-                      forgotPassword();
+                      // forgotPassword();
                     },
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -343,6 +346,9 @@ class _LoginScreenState extends State<LoginScreen> {
             id: res["user"]["id"],
             username: res["user"]["username"],
             email: res["user"]["email"],
+            organisation: res["user"]["organisation"],
+            orgemail: res["user"]["orgemail"],
+            phone: res["user"]["phone"],
             createdAt: res["user"]["createdAt"],
           );
           globals.currentUser.saveUsertoSP();
@@ -357,6 +363,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } on SocketException {
       _showErrorSnackbar('Network Not Connected!');
+    } catch (e) {
+      print(e);
+      _showErrorSnackbar(e.toString());
     }
   }
 
@@ -397,7 +406,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _redirectUser() {
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(seconds: 1))
         .then((value) => Navigator.pushReplacementNamed(context, HomeRoute));
   }
 }

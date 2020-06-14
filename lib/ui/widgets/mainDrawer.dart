@@ -1,5 +1,9 @@
+import 'package:eco_commerce_app/core/data/sharedPrefHandler.dart';
+import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:eco_commerce_app/globals.dart' as globals;
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
@@ -18,10 +22,15 @@ class MainDrawer extends StatelessWidget {
                   margin: EdgeInsets.all(0),
                   padding: EdgeInsets.all(0),
                   child: UserAccountsDrawerHeader(
+                    arrowColor: Colors.black,
+                    onDetailsPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, ProfileRoute);
+                    },
                     currentAccountPicture: CircleAvatar(
                       backgroundColor: Color(0xFFC4C4C4),
                       child: Text(
-                        'AM',
+                        globals.getInitials(globals.currentUser.username),
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFFE0E0E0),
@@ -30,9 +39,9 @@ class MainDrawer extends StatelessWidget {
                     ),
                     margin: EdgeInsets.all(0),
                     accountName: Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 20, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(8, 25, 0, 0),
                       child: Text(
-                        "Hello, Akshay",
+                        "Hello, ${globals.currentUser.username.split(' ')[0]}",
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFF000000),
@@ -42,7 +51,7 @@ class MainDrawer extends StatelessWidget {
                     accountEmail: Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                       child: Text(
-                        "akshaymaurya3006@gmail.com",
+                        globals.currentUser.email,
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFF000000),
@@ -66,6 +75,11 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                HomeRoute, (Route<dynamic> route) => false);
+                          },
                         ),
                       ),
                       Padding(
@@ -78,6 +92,10 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, CategoriesRoute);
+                          },
                         ),
                       ),
                       Padding(
@@ -110,6 +128,10 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, TnCRoute);
+                          },
                         ),
                       ),
                       Padding(
@@ -198,6 +220,32 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            popUpAlertDialog(
+                                context: context,
+                                text: "Are you sure want to log out?",
+                                twoButtons: true,
+                                func1: () {
+                                  Navigator.pop(context);
+                                  removeValue('jwt');
+                                  removeValue('id');
+                                  removeValue('confirmed');
+                                  removeValue('blocked');
+                                  removeValue('username');
+                                  removeValue('email');
+                                  removeValue('organisation');
+                                  removeValue('orgemail');
+                                  removeValue('phone');
+                                  removeValue('createdAt');
+                                  Navigator.pushReplacementNamed(
+                                      context, LoginRoute);
+                                },
+                                button1text: "Yes",
+                                func2: () {
+                                  Navigator.pop(context);
+                                },
+                                button2text: "No");
+                          },
                         ),
                       ),
                       Padding(

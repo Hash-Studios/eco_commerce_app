@@ -8,6 +8,9 @@ class CurrentUser {
   final String blocked;
   final String username;
   final String email;
+  final String organisation;
+  final String orgemail;
+  final String phone;
   final String createdAt;
   CurrentUser({
     @required this.jwt,
@@ -16,6 +19,9 @@ class CurrentUser {
     @required this.blocked,
     @required this.username,
     @required this.email,
+    @required this.organisation,
+    @required this.orgemail,
+    @required this.phone,
     @required this.createdAt,
   });
 
@@ -27,6 +33,9 @@ class CurrentUser {
       addStringToSP('blocked', blocked);
       addStringToSP('username', username);
       addStringToSP('email', email);
+      addStringToSP('organisation', organisation);
+      addStringToSP('orgemail', orgemail);
+      addStringToSP('phone', phone);
       addStringToSP('createdAt', createdAt);
       return true;
     } catch (e) {
@@ -43,6 +52,9 @@ class CurrentUser {
         blocked: await getStringFromSP('blocked'),
         username: await getStringFromSP('username'),
         email: await getStringFromSP('email'),
+        organisation: await getStringFromSP('organisation'),
+        orgemail: await getStringFromSP('orgemail'),
+        phone: await getStringFromSP('phone'),
         createdAt: await getStringFromSP('createdAt'),
       );
     } catch (e) {
@@ -53,6 +65,9 @@ class CurrentUser {
         blocked: await getStringFromSP('blocked'),
         username: await getStringFromSP('username'),
         email: await getStringFromSP('email'),
+        organisation: await getStringFromSP('organisation'),
+        orgemail: await getStringFromSP('orgemail'),
+        phone: await getStringFromSP('phone'),
         createdAt: await getStringFromSP('createdAt'),
       );
     }
@@ -66,6 +81,9 @@ class CurrentUser {
       removeValue('blocked');
       removeValue('username');
       removeValue('email');
+      removeValue('organisation');
+      removeValue('orgemail');
+      removeValue('phone');
       removeValue('createdAt');
       return true;
     } catch (e) {
