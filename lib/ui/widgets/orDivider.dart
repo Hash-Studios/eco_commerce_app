@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class OrDivider extends StatelessWidget {
   const OrDivider({
     Key key,
@@ -8,7 +9,10 @@ class OrDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Image.asset('assets/images/divider.png'),
+      child: Image.asset(
+        'assets/images/divider.png',
+        color: Colors.white70,
+      ),
     );
   }
 }

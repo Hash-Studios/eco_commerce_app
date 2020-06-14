@@ -44,277 +44,406 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       key: _scaffoldLoginKey,
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              HeaderText(
-                text: 'Login',
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFFFB382), Color(0xFFF07590)],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
               ),
-              GoogleButton(login: true,),
-              OrDivider(),
-              Form(
-                key: formLogin,
-                autovalidate: true,
+            ),
+            child: SizedBox(
+              height: height,
+              child: SingleChildScrollView(
                 child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        enabled: !isLoading,
-                        controller: emailController,
-                        focusNode: _emailFocus,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(context, _emailFocus, _passFocus);
-                        },
-                        textInputAction: TextInputAction.next,
-                        validator: (text) {
-                          if (text == '') {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isEmailValid = false;
-                              });
-                            });
-                            return null;
-                          } else if (!RegExp(
-                            r"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
-                            caseSensitive: false,
-                            multiLine: false,
-                          ).hasMatch(text)) {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isEmailValid = false;
-                              });
-                            });
-                            return 'Please enter a valid email address';
-                          }
-                          Future.delayed(Duration(seconds: 0)).then((value) {
-                            setState(() {
-                              isEmailValid = true;
-                            });
-                          });
-                          return null;
-                        },
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          contentPadding: EdgeInsets.fromLTRB(30, 10, 10, 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF004445), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Email Address",
-                          labelText: "Email Address",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Icon(
-                              LineAwesomeIcons.at,
-                              color: Color(0xFF000000),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HeaderText(
+                      text: 'Login',
+                    ),
+                    GoogleButton(
+                      login: true,
+                    ),
+                    OrDivider(),
+                    Form(
+                      key: formLogin,
+                      autovalidate: true,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(500),
+                                // gradient: LinearGradient(
+                                //   colors: [
+                                //     isEmailValid
+                                //         ? Color(0xBB96EFA6)
+                                //         : Color(0x00FF7777),
+                                //     isEmailValid
+                                //         ? Color(0xBB26A6B5)
+                                //         : Color(0x00FF3333)
+                                //   ],
+                                //   begin: Alignment.topRight,
+                                //   end: Alignment.bottomLeft,
+                                // ),
+                              ),
+                              child: TextFormField(
+                                style: TextStyle(color: Color(0xFFFFFFFF)),
+                                enabled: !isLoading,
+                                controller: emailController,
+                                focusNode: _emailFocus,
+                                onFieldSubmitted: (term) {
+                                  _fieldFocusChange(
+                                      context, _emailFocus, _passFocus);
+                                },
+                                textInputAction: TextInputAction.next,
+                                validator: (text) {
+                                  if (text == '') {
+                                    Future.delayed(Duration(seconds: 0))
+                                        .then((value) {
+                                      setState(() {
+                                        isEmailValid = false;
+                                      });
+                                    });
+                                    return null;
+                                  } else if (!RegExp(
+                                    r"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
+                                    caseSensitive: false,
+                                    multiLine: false,
+                                  ).hasMatch(text)) {
+                                    Future.delayed(Duration(seconds: 0))
+                                        .then((value) {
+                                      setState(() {
+                                        isEmailValid = false;
+                                      });
+                                    });
+                                    return 'Please enter a valid email address';
+                                  }
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isEmailValid = true;
+                                    });
+                                  });
+                                  return null;
+                                },
+                                cursorColor: Color(0xFFFFFFFF),
+                                cursorRadius: Radius.circular(8),
+                                cursorWidth: 4,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFFFFFF), width: 1),
+                                  ),
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(30, 10, 10, 10),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFFFFFF), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFFFFFF), width: 1),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFF5555), width: 1),
+                                  ),
+                                  errorText: null,
+                                  hintText: "Email Address",
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                  labelText: "Email Address",
+                                  labelStyle: TextStyle(
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(right: 30),
+                                    child: Icon(
+                                      LineAwesomeIcons.at,
+                                      color: Color(0xFFFFFFFF),
+                                    ),
+                                  ),
+                                ),
+                                expands: false,
+                                inputFormatters: [
+                                  BlacklistingTextInputFormatter
+                                      .singleLineFormatter
+                                ],
+                                keyboardType: TextInputType.emailAddress,
+                              ),
                             ),
                           ),
-                        ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(500),
+                                // gradient: LinearGradient(
+                                //   colors: [
+                                //     isPassValid
+                                //         ? Color(0xBB96EFA6)
+                                //         : Color(0x00FF7777),
+                                //     isPassValid
+                                //         ? Color(0xBB26A6B5)
+                                //         : Color(0x00FF3333)
+                                //   ],
+                                //   begin: Alignment.topRight,
+                                //   end: Alignment.bottomLeft,
+                                // ),
+                              ),
+                              child: TextFormField(
+                                style: TextStyle(color: Color(0xFFFFFFFF)),
+                                enabled: !isLoading,
+                                controller: passwordController,
+                                focusNode: _passFocus,
+                                onFieldSubmitted: (term) {
+                                  _passFocus.unfocus();
+                                },
+                                textInputAction: TextInputAction.done,
+                                validator: (text) {
+                                  if (text == '') {
+                                    Future.delayed(Duration(seconds: 0))
+                                        .then((value) {
+                                      setState(() {
+                                        isPassValid = false;
+                                      });
+                                    });
+                                    return null;
+                                  } else if (!RegExp(
+                                    r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,12}$",
+                                    caseSensitive: true,
+                                    multiLine: false,
+                                  ).hasMatch(text)) {
+                                    Future.delayed(Duration(seconds: 0))
+                                        .then((value) {
+                                      setState(() {
+                                        isPassValid = false;
+                                      });
+                                    });
+                                    return null;
+                                  }
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isPassValid = true;
+                                    });
+                                  });
+                                  return null;
+                                },
+                                cursorColor: Color(0xFFFFFFFF),
+                                cursorRadius: Radius.circular(8),
+                                cursorWidth: 4,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFFFFFF), width: 1),
+                                  ),
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(30, 10, 10, 10),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFFFFFF), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFFFFFF), width: 1),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(500),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFFF5555), width: 1),
+                                  ),
+                                  errorText: null,
+                                  hintText: "Password",
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                  labelText: "Password",
+                                  labelStyle: TextStyle(
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(right: 17),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        _toggle();
+                                      },
+                                      icon: Icon(
+                                        _obscureText
+                                            ? LineAwesomeIcons.eye
+                                            : LineAwesomeIcons.eye_slash,
+                                        color: Color(0xFFFFFFFF),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                expands: false,
+                                inputFormatters: [
+                                  BlacklistingTextInputFormatter
+                                      .singleLineFormatter
+                                ],
+                                obscureText: _obscureText,
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                            ),
+                          ),
                         ],
-                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        enabled: !isLoading,
-                        controller: passwordController,
-                        focusNode: _passFocus,
-                        onFieldSubmitted: (term) {
-                          _passFocus.unfocus();
-                        },
-                        textInputAction: TextInputAction.done,
-                        validator: (text) {
-                          if (text == '') {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPassValid = false;
-                              });
-                            });
-                            return null;
-                          } else if (!RegExp(
-                            r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,12}$",
-                            caseSensitive: true,
-                            multiLine: false,
-                          ).hasMatch(text)) {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPassValid = false;
-                              });
-                            });
-                            return null;
-                          }
-                          Future.delayed(Duration(seconds: 0)).then((value) {
-                            setState(() {
-                              isPassValid = true;
-                            });
-                          });
-                          return null;
-                        },
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          contentPadding: EdgeInsets.fromLTRB(30, 10, 10, 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF004445), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Password",
-                          labelText: "Password",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 17),
-                            child: IconButton(
-                              onPressed: () {
-                                _toggle();
-                              },
-                              icon: Icon(
-                                _obscureText
-                                    ? LineAwesomeIcons.eye
-                                    : LineAwesomeIcons.eye_slash,
-                                color: Color(0xFF000000),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(500)),
+                          onPressed: () {
+                            HapticFeedback.vibrate();
+                            print("email:${emailController.text}");
+                            // forgotPassword();
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                color: Color(0xFFFFFFFF),
                               ),
                             ),
                           ),
                         ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
-                        ],
-                        obscureText: _obscureText,
-                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
+                    Consumer<CurrentUser>(
+                      builder: (_, currentUser, __) => Padding(
+                        padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            // color: isEmailValid && isPassValid
+                            //     ? Color(0x00FFFFFF)
+                            //     : Color(0xFFFFFFFF).withOpacity(0.2),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: isEmailValid && isPassValid
+                                      ? Color(0xFF76ED92).withOpacity(0.4)
+                                      : Colors.transparent,
+                                  blurRadius: 16,
+                                  offset: Offset(0, 4)),
+                            ],
+                            gradient: isEmailValid && isPassValid
+                                ? LinearGradient(
+                                    colors: [
+                                      Color(0xFF96EFA6),
+                                      Color(0xFF26A6B5)
+                                    ],
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                  )
+                                : LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFFFFF).withOpacity(0.2),
+                                      Color(0xFFFFFFFF).withOpacity(0.2)
+                                    ],
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                  ),
+                            borderRadius: BorderRadius.circular(500),
+                          ),
+                          child: FlatButton(
+                            padding: EdgeInsets.all(0),
+                            colorBrightness: Brightness.dark,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(500)),
+                            color: Colors.transparent,
+                            onPressed: isEmailValid && isPassValid && !isLoading
+                                ? () {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    HapticFeedback.vibrate();
+                                    formLogin.currentState.validate();
+                                    formLogin.currentState.save();
+                                    print(
+                                        "email:${emailController.text},pwd:${passwordController.text}");
+                                    loginUser(currentUser);
+                                  }
+                                : () {},
+                            child: SizedBox(
+                              width: width * 0.75,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    isLoading
+                                        ? CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.white),
+                                          )
+                                        : Text(
+                                            'Submit',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xFFFFFFFF),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SecondarySubmitButton(
+                      text: 'New user',
+                      boldText: 'Register',
+                      routeName: RegisterRoute,
+                    )
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    onPressed: () {
-                      HapticFeedback.vibrate();
-                      print("email:${emailController.text}");
-                      // forgotPassword();
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Text('Forgot Password'),
-                    ),
-                  ),
-                ),
-              ),
-              Consumer<CurrentUser>(
-                builder: (_, currentUser, __) => Padding(
-                  padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
-                  child: FlatButton(
-                    colorBrightness: Brightness.dark,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: isEmailValid && isPassValid
-                        ? Color(0xFF004445)
-                        : Color(0xFF999999),
-                    onPressed: isEmailValid && isPassValid && !isLoading
-                        ? () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            HapticFeedback.vibrate();
-                            formLogin.currentState.validate();
-                            formLogin.currentState.save();
-                            print(
-                                "email:${emailController.text},pwd:${passwordController.text}");
-                            loginUser(currentUser);
-                          }
-                        : () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          isLoading
-                              ? CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                )
-                              : Text(
-                                  'Submit',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFFFFFFFF),
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SecondarySubmitButton(
-                text: 'New user',
-                boldText: 'Register',
-                routeName: RegisterRoute,
-              )
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            top: 60,
+            right: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              backgroundColor: Colors.transparent,
+              child: Icon(LineAwesomeIcons.close),
+              elevation: 0,
+              highlightElevation: 0,
+              disabledElevation: 0,
+              focusElevation: 0,
+              splashColor: Colors.transparent,
+            ),
+          ),
+        ],
       ),
     );
   }

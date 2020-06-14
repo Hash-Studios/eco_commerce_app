@@ -2,13 +2,13 @@
 - [x] Sign in with Google
 - [ ] Forgot Password
 - [x] Profile photo implementation
-- [ ] Fluttertoast from snackbar
+- [x] Fluttertoast from snackbar
 - [x] make phone required
-- [ ] Submit button login, to check mark when successful
+- [x] Submit button login, to check mark when successful
 - [ ] Remove the clutter from sign up (google vs Free email,second - org, orgmail, phone|name,email,phone,third-org,orgmail,fourth-pswd,cnfm pswd)
 - [ ] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
-- [ ] UI update PreSignUp Intro Slider
-- [ ] Snackbars to popup with GIFs
+- [x] UI update PreSignUp Intro Slider
+- [x] Snackbars to popup with GIFs
 - [ ] Search should be working
 - [ ] tags should be relevant
 - [ ] tags should be choiceChips
