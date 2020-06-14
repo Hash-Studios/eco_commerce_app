@@ -85,16 +85,20 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                      width: height * 0.16,
-                      height: height * 0.16,
-                      // child: Image.network(
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
-                      )),
+                Hero(
+                  tag: name,
+                  transitionOnUserGestures: true,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                        width: height * 0.16,
+                        height: height * 0.16,
+                        // child: Image.network(
+                        child: Image.asset(
+                          image,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,

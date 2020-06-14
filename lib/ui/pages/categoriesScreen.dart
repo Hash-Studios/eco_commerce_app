@@ -78,6 +78,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         brightness: Brightness.light,
         leading: Hero(
           tag: 'menu',
+          transitionOnUserGestures: true,
           child: Card(
             elevation: 0,
             color: Colors.transparent,
@@ -93,6 +94,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ),
         actions: <Widget>[
           Hero(
+            transitionOnUserGestures: true,
             tag: 'search',
             child: Card(
               elevation: 0,
@@ -108,6 +110,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
           ),
           Hero(
+            transitionOnUserGestures: true,
             tag: 'bookmark',
             child: Card(
               elevation: 0,
@@ -180,6 +183,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 child: Column(
                   children: <Widget>[
                     Hero(
+                      transitionOnUserGestures: true,
                       tag: category,
                       child: Icon(
                         icon,
@@ -378,6 +382,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 child: Column(
                   children: <Widget>[
                     Hero(
+                      transitionOnUserGestures: true,
                       tag: category,
                       child: Icon(
                         icon,

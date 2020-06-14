@@ -101,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             brightness: Brightness.light,
             leading: Hero(
+              transitionOnUserGestures: true,
               tag: 'menu',
               child: Card(
                 elevation: 0,
@@ -117,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             actions: <Widget>[
               Hero(
+                transitionOnUserGestures: true,
                 tag: 'search',
                 child: Card(
                   elevation: 0,
@@ -132,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Hero(
+                transitionOnUserGestures: true,
                 tag: 'bookmark',
                 child: Card(
                   elevation: 0,

@@ -29,6 +29,7 @@ class SearchScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         leading: Hero(
+          transitionOnUserGestures: true,
           tag: 'menu',
           child: Card(
             elevation: 0,
@@ -91,6 +92,7 @@ class SearchScreen extends StatelessWidget {
                       color: Color(0xFF000000),
                     ),
                     suffixIcon: Hero(
+                      transitionOnUserGestures: true,
                       tag: 'bookmark',
                       child: Card(
                         margin: EdgeInsets.all(0),
@@ -124,6 +126,7 @@ class SearchScreen extends StatelessWidget {
         ),
         actions: <Widget>[
           Hero(
+            transitionOnUserGestures: true,
             tag: 'search',
             child: Card(
               margin: EdgeInsets.fromLTRB(0, 0, 5, 0),

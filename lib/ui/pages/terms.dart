@@ -9,6 +9,7 @@ class TermsConditions extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Hero(
+          transitionOnUserGestures: true,
           tag: 'menu',
           child: Card(
             elevation: 0,

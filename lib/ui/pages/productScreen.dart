@@ -82,23 +82,27 @@ class _ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    NewImageSlider(
-                      itemsList: [
-                        'assets/images' +
-                            product.images[0].url
-                                .toString()
-                                .split("_")[0]
-                                .toString()
-                                .replaceAll("/uploads", "") +
-                            ".jpg"
+                    Hero(
+                      tag: product.name,
+                      transitionOnUserGestures: true,
+                      child: NewImageSlider(
+                        itemsList: [
+                          'assets/images' +
+                              product.images[0].url
+                                  .toString()
+                                  .split("_")[0]
+                                  .toString()
+                                  .replaceAll("/uploads", "") +
+                              ".jpg"
 
-                        // product.images[1].url,
-                        // product.images[2].url,
-                        // product.images[3].url
-                      ],
-                      showIndicator: true,
-                      isAsset: true,
-                      height: 400,
+                          // product.images[1].url,
+                          // product.images[2].url,
+                          // product.images[3].url
+                        ],
+                        showIndicator: true,
+                        isAsset: true,
+                        height: 400,
+                      ),
                     ),
                   ],
                 ),

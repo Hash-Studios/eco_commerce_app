@@ -39,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor: Colors.white,
                   excludeHeaderSemantics: true,
                   leading: Hero(
+                    transitionOnUserGestures: true,
                     tag: 'menu',
                     child: Card(
                       elevation: 0,
@@ -54,6 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   actions: <Widget>[
                     Hero(
+                      transitionOnUserGestures: true,
                       tag: 'bookmark',
                       child: Card(
                         elevation: 0,

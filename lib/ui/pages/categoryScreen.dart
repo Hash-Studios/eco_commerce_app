@@ -49,7 +49,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           print(res.body);
           if (res.statusCode == 200) {
             for (int c = 0; c < json.decode(res.body)["products"].length; c++) {
-              products.add(Product(
+              products.add(
+                Product(
                   id: json.decode(res.body)["products"][c]["id"],
                   name: json.decode(res.body)["products"][c]["name"],
                   price:
@@ -82,8 +83,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   category: json.decode(res.body)["products"][c]["category"],
                   desc: json.decode(res.body)["products"][c]["desc"],
                   features: json.decode(res.body)["products"][c]["features"],
-                  createdAt: json.decode(res.body)["products"][c]
-                      ["createdAt"],),);
+                  createdAt: json.decode(res.body)["products"][c]["createdAt"],
+                ),
+              );
             }
             setState(() {
               isLoading = false;
@@ -110,6 +112,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         leading: Hero(
+                      transitionOnUserGestures: true,
           tag: 'menu',
           child: Card(
             elevation: 0,
@@ -126,6 +129,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
         actions: <Widget>[
           Hero(
+                      transitionOnUserGestures: true,
             tag: 'search',
             child: Card(
               elevation: 0,
@@ -141,6 +145,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           ),
           Hero(
+                      transitionOnUserGestures: true,
             tag: 'bookmark',
             child: Card(
               elevation: 0,
@@ -164,7 +169,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Center(child: SectionHeader(text: categoryName)),
+            Center(
+                child: Hero(
+                      transitionOnUserGestures: true,
+                    tag: categoryName,
+                    child: SectionHeader(text: categoryName))),
             isLoading
                 ? Padding(
                     padding: const EdgeInsets.all(100.0),
