@@ -30,7 +30,7 @@ class _ProductCarouselState extends State<ProductCarousel> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   image: AssetImage(widget.imgList[itemIndex]),
                 ),
               ),

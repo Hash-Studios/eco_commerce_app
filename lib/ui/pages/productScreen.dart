@@ -51,13 +51,6 @@ class _ProductScreenState extends State<ProductScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              print("WishList-Search");
-            },
-            color: Colors.black,
-            icon: Icon(LineAwesomeIcons.search),
-          ),
-          IconButton(
-            onPressed: () {
               print("Bookmark");
             },
             color: Colors.black,
@@ -73,11 +66,20 @@ class _ProductScreenState extends State<ProductScreen> {
           child: Column(
             children: <Widget>[
               Container(
+                width: width * 0.9,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    product.name,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 20, fontFamily: "Poppins"),
+                  ),
+                ),
+              ),
+              Container(
                 alignment: Alignment.center,
                 width: width,
-                decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(15)),
+                color: Colors.transparent,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -105,145 +107,202 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
               ),
               Container(
-                height: height * 0.04,
+                height: height * 0.01,
                 width: width,
                 color: Colors.transparent,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(2),
-                        width: width / 2,
-                        child: ExpandText(
-                          product.name,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '₹',
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
+                            fontFamily: 'Roboto',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF004445),
+                          ),
                         ),
-                        padding: const EdgeInsets.all(1.0),
-                      ),
-                      Container(
-                          margin: EdgeInsets.all(2),
-                          width: width / 2,
-                          padding: const EdgeInsets.all(1.0),
-                          child: Column(
-                            children: <Widget>[
-                              ExpandText(
-                                product.desc,
-                                textAlign: TextAlign.justify,
-                              )
-                            ],
-                          ))
-                    ],
-                  ),
-                  RaisedButton(
-                    elevation: 4,
-                    splashColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    color: Colors.white,
-                    onPressed: () {
-                      print("Add to WishList");
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Icon(Icons.favorite_border),
+                        Text(
+                          '${product.price}',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 36,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF004445),
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 4),
-                          child: Text("Add to \nWishList"),
-                        )
+                        Text(
+                          '/ per piece',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF004445),
+                          ),
+                        ),
                       ],
                     ),
-                  )
+                    Container(
+                      height: 40,
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 3),
+                                blurRadius: 10,
+                                color: Color(0xFF004445).withOpacity(0.2))
+                          ]),
+                      child: RaisedButton(
+                        elevation: 0,
+                        onPressed: () {
+                          print("BUY NOW");
+                        },
+                        shape: StadiumBorder(),
+                        child: Text(
+                          "BUY NOW",
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                        color: Color(0xff004445),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: width * 0.9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 4),
+                  child: Text(
+                    "Features",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                      width: width * 0.9,
+                      child: Column(
+                        children: <Widget>[
+                          ExpandText(
+                            product.features,
+                            textAlign: TextAlign.justify,
+                            maxLength: 8,
+                            arrowSize: 30,
+                          )
+                        ],
+                      ))
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(left: 30),
-                alignment: Alignment.centerLeft,
-                height: 30,
-                child: Text(
-                  "Loved this product?",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Container(
-                height: 40,
-                width: width * 0.6,
-                margin: EdgeInsets.only(top: 10, bottom: 4),
-                child: RaisedButton(
-                  elevation: 6,
-                  onPressed: () {
-                    print("Order now");
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                width: width * 0.9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 4),
                   child: Text(
-                    "ORDER NOW",
+                    "Description",
+                    textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontFamily: "Poppins",
-                        fontSize: 24,
-                        color: Colors.white),
-                  ),
-                  color: Color(0xff004445),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    height: 200,
-                    width: width * 0.4,
-                    margin: EdgeInsets.all(6),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Specifications",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10),
-                          alignment: Alignment.centerLeft,
-                          child: ExpandText(
-                            product.features,
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                            textAlign: TextAlign.justify,
-                          ),
-                        )
-                      ],
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
+                ),
+              ),
+              Column(
+                children: <Widget>[
                   Container(
-                    height: 100,
-                    width: 4,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                  Container(
-                    height: 200,
-                    width: width * 0.4,
-                    margin: EdgeInsets.all(6),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
+                      width: width * 0.9,
+                      child: Column(
+                        children: <Widget>[
+                          ExpandText(
+                            product.desc,
+                            textAlign: TextAlign.justify,
+                            maxLength: 3,
+                            arrowSize: 30,
+                          )
+                        ],
+                      ))
+                ],
+              ),
+              // Container(
+              //   margin: EdgeInsets.only(left: 30),
+              //   alignment: Alignment.centerLeft,
+              //   height: 30,
+              //   child: Text(
+              //     "Loved this product?",
+              //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              //   ),
+              // ),
+              // Container(
+              //   height: 40,
+              //   width: width * 0.6,
+              //   margin: EdgeInsets.only(top: 10, bottom: 4),
+              //   child: RaisedButton(
+              //     elevation: 6,
+              //     onPressed: () {
+              //       print("Order now");
+              //     },
+              //     shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(10)),
+              //     child: Text(
+              //       "ORDER NOW",
+              //       style: TextStyle(
+              //           fontFamily: "Poppins",
+              //           fontSize: 24,
+              //           color: Colors.white),
+              //     ),
+              //     color: Color(0xff004445),
+              //   ),
+              // ),
+              Container(
+                width: width * 0.9,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: width * 0.9,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 24, 0, 4),
+                        child: Text(
+                          "Reviews",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
                         Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Reviews",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          width: width * 0.4,
+                          height: 150,
+                          margin: EdgeInsets.only(top: 10),
+                          color: Colors.transparent,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              getRating(3.5),
+                              Text('From 25,764 ratings')
+                            ],
                           ),
                         ),
                         Container(
@@ -254,42 +313,41 @@ class _ProductScreenState extends State<ProductScreen> {
                           child: Column(
                             children: getRatingBars(),
                           ),
-                        )
+                        ),
                       ],
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Container(
-//                    width: width * 2 / 4,
-                    height: 20,
-                    child: Text(
-                      "Showing Similar Products",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Container(
+                width: width * 0.9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 4),
+                  child: Text(
+                    "Customers also bought",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Container(
-//                    width: width * 1 / 4,
-                    height: 20,
-                    child: InkWell(
-                      onTap: () {
-                        print("Show more similar");
-                      },
-                      child: Text(
-                        "..more",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                ),
+              ),
+              ProductListTile(),
+              ProductListTile(),
+              Container(
+                width: width * 0.9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 4),
+                  child: Text(
+                    "Similar to this product",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
               ProductListTile(),
               ProductListTile(),
@@ -300,6 +358,37 @@ class _ProductScreenState extends State<ProductScreen> {
     );
   }
 
+  Widget getRating(double rating) {
+    Color c;
+    if (rating < 1)
+      c = Colors.red;
+    else if (rating < 2)
+      c = Colors.deepOrange;
+    else if (rating < 3)
+      c = Colors.yellow;
+    else if (rating < 4)
+      c = Colors.green[300];
+    else if (rating < 5) c = Colors.green;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Text(
+            rating.toString(),
+            style: TextStyle(fontSize: 35, color: c),
+          ),
+        ),
+        Icon(
+          Icons.star,
+          size: 30,
+          color: c,
+        ),
+      ],
+    );
+  }
+
   List<Widget> getRatingBars() {
     List<Widget> ratingBar = new List();
     Color c;
@@ -307,12 +396,12 @@ class _ProductScreenState extends State<ProductScreen> {
       if (i == 1)
         c = Colors.green;
       else if (i == 2)
-        c = Colors.green[600];
-      else if (i == 3)
         c = Colors.green[300];
-      else if (i == 4)
+      else if (i == 3)
         c = Colors.yellow;
-      else if (i == 5) c = Colors.deepOrange;
+      else if (i == 4)
+        c = Colors.deepOrange;
+      else if (i == 5) c = Colors.red;
 
       ratingBar.add(new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

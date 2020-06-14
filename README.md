@@ -31,8 +31,8 @@
 - [ ] category name should be appbar title
 - [ ] category should have a slider after four products
 - [ ] use tooltips allover everywhere
-- [ ] product page UI update (name should be small, pictures should be fully wide, show carousel indicators)
-- [ ] product page UI update (name above image, wishlist button redesign, share button, price should be biggest element)
+- [x] product page UI update (name should be small, pictures should be fully wide, show carousel indicators)
+- [x] product page UI update (name above image, wishlist button redesign, share button, price should be biggest element)
 - [ ] product page UI update (add buy button in front of price, add one more buy button as FAB when the other is not visible)
 - [ ] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
 - [ ] order now working (db update, email update)
