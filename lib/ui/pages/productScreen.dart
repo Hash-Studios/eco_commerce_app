@@ -2,6 +2,7 @@ import 'package:eco_commerce_app/core/model/product.dart';
 // import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/newImageSlider.dart';
+import 'package:eco_commerce_app/ui/widgets/productCarousel.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -73,8 +74,7 @@ class _ProductScreenState extends State<ProductScreen> {
             children: <Widget>[
               Container(
                 alignment: Alignment.center,
-                width: width * (5 / 6),
-                padding: EdgeInsets.all(4),
+                width: width,
                 decoration: BoxDecoration(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(15)),
@@ -85,23 +85,20 @@ class _ProductScreenState extends State<ProductScreen> {
                     Hero(
                       tag: product.name,
                       transitionOnUserGestures: true,
-                      child: NewImageSlider(
-                        itemsList: [
+                      child: ProductCarousel(
+                        [
                           'assets/images' +
                               product.images[0].url
                                   .toString()
                                   .split("_")[0]
                                   .toString()
                                   .replaceAll("/uploads", "") +
-                              ".jpg"
+                              ".jpg",
 
                           // product.images[1].url,
                           // product.images[2].url,
                           // product.images[3].url
                         ],
-                        showIndicator: true,
-                        isAsset: true,
-                        height: 400,
                       ),
                     ),
                   ],
