@@ -57,7 +57,12 @@
 //                           padding:
 //                               const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
 //                           child: TextFormField(
-//                             style: TextStyle(color: Color(0xFFFFFFFF)),
+//                             style: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                             textInputAction: TextInputAction.next,
 //                             cursorColor: Color(0xFFFFFFFF),
 //                             cursorRadius: Radius.circular(8),
@@ -87,7 +92,12 @@
 //                               ),
 //                               errorText: null,
 //                               hintText: "Quantity",
-//                               hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+//                               hintStyle: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                               labelText: "Quantity",
 //                               labelStyle: TextStyle(
 //                                 color: Color(0xFFFFFFFF),
@@ -110,7 +120,12 @@
 //                           padding:
 //                               const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
 //                           child: TextFormField(
-//                             style: TextStyle(color: Color(0xFFFFFFFF)),
+//                             style: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                             textInputAction: TextInputAction.next,
 //                             cursorColor: Color(0xFF000000),
 //                             cursorRadius: Radius.circular(8),
@@ -140,7 +155,12 @@
 //                               ),
 //                               errorText: null,
 //                               hintText: "Offerable Price",
-//                               hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+//                               hintStyle: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                               labelText: "Offerable Price",
 //                               labelStyle: TextStyle(
 //                                 color: Color(0xFFFFFFFF),
@@ -164,7 +184,12 @@
 //                           padding:
 //                               const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
 //                           child: TextFormField(
-//                             style: TextStyle(color: Color(0xFFFFFFFF)),
+//                             style: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                             textInputAction: TextInputAction.next,
 //                             cursorColor: Color(0xFF000000),
 //                             cursorRadius: Radius.circular(8),
@@ -194,7 +219,12 @@
 //                               ),
 //                               errorText: null,
 //                               hintText: "Expected Delivery Date",
-//                               hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+//                               hintStyle: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                               labelText: "Expected Delivery Date",
 //                               labelStyle: TextStyle(
 //                                 color: Color(0xFFFFFFFF),
@@ -218,7 +248,12 @@
 //                           child: TextFormField(
 //                             minLines: 3,
 //                             maxLines: 12,
-//                             style: TextStyle(color: Color(0xFFFFFFFF)),
+//                             style: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                             textInputAction: TextInputAction.done,
 //                             cursorColor: Color(0xFF000000),
 //                             cursorRadius: Radius.circular(8),
@@ -248,7 +283,12 @@
 //                               ),
 //                               errorText: null,
 //                               hintText: "Any Special Requests",
-//                               hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+//                               hintStyle: Theme.of(context)
+// .textTheme
+// .headline6
+// .copyWith(
+//   color: Colors.white,
+// ),
 //                               labelText: "Any Special Requests",
 //                               labelStyle: TextStyle(
 //                                 color: Color(0xFFFFFFFF),

@@ -55,11 +55,7 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
       // ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF96EFA6), Color(0xFF26A6B5)],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+          gradient: config.Colors().mildSea,
         ),
         child: Center(
           child: Column(

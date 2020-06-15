@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -56,11 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFFFFB382), Color(0xFFF07590)],
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-              ),
+              gradient: config.Colors().peachy,
             ),
             child: SizedBox(
               height: height,
@@ -99,7 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 // ),
                               ),
                               child: TextFormField(
-                                style: TextStyle(color: Color(0xFFFFFFFF)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 enabled: !isLoading,
                                 controller: emailController,
                                 focusNode: _emailFocus,
@@ -209,7 +211,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 // ),
                               ),
                               child: TextFormField(
-                                style: TextStyle(color: Color(0xFFFFFFFF)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 enabled: !isLoading,
                                 controller: passwordController,
                                 focusNode: _passFocus,
@@ -337,9 +344,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                             child: Text(
                               'Forgot Password',
-                              style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white70,
+                                  ),
                             ),
                           ),
                         ),
@@ -413,12 +423,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         : Text(
                                             'Submit',
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600,
-                                              color: Color(0xFFFFFFFF),
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .button,
                                           ),
                                   ],
                                 ),
@@ -446,7 +453,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.pop(context);
               },
               backgroundColor: Colors.transparent,
-              child: Icon(LineAwesomeIcons.close),
+              child: Icon(
+                LineAwesomeIcons.close,
+                color: Theme.of(context).primaryColor,
+              ),
               elevation: 0,
               highlightElevation: 0,
               disabledElevation: 0,

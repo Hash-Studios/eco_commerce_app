@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
 import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 final GoogleAuth gAuth = googleButton.gAuth;
 
@@ -60,11 +61,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFFB06AB3), Color(0xFF4568DC)],
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-              ),
+              gradient: config.Colors().disco,
             ),
             child: SizedBox(
               height: height,
@@ -84,7 +81,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                             child: TextFormField(
-                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
                               enabled: !isLoading,
                               controller: orgController,
                               focusNode: _orgFocus,
@@ -121,7 +123,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Organisation Name",
-                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 labelText: "Organisation Name",
                                 labelStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
@@ -146,7 +153,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                             child: TextFormField(
-                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
                               enabled: !isLoading,
                               controller: emailController,
                               focusNode: _emailFocus,
@@ -213,7 +225,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Corporate Email Address",
-                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 labelText: "Corporate Email Address",
                                 labelStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
@@ -237,7 +254,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                             child: TextFormField(
-                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
                               enabled: !isLoading,
                               validator: (text) {
                                 if (text == '') {
@@ -301,7 +323,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Phone Number",
-                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 labelText: "Phone Number",
                                 labelStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
@@ -395,12 +422,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                         : Text(
                                             'Submit',
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600,
-                                              color: Color(0xFFFFFFFF),
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .button,
                                           ),
                                   ],
                                 ),
@@ -423,7 +447,10 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                 Navigator.pop(context);
               },
               backgroundColor: Colors.transparent,
-              child: Icon(LineAwesomeIcons.close),
+              child: Icon(
+                LineAwesomeIcons.close,
+                color: Theme.of(context).primaryColor,
+              ),
               elevation: 0,
               highlightElevation: 0,
               disabledElevation: 0,

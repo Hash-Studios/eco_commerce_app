@@ -124,7 +124,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                                     Colors.white),
                               ),
                               TextFormField(
-                                style: TextStyle(color: Color(0xFFFFFFFF)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 enabled: !isLoading,
                                 focusNode: _passFocus,
                                 onChanged: (term) {
@@ -267,7 +272,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                         child: TextFormField(
-                          style: TextStyle(color: Color(0xFFFFFFFF)),
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                                color: Colors.white,
+                              ),
                           enabled: !isLoading,
                           focusNode: _passConfirmFocus,
                           onFieldSubmitted: (term) {
@@ -327,7 +334,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             ),
                             errorText: null,
                             hintText: "Confirm Password",
-                            hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                            hintStyle:
+                                Theme.of(context).textTheme.headline6.copyWith(
+                                      color: Colors.white,
+                                    ),
                             labelText: "Confirm Password",
                             labelStyle: TextStyle(
                               color: Color(0xFFFFFFFF),

@@ -71,6 +71,12 @@ class Colors {
     end: Alignment.bottomLeft,
   );
 
+  LinearGradient disco = LinearGradient(
+    colors: [Color(0xFFB06AB3), Color(0xFF4568DC)],
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+  );
+
   Color mainColor(double opacity) {
     return this._mainColor.withOpacity(opacity);
   }

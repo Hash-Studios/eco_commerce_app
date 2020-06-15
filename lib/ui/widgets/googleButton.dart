@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 final GoogleAuth gAuth = GoogleAuth();
 
@@ -143,16 +144,12 @@ class _GoogleButtonState extends State<GoogleButton> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        "Sign in with Google",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1C1C1C),
-                        ),
-                      ),
+                      child: Text("Sign in with Google",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(color: config.Colors().mainColor(1))),
                     ),
                   ],
                 ),
