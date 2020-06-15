@@ -8,6 +8,7 @@ import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class ProductScreen extends StatefulWidget {
   final List<Product> arguements;
@@ -19,12 +20,14 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   Product product;
+  bool fabVisible;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double width;
   double height;
 
   @override
   void initState() {
+    fabVisible = false;
     super.initState();
     product = widget.arguements[0];
   }
@@ -58,6 +61,22 @@ class _ProductScreenState extends State<ProductScreen> {
           )
         ],
       ),
+      floatingActionButton: Visibility(
+          visible: fabVisible,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 3),
+                      blurRadius: 10,
+                      color: Color(0xFF004445).withOpacity(0.2))
+                ]),
+            child: FloatingActionButton(
+                backgroundColor: Color(0xFF004445),
+                child: Icon(Icons.shopping_cart),
+                onPressed: () {}),
+          )),
       backgroundColor: Color(0xFFFFFFFF),
       drawer: MainDrawer(),
       body: Container(
@@ -150,31 +169,49 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 40,
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 3),
-                                blurRadius: 10,
-                                color: Color(0xFF004445).withOpacity(0.2))
-                          ]),
-                      child: RaisedButton(
-                        elevation: 0,
-                        onPressed: () {
-                          print("BUY NOW");
-                        },
-                        shape: StadiumBorder(),
-                        child: Text(
-                          "BUY NOW",
-                          style: TextStyle(
-                              fontFamily: "Poppins",
-                              fontSize: 20,
-                              color: Colors.white),
+                    VisibilityDetector(
+                      key: ValueKey("BuyNow"),
+                      onVisibilityChanged: (visibilityInfo) {
+                        if (visibilityInfo.visibleFraction == 1) {
+                          setState(() {
+                            fabVisible = false;
+                          });
+                        } else if (visibilityInfo.visibleFraction == 0) {
+                          setState(() {
+                            fabVisible = true;
+                          });
+                        } else {
+                          setState(() {
+                            fabVisible = true;
+                          });
+                        }
+                      },
+                      child: Container(
+                        height: 40,
+                        margin: EdgeInsets.only(top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 3),
+                                  blurRadius: 10,
+                                  color: Color(0xFF004445).withOpacity(0.2))
+                            ]),
+                        child: RaisedButton(
+                          elevation: 0,
+                          onPressed: () {
+                            print("BUY NOW");
+                          },
+                          shape: StadiumBorder(),
+                          child: Text(
+                            "BUY NOW",
+                            style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 20,
+                                color: Colors.white),
+                          ),
+                          color: Color(0xff004445),
                         ),
-                        color: Color(0xff004445),
                       ),
                     ),
                   ],
