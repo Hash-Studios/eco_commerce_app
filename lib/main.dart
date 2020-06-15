@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/router.dart' as router;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'routing_constants.dart';
 
 SharedPreferences prefs;

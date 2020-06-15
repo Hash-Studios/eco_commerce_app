@@ -11,6 +11,7 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
+import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 
 final GoogleAuth gAuth = googleButton.gAuth;
 
@@ -423,6 +424,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   }
 
   void _redirectUser() {
+    mail.sendUserConfirmMail(email, name);
     Navigator.pushReplacementNamed(context, HomeRoute);
   }
 }
