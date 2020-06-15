@@ -1,11 +1,29 @@
+import 'dart:convert';
+
+import 'package:eco_commerce_app/core/model/image.dart';
+import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
+import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:http/http.dart' as http;
 
-class SearchScreen extends StatelessWidget {
+final GlobalKey<FormState> formSearch = GlobalKey<FormState>();
+
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   final FocusNode _searchFocus = FocusNode();
+  bool isFocussed;
+  bool isNull;
+  bool isLoading;
+  List<Product> products;
   final TextEditingController searchController = TextEditingController();
+
   final List<String> searchQuery = [
     'Stationery',
     'Mug',
@@ -18,6 +36,74 @@ class SearchScreen extends StatelessWidget {
     'Lorem Ipsum Lorem',
     'Lorem Ipsum Lorem'
   ];
+
+  @override
+  void initState() {
+    isFocussed = false;
+    isLoading = false;
+    isNull = true;
+    super.initState();
+  }
+
+  void getData(String query) async {
+    setState(() {
+      isLoading = true;
+      isNull = false;
+    });
+    http
+        .get(
+      'https://ecocommerce.herokuapp.com/products?name_contains=$query&_sort=price:DESC',
+    )
+        .then((http.Response response) {
+      if (response.statusCode == 200) {
+        products = [];
+        print(response.body);
+        if (response.statusCode == 200) {
+          for (int c = 0; c < json.decode(response.body).length; c++) {
+            products.add(
+              Product(
+                id: json.decode(response.body)[c]["id"],
+                name: json.decode(response.body)[c]["name"],
+                price: json.decode(response.body)[c]["price"].toString(),
+                images: new List<ProductImage>.generate(
+                    jsonDecode(response.body)[c]["images"].length, (image) {
+                  return ProductImage(
+                      id: jsonDecode(response.body)[c]["images"][image]["id"],
+                      name: jsonDecode(response.body)[c]["images"][image]
+                          ["name"],
+                      ext: jsonDecode(response.body)[c]["images"][image]["ext"],
+                      size: jsonDecode(response.body)[c]["images"][image]
+                              ["size"]
+                          .toString(),
+                      width: jsonDecode(response.body)[c]["images"][image]
+                              ["width"]
+                          .toString(),
+                      height: jsonDecode(response.body)[c]["images"][image]
+                              ["height"]
+                          .toString(),
+                      url: jsonDecode(response.body)[c]["images"][image]["url"],
+                      thumbnailUrl: jsonDecode(response.body)[c]["images"]
+                          [image]["formats"]["thumbnail"]["url"],
+                      smallUrl: jsonDecode(response.body)[c]["images"][image]
+                          ["formats"]["small"]["url"],
+                      createdAt: jsonDecode(response.body)[c]["images"][image]
+                          ["createdAt"]);
+                }),
+                category: json.decode(response.body)[c]["category"],
+                desc: json.decode(response.body)[c]["desc"],
+                features: json.decode(response.body)[c]["features"],
+                createdAt: json.decode(response.body)[c]["createdAt"],
+              ),
+            );
+          }
+          setState(() {
+            isLoading = false;
+          });
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -28,119 +114,143 @@ class SearchScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
-        leading: Hero(
-          transitionOnUserGestures: true,
-          tag: 'menu',
-          child: Card(
-            elevation: 0,
-            color: Colors.transparent,
-            child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: Colors.black,
-              icon: Icon(LineAwesomeIcons.arrow_left),
-            ),
-          ),
-        ),
+        automaticallyImplyLeading: false,
+        leading: isFocussed
+            ? null
+            : Hero(
+                transitionOnUserGestures: true,
+                tag: 'menu',
+                child: Card(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.black,
+                    icon: Icon(LineAwesomeIcons.arrow_left),
+                  ),
+                ),
+              ),
         centerTitle: true,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
               child: Container(
-                width: width * 0.64,
-                child: TextFormField(
-                  controller: searchController,
-                  focusNode: _searchFocus,
-                  onFieldSubmitted: (term) {
-                    _searchFocus.unfocus();
-                  },
-                  textInputAction: TextInputAction.next,
-                  cursorColor: Color(0xFF000000),
-                  cursorRadius: Radius.circular(8),
-                  cursorWidth: 4,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100),
-                      borderSide:
-                          BorderSide(color: Color(0xFF000000), width: 2),
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100),
-                      borderSide:
-                          BorderSide(color: Color(0xFF000000), width: 2),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100),
-                      borderSide:
-                          BorderSide(color: Color(0xFF004445), width: 2),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100),
-                      borderSide:
-                          BorderSide(color: Color(0xFFFF0000), width: 2),
-                    ),
-                    errorText: null,
-                    hintText: "Search",
-                    labelText: "Search",
-                    labelStyle: TextStyle(
-                      color: Color(0xFF000000),
-                    ),
-                    suffixIcon: Hero(
-                      transitionOnUserGestures: true,
-                      tag: 'bookmark',
-                      child: Card(
-                        margin: EdgeInsets.all(0),
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5),
-                          child: IconButton(
-                            icon: Icon(
-                              LineAwesomeIcons.close,
-                              color: Color(0xFF000000),
+                width: isFocussed ? width * 0.86 : width * 0.6,
+                child: Form(
+                  key: formSearch,
+                  child: TextFormField(
+                    onTap: () {
+                      setState(() {
+                        isFocussed = true;
+                      });
+                    },
+                    onChanged: (text) {
+                      // getData(text);
+                    },
+                    onSaved: (text) {
+                      getData(text);
+                    },
+                    controller: searchController,
+                    focusNode: _searchFocus,
+                    onFieldSubmitted: (term) {
+                      _searchFocus.unfocus();
+                      getData(term);
+                      setState(() {
+                        isFocussed = false;
+                      });
+                    },
+                    textInputAction: TextInputAction.search,
+                    cursorColor: Color(0xFF000000),
+                    cursorRadius: Radius.circular(8),
+                    cursorWidth: 4,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide:
+                            BorderSide(color: Color(0xFF000000), width: 2),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide:
+                            BorderSide(color: Color(0xFF000000), width: 2),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide:
+                            BorderSide(color: Color(0xFF004445), width: 2),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide:
+                            BorderSide(color: Color(0xFFFF0000), width: 2),
+                      ),
+                      errorText: null,
+                      hintText: "Search",
+                      labelText: "Search",
+                      labelStyle: TextStyle(
+                        color: Color(0xFF000000),
+                      ),
+                      suffixIcon: Hero(
+                        transitionOnUserGestures: true,
+                        tag: 'bookmark',
+                        child: Card(
+                          margin: EdgeInsets.all(0),
+                          elevation: 0,
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: IconButton(
+                              icon: Icon(
+                                LineAwesomeIcons.close,
+                                color: Color(0xFF000000),
+                              ),
+                              onPressed: () {
+                                searchController.text = "";
+                              },
                             ),
-                            onPressed: () {
-                              searchController.text = "";
-                            },
                           ),
                         ),
                       ),
                     ),
+                    expands: false,
+                    inputFormatters: [
+                      BlacklistingTextInputFormatter.singleLineFormatter
+                    ],
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.words,
                   ),
-                  expands: false,
-                  inputFormatters: [
-                    BlacklistingTextInputFormatter.singleLineFormatter
-                  ],
-                  keyboardType: TextInputType.text,
-                  textCapitalization: TextCapitalization.words,
                 ),
               ),
             ),
           ],
         ),
         actions: <Widget>[
-          Hero(
-            transitionOnUserGestures: true,
-            tag: 'search',
-            child: Card(
-              margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-              elevation: 0,
-              color: Colors.transparent,
-              child: IconButton(
-                icon: Icon(
-                  LineAwesomeIcons.search,
-                  color: Color(0xFF000000),
+          isFocussed
+              ? Container()
+              : Hero(
+                  transitionOnUserGestures: true,
+                  tag: 'search',
+                  child: Card(
+                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                    elevation: 0,
+                    color: Colors.transparent,
+                    child: IconButton(
+                      icon: Icon(
+                        LineAwesomeIcons.search,
+                        color: Color(0xFF000000),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
                 ),
-                onPressed: () {},
-              ),
-            ),
-          ),
         ],
         bottom: PreferredSize(
             child: Column(
@@ -165,20 +275,24 @@ class SearchScreen extends StatelessWidget {
             preferredSize: Size(width * 1, height * 0.06)),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
-              ProductListTile(),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            isNull
+                ? Container()
+                : isLoading
+                    ? LinearProgressIndicator()
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: products.length,
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        itemBuilder: (context, index) {
+                          return ProductListTileDynamic(
+                              arguements: [products[index]]);
+                        })
+          ],
         ),
       ),
     );
@@ -201,6 +315,7 @@ class SearchChip extends StatelessWidget {
       child: ActionChip(
         onPressed: () {
           searchController.text = label;
+          formSearch.currentState.save();
         },
         label: Text(
           label,
