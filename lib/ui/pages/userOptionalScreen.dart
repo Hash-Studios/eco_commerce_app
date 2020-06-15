@@ -52,302 +52,386 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldOptionalKey,
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              HeaderText(
-                text: 'More Info',
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFB06AB3), Color(0xFF4568DC)],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
               ),
-              SizedBox(height: height * 0.1),
-              Form(
-                key: formOptional,
-                autovalidate: true,
+            ),
+            child: SizedBox(
+              height: height,
+              child: SingleChildScrollView(
                 child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        enabled: !isLoading,
-                        controller: orgController,
-                        focusNode: _orgFocus,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(context, _orgFocus, _emailFocus);
-                        },
-                        textInputAction: TextInputAction.next,
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF004445), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Organisation Name",
-                          labelText: "Organisation Name",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Icon(
-                              LineAwesomeIcons.user,
-                              color: Color(0xFF000000),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HeaderText(
+                      text: 'More Info',
+                    ),
+                    SizedBox(height: height * 0.1),
+                    Form(
+                      key: formOptional,
+                      autovalidate: true,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+                            child: TextFormField(
+                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              enabled: !isLoading,
+                              controller: orgController,
+                              focusNode: _orgFocus,
+                              onFieldSubmitted: (term) {
+                                _fieldFocusChange(
+                                    context, _orgFocus, _emailFocus);
+                              },
+                              textInputAction: TextInputAction.next,
+                              cursorColor: Color(0xFFFFFFFF),
+                              cursorRadius: Radius.circular(8),
+                              cursorWidth: 4,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFF0000), width: 2),
+                                ),
+                                errorText: null,
+                                hintText: "Organisation Name",
+                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                labelText: "Organisation Name",
+                                labelStyle: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: Icon(
+                                    LineAwesomeIcons.user,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                ),
+                              ),
+                              expands: false,
+                              inputFormatters: [
+                                BlacklistingTextInputFormatter
+                                    .singleLineFormatter
+                              ],
+                              keyboardType: TextInputType.text,
+                              textCapitalization: TextCapitalization.words,
                             ),
                           ),
-                        ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+                            child: TextFormField(
+                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              enabled: !isLoading,
+                              controller: emailController,
+                              focusNode: _emailFocus,
+                              onFieldSubmitted: (term) {
+                                _fieldFocusChange(
+                                    context, _emailFocus, _phoneFocus);
+                              },
+                              textInputAction: TextInputAction.next,
+                              validator: (text) {
+                                if (text == '') {
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isEmailValid = false;
+                                    });
+                                  });
+                                  return null;
+                                } else if (!RegExp(
+                                  r"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
+                                  caseSensitive: false,
+                                  multiLine: false,
+                                ).hasMatch(text)) {
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isEmailValid = false;
+                                    });
+                                  });
+                                  return 'Please enter a valid email address';
+                                }
+                                Future.delayed(Duration(seconds: 0))
+                                    .then((value) {
+                                  setState(() {
+                                    isEmailValid = true;
+                                  });
+                                });
+                                return null;
+                              },
+                              cursorColor: Color(0xFFFFFFFF),
+                              cursorRadius: Radius.circular(8),
+                              cursorWidth: 4,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(30, 10, 10, 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFF0000), width: 2),
+                                ),
+                                errorText: null,
+                                hintText: "Corporate Email Address",
+                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                labelText: "Corporate Email Address",
+                                labelStyle: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: Icon(
+                                    LineAwesomeIcons.at,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                ),
+                              ),
+                              expands: false,
+                              inputFormatters: [
+                                BlacklistingTextInputFormatter
+                                    .singleLineFormatter
+                              ],
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+                            child: TextFormField(
+                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              enabled: !isLoading,
+                              validator: (text) {
+                                if (text == '') {
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isPhoneValid = false;
+                                    });
+                                  });
+                                  return null;
+                                } else if (!RegExp(
+                                        r"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$")
+                                    .hasMatch(text)) {
+                                  Future.delayed(Duration(seconds: 0))
+                                      .then((value) {
+                                    setState(() {
+                                      isPhoneValid = false;
+                                    });
+                                  });
+                                  return 'Please enter a valid phone number';
+                                }
+                                Future.delayed(Duration(seconds: 0))
+                                    .then((value) {
+                                  setState(() {
+                                    isPhoneValid = true;
+                                  });
+                                });
+                                return null;
+                              },
+                              controller: phoneController,
+                              focusNode: _phoneFocus,
+                              onFieldSubmitted: (term) {
+                                _phoneFocus.unfocus();
+                              },
+                              textInputAction: TextInputAction.done,
+                              cursorColor: Color(0xFFFFFFFF),
+                              cursorRadius: Radius.circular(8),
+                              cursorWidth: 4,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFFFFFF), width: 2),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(500),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFF0000), width: 2),
+                                ),
+                                errorText: null,
+                                hintText: "Phone Number",
+                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                labelText: "Phone Number",
+                                labelStyle: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: Icon(
+                                    LineAwesomeIcons.phone,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                ),
+                              ),
+                              expands: false,
+                              inputFormatters: [
+                                BlacklistingTextInputFormatter
+                                    .singleLineFormatter
+                              ],
+                              keyboardType: TextInputType.phone,
+                              textCapitalization: TextCapitalization.words,
+                            ),
+                          ),
                         ],
-                        keyboardType: TextInputType.text,
-                        textCapitalization: TextCapitalization.words,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        enabled: !isLoading,
-                        controller: emailController,
-                        focusNode: _emailFocus,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(context, _emailFocus, _phoneFocus);
-                        },
-                        textInputAction: TextInputAction.next,
-                        validator: (text) {
-                          if (text == '') {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isEmailValid = false;
-                              });
-                            });
-                            return null;
-                          } else if (!RegExp(
-                            r"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
-                            caseSensitive: false,
-                            multiLine: false,
-                          ).hasMatch(text)) {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isEmailValid = false;
-                              });
-                            });
-                            return 'Please enter a valid email address';
-                          }
-                          Future.delayed(Duration(seconds: 0)).then((value) {
-                            setState(() {
-                              isEmailValid = true;
-                            });
-                          });
-                          return null;
-                        },
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
+                    Consumer<CurrentUser>(
+                      builder: (_, currentUser, __) => Padding(
+                        padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: isEmailValid && isPhoneValid
+                                      ? Color(0xFF76ED92).withOpacity(0.4)
+                                      : Colors.transparent,
+                                  blurRadius: 16,
+                                  offset: Offset(0, 4)),
+                            ],
+                            gradient: isEmailValid && isPhoneValid
+                                ? LinearGradient(
+                                    colors: [
+                                      Color(0xFF96EFA6),
+                                      Color(0xFF26A6B5)
+                                    ],
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                  )
+                                : LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFFFFF).withOpacity(0.2),
+                                      Color(0xFFFFFFFF).withOpacity(0.2)
+                                    ],
+                                    begin: Alignment.topRight,
+                                    end: Alignment.bottomLeft,
+                                  ),
+                            borderRadius: BorderRadius.circular(500),
                           ),
-                          contentPadding: EdgeInsets.fromLTRB(30, 10, 10, 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF004445), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Corporate Email Address",
-                          labelText: "Corporate Email Address",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Icon(
-                              LineAwesomeIcons.at,
-                              color: Color(0xFF000000),
+                          child: FlatButton(
+                            padding: EdgeInsets.all(0),
+                            colorBrightness: Brightness.dark,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(500)),
+                            color: Colors.transparent,
+                            onPressed:
+                                isEmailValid && !isLoading && isPhoneValid
+                                    ? () {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        HapticFeedback.vibrate();
+                                        formOptional.currentState.validate();
+                                        formOptional.currentState.save();
+                                        print(
+                                            "corporate_email:${emailController.text},org_name:${orgController.text}");
+                                        registerUser(currentUser);
+                                      }
+                                    : () {},
+                            child: SizedBox(
+                              width: width * 0.75,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    isLoading
+                                        ? CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.white),
+                                          )
+                                        : Text(
+                                            'Submit',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xFFFFFFFF),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
-                        ],
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
-                      child: TextFormField(
-                        enabled: !isLoading,
-                        validator: (text) {
-                          if (text == '') {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPhoneValid = false;
-                              });
-                            });
-                            return null;
-                          } else if (!RegExp(
-                                  r"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$")
-                              .hasMatch(text)) {
-                            Future.delayed(Duration(seconds: 0)).then((value) {
-                              setState(() {
-                                isPhoneValid = false;
-                              });
-                            });
-                            return 'Please enter a valid phone number';
-                          }
-                          Future.delayed(Duration(seconds: 0)).then((value) {
-                            setState(() {
-                              isPhoneValid = true;
-                            });
-                          });
-                          return null;
-                        },
-                        controller: phoneController,
-                        focusNode: _phoneFocus,
-                        onFieldSubmitted: (term) {
-                          _phoneFocus.unfocus();
-                        },
-                        textInputAction: TextInputAction.done,
-                        cursorColor: Color(0xFF000000),
-                        cursorRadius: Radius.circular(8),
-                        cursorWidth: 4,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF000000), width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFF004445), width: 2),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Color(0xFFFF0000), width: 2),
-                          ),
-                          errorText: null,
-                          hintText: "Phone Number",
-                          labelText: "Phone Number",
-                          labelStyle: TextStyle(
-                            color: Color(0xFF000000),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 30),
-                            child: Icon(
-                              LineAwesomeIcons.phone,
-                              color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                        expands: false,
-                        inputFormatters: [
-                          BlacklistingTextInputFormatter.singleLineFormatter
-                        ],
-                        keyboardType: TextInputType.phone,
-                        textCapitalization: TextCapitalization.words,
                       ),
                     ),
                   ],
                 ),
               ),
-              Consumer<CurrentUser>(
-                builder: (_, currentUser, __) => Padding(
-                  padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
-                  child: FlatButton(
-                    colorBrightness: Brightness.dark,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: isEmailValid && isPhoneValid
-                        ? Color(0xFF004445)
-                        : Color(0xFF999999),
-                    onPressed: isEmailValid && !isLoading && isPhoneValid
-                        ? () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            HapticFeedback.vibrate();
-                            formOptional.currentState.validate();
-                            formOptional.currentState.save();
-                            print(
-                                "corporate_email:${emailController.text},org_name:${orgController.text}");
-                            registerUser(currentUser);
-                          }
-                        : () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          isLoading
-                              ? CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                )
-                              : Text(
-                                  'Submit',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFFFFFFFF),
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            top: 60,
+            right: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              backgroundColor: Colors.transparent,
+              child: Icon(LineAwesomeIcons.close),
+              elevation: 0,
+              highlightElevation: 0,
+              disabledElevation: 0,
+              focusElevation: 0,
+              splashColor: Colors.transparent,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -387,6 +471,9 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
               backgroundColor: Colors.red[400],
               fontSize: 16.0);
           formOptional.currentState.reset();
+          setState(() {
+            isLoading = false;
+          });
         }
       }).timeout(
         const Duration(seconds: 30),

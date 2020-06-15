@@ -560,12 +560,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   form.currentState.save();
                                   print(
                                       "name:${nameController.text},email:${emailController.text},pwd:${passwordController.text}");
-                                  Navigator.pushReplacementNamed(
-                                      context, UserOptionalRoute, arguments: [
-                                    nameController.text,
-                                    emailController.text,
-                                    passwordController.text
-                                  ]);
+                                  Future.delayed(Duration(milliseconds: 500))
+                                      .then((value) {
+                                    Navigator.pushReplacementNamed(
+                                        context, UserOptionalRoute, arguments: [
+                                      nameController.text,
+                                      emailController.text,
+                                      passwordController.text
+                                    ]);
+                                  });
                                 }
                               : () {},
                           child: SizedBox(
