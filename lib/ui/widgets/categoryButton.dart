@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton({
@@ -20,23 +21,23 @@ class CategoryButton extends StatelessWidget {
       width: width * 0.38,
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
-          color: Color(0xFF004445),
+          gradient: config.Colors().mildSeaRev,
           borderRadius: BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(500),
           ),
           boxShadow: [
             BoxShadow(
-                color: Color(0xFF004445).withOpacity(0.5),
+                color: config.Colors().secondColor(0.4),
                 blurRadius: 12,
                 offset: Offset(0, 3))
           ]),
       child: FlatButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(500),
           ),
         ),
-        colorBrightness: Brightness.dark,
+        colorBrightness: Brightness.light,
         padding: EdgeInsets.all(0),
         onPressed: function,
         child: Row(
@@ -59,10 +60,7 @@ class CategoryButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: TextStyle(
-                        fontFamily: "Poppins",
-                        fontSize: 20,
-                        color: Colors.white),
+                    style: Theme.of(context).textTheme.button,
                   ),
                 ),
               ),

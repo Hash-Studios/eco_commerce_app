@@ -20,18 +20,18 @@ class SecondaryCategoryButton extends StatelessWidget {
       decoration: BoxDecoration(
           color: Color(0xFFFFFFFF),
           borderRadius: BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(500),
           ),
           boxShadow: [
             BoxShadow(
-                color: Color(0xFF004445).withOpacity(0.2),
+                color: Theme.of(context).focusColor.withOpacity(0.15),
                 blurRadius: 12,
                 offset: Offset(0, 3))
           ]),
       child: FlatButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(10),
+            Radius.circular(500),
           ),
         ),
         colorBrightness: Brightness.light,
@@ -48,11 +48,10 @@ class SecondaryCategoryButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontSize: 20,
-                      color: Color(0xFF004445),
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .button
+                        .copyWith(color: Theme.of(context).accentColor),
                   ),
                 ),
               ),

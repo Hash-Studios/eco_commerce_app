@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class HomeScreen extends StatefulWidget {
   @override

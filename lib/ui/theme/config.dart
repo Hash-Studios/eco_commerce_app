@@ -38,7 +38,7 @@ class App {
 class Colors {
   Color _mainColor = Color(0xFF1C1C1C);
   Color _secondColor = Color(0xFF004445);
-  Color _accentColor = Color(0xFF96EFA6);
+  Color _accentColor = Color(0xFF26A6B5);
   LinearGradient deepSpace = LinearGradient(
     colors: [Color(0xFF4CA1AF), Color(0xFF2C3E50)],
     begin: Alignment.topRight,
@@ -56,6 +56,11 @@ class Colors {
   );
   LinearGradient mildSea = LinearGradient(
     colors: [Color(0xFF96EFA6), Color(0xFF26A6B5)],
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+  );
+  LinearGradient mildSeaRev = LinearGradient(
+    colors: [Color(0xFF26A6B5), Color(0xFF96EFA6)],
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
   );
