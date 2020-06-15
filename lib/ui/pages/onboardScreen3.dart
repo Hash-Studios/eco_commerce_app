@@ -2,6 +2,7 @@ import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'dart:math' as math;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class OnboardScreen3 extends StatefulWidget {
   @override
@@ -69,12 +70,10 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   'Eco-friendly',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFFFFFFFF),
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(color: Colors.white),
                 ),
               ),
               Container(
@@ -98,12 +97,10 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
               Text(
                 "Look deep into nature, and then you will\nunderstand everything better.",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFFF1F1F1),
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(color: Colors.white70),
               ),
               Hero(
                 tag: 'Onboard',
@@ -168,16 +165,9 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
                         width: width * 0.375,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15.0),
-                          child: Text(
-                            "Login",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFFFFFFFF),
-                            ),
-                          ),
+                          child: Text("Login",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.button),
                         ),
                       ),
                     ),
@@ -213,12 +203,10 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
                               child: Text(
                                 "Signup",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF1C1C1C),
-                                ),
+                                style:
+                                    Theme.of(context).textTheme.button.copyWith(
+                                          color: config.Colors().mainColor(1),
+                                        ),
                               ),
                             ),
                           ),

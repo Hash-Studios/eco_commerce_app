@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class OnboardScreen2 extends StatefulWidget {
   @override
@@ -43,7 +44,10 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                 Navigator.pop(context);
               },
               backgroundColor: Colors.transparent,
-              child: Icon(LineAwesomeIcons.arrow_left),
+              child: Icon(
+                LineAwesomeIcons.arrow_left,
+                color: Theme.of(context).primaryColor,
+              ),
               elevation: 0,
               highlightElevation: 0,
               disabledElevation: 0,
@@ -55,11 +59,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFFFB382), Color(0xFFF07590)],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+          gradient: config.Colors().peachy,
         ),
         child: Center(
           child: Column(
@@ -70,12 +70,10 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: Text(
                   'Eco-friendly',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFFFFFFFF),
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(color: Colors.white),
                 ),
               ),
               Padding(
@@ -83,12 +81,10 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                 child: Text(
                   "One of the first conditions of happiness\nlink between man.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFFF1F1F1),
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      .copyWith(color: Colors.white70),
                 ),
               ),
               Padding(
@@ -188,12 +184,9 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                           child: Text(
                             "Next",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF1C1C1C),
-                            ),
+                            style: Theme.of(context).textTheme.button.copyWith(
+                                  color: config.Colors().mainColor(1),
+                                ),
                           ),
                         ),
                       ),
