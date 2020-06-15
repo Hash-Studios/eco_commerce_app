@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formLogin = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldLoginKey = GlobalKey<ScaffoldState>();
   Map<String, dynamic> res;
+  List<dynamic> res2;
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
@@ -316,8 +318,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(500)),
                           onPressed: () {
                             HapticFeedback.vibrate();
-                            print("email:${emailController.text}");
-                            // forgotPassword();
+                            if (emailController.text == "" || !isEmailValid) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter valid email address!",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  textColor: Colors.white,
+                                  backgroundColor: Colors.red[400],
+                                  fontSize: 16.0);
+                              print("email:${emailController.text}");
+                            } else {
+                              forgotPassword();
+                            }
                           },
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -446,22 +459,46 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void forgotPassword() async {
-    http.post('https://ecocommerce.herokuapp.com/auth/forgot-password',
-        body: {'email': emailController.text}).then((http.Response response) {
-      res = (json.decode(response.body));
-      print(res);
-      if (response.statusCode == 200)
+    http
+        .get(
+      'http://ecocommerce.herokuapp.com/users',
+    )
+        .then((http.Response response) {
+      res2 = (json.decode(response.body));
+      bool userFound = false;
+      var userId;
+      if (response.statusCode == 200) {
+        for (int u = 0; u < res2.length; u++) {
+          if (emailController.text == res2[u]["email"]) {
+            Fluttertoast.showToast(
+                msg: "Verification code sent to ${emailController.text}",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                backgroundColor: Colors.green[400],
+                fontSize: 16.0);
+            userId = res2[u]["id"];
+            userFound = true;
+            Random random = new Random();
+            int randomNumber = random.nextInt(899999) + 100000;
+            break;
+          }
+        }
+        if (!userFound) {
+          Fluttertoast.showToast(
+              msg: "Sorry no user found with this email address!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              backgroundColor: Colors.red[400],
+              fontSize: 16.0);
+        }
+      } else {
         Fluttertoast.showToast(
-            msg: "Verification code sent to ${emailController.text}",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            backgroundColor: Colors.green[400],
-            fontSize: 16.0);
-      else {
-        Fluttertoast.showToast(
-            msg: res['message'][0]['messages'][0]['message'],
+            msg: json.decode(response.body)['message'][0]['messages'][0]
+                ['message'],
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
