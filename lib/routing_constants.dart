@@ -14,3 +14,4 @@ const String OnboardRoute1 = '/onboard1';
 const String OnboardRoute2 = '/onboard2';
 const String OnboardRoute3 = '/onboard3';
 const String CodeVerificationRoute = '/codeverification';
+const String ResetPasswordRoute = '/resetpassword';

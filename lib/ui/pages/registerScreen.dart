@@ -17,7 +17,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPassValid = false;
   bool isPassConfirmValid = false;
   bool isLoading;
-
   List<bool> validators = [false, false, false, false];
   double value = 0;
   final FocusNode _nameFocus = FocusNode();

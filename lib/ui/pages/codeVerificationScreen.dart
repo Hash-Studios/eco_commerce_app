@@ -165,6 +165,12 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                         setState(() {
                           isLoading = true;
                         });
+                        Future.delayed(Duration(milliseconds: 300))
+                            .then((value) => {
+                                  Navigator.pushReplacementNamed(
+                                      context, ResetPasswordRoute,
+                                      arguments: widget.arguements)
+                                });
                       } else {
                         errorController.add(ErrorAnimationType.shake);
                       }
@@ -214,6 +220,20 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                                 isLoading = true;
                               });
                               HapticFeedback.vibrate();
+                              if (textEditingController.text ==
+                                  widget.arguements[0]) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                Future.delayed(Duration(milliseconds: 300))
+                                    .then((value) => {
+                                          Navigator.pushReplacementNamed(
+                                              context, ResetPasswordRoute,
+                                              arguments: widget.arguements)
+                                        });
+                              } else {
+                                errorController.add(ErrorAnimationType.shake);
+                              }
                             }
                           : () {},
                       child: SizedBox(

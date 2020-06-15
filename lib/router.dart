@@ -6,6 +6,7 @@ import 'package:eco_commerce_app/ui/pages/onboardScreen1.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen2.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
 import 'package:eco_commerce_app/ui/pages/productScreen.dart';
+import 'package:eco_commerce_app/ui/pages/resetPasswordScreen.dart';
 import 'package:eco_commerce_app/ui/pages/search.dart';
 import 'package:eco_commerce_app/ui/pages/terms.dart';
 import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
@@ -51,6 +52,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case CodeVerificationRoute:
       return CupertinoPageRoute(
         builder: (context) => CodeVerificationScreen(
+          arguements: settings.arguments,
+        ),
+      );
+    case ResetPasswordRoute:
+      return CupertinoPageRoute(
+        builder: (context) => ResetPasswordScreen(
           arguements: settings.arguments,
         ),
       );
