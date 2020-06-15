@@ -182,90 +182,99 @@ class _HomeScreenState extends State<HomeScreen> {
                   SectionHeader(
                     text: "Categories",
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CategoryButton(
-                        width: width,
-                        text: "Cups",
-                        image: "assets/icons/cup.png",
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryRoute,
-                            arguments: ["Cups"],
-                          );
-                        },
-                      ),
-                      CategoryButton(
-                        width: width,
-                        text: "Pens",
-                        image: "assets/icons/pen.png",
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryRoute,
-                            arguments: ["Pens"],
-                          );
-                        },
-                      ),
-                    ],
+                  Container(
+                    width: width * 0.9,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        CategoryButton(
+                          width: width,
+                          text: "Cups",
+                          image: "assets/icons/cup.png",
+                          function: () {
+                            Navigator.pushNamed(
+                              context,
+                              CategoryRoute,
+                              arguments: ["Cups"],
+                            );
+                          },
+                        ),
+                        CategoryButton(
+                          width: width,
+                          text: "Pens",
+                          image: "assets/icons/pen.png",
+                          function: () {
+                            Navigator.pushNamed(
+                              context,
+                              CategoryRoute,
+                              arguments: ["Pens"],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CategoryButton(
-                        width: width,
-                        text: "Plants",
-                        image: "assets/icons/plant.png",
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryRoute,
-                            arguments: ["Plants"],
-                          );
-                        },
-                      ),
-                      CategoryButton(
-                        width: width,
-                        text: "Masks",
-                        image: "assets/icons/mask.png",
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryRoute,
-                            arguments: ["Masks"],
-                          );
-                        },
-                      ),
-                    ],
+                  Container(
+                    width: width * 0.9,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        CategoryButton(
+                          width: width,
+                          text: "Plants",
+                          image: "assets/icons/plant.png",
+                          function: () {
+                            Navigator.pushNamed(
+                              context,
+                              CategoryRoute,
+                              arguments: ["Plants"],
+                            );
+                          },
+                        ),
+                        CategoryButton(
+                          width: width,
+                          text: "Masks",
+                          image: "assets/icons/mask.png",
+                          function: () {
+                            Navigator.pushNamed(
+                              context,
+                              CategoryRoute,
+                              arguments: ["Masks"],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CategoryButton(
-                        width: width,
-                        text: "Paper",
-                        image: "assets/icons/paper.png",
-                        function: () {
-                          Navigator.pushNamed(
-                            context,
-                            CategoryRoute,
-                            arguments: ["Paper"],
-                          );
-                        },
-                      ),
-                      SecondaryCategoryButton(
-                        width: width,
-                        text: "See All",
-                        function: () {
-                          Navigator.pushNamed(context, CategoriesRoute);
-                        },
-                      ),
-                    ],
+                  Container(
+                    width: width * 0.9,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        CategoryButton(
+                          width: width,
+                          text: "Paper",
+                          image: "assets/icons/paper.png",
+                          function: () {
+                            Navigator.pushNamed(
+                              context,
+                              CategoryRoute,
+                              arguments: ["Paper"],
+                            );
+                          },
+                        ),
+                        SecondaryCategoryButton(
+                          width: width,
+                          text: "See All",
+                          function: () {
+                            Navigator.pushNamed(context, CategoriesRoute);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
 
                   Center(child: SectionHeader(text: "Trending Products")),

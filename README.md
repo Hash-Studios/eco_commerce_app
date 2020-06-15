@@ -17,7 +17,7 @@
 - [ ] fix searchBar length issue
 - [ ] add refresh indicator in search
 - [ ] search bar loader (end cross to loader)
-- [ ] home screen categories grid fix
+- [x] home screen categories grid fix
 - [ ] home screen widget redsign (need more types of widgets)
 - [ ] product widget grids, different types
 - [x] drawer redesign (Category to Shop by Category, Your Order/Your Wishlist, Your Account, no email,white should be the bg, header color should be teal)
@@ -34,12 +34,12 @@
 - [x] product page UI update (name should be small, pictures should be fully wide, show carousel indicators)
 - [x] product page UI update (name above image, wishlist button redesign, share button, price should be biggest element)
 - [x] product page UI update (add buy button in front of price, add one more buy button as FAB when the other is not visible)
-- [ ] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
+- [x] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
 - [ ] order now working (db update, email update)
 - [ ] email on order successful
 - [ ] categories should be appbar title
 - [ ] search wishlist only on home, appbar cleaning
-- [ ] back button product page appbar
+- [x] back button product page appbar
 - [ ] replace snackbars with toasts in google sign in
 - [ ] Update Popups UI
 - [ ] Update more info page UI

@@ -17,6 +17,7 @@ class CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width * 0.38,
       margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
       decoration: BoxDecoration(
           color: Color(0xFF004445),
@@ -39,11 +40,11 @@ class CategoryButton extends StatelessWidget {
         padding: EdgeInsets.all(0),
         onPressed: function,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
               child: Image(
                 image: AssetImage(
                   image,
@@ -52,9 +53,9 @@ class CategoryButton extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(5, 15, 10, 15),
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: Container(
-                width: width * 0.24,
+                // width: width * 0.24,
                 child: Center(
                   child: Text(
                     text,

@@ -45,12 +45,11 @@ class _ProductScreenState extends State<ProductScreen> {
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         leading: IconButton(
-          onPressed: () {
-            print("Nav Drawer");
-            _scaffoldKey.currentState.openDrawer();
-          },
+          icon: Icon(LineAwesomeIcons.arrow_left),
           color: Colors.black,
-          icon: Icon(LineAwesomeIcons.navicon),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: <Widget>[
           IconButton(
