@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
@@ -58,29 +59,64 @@ class _GoogleButtonState extends State<GoogleButton> {
                           res = (json.decode(response.body));
                           print(res);
                           if (response.statusCode == 200) {
-                            // _showSuccessSnackbar();
+                            Fluttertoast.showToast(
+                                msg: "Login Successful!",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.green[400],
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                             currentUser.getUserfromResp(res);
                             currentUser.saveUsertoSP();
                             _redirectUser();
                           } else {
                             gAuth.signOutGoogle();
-                            // _showErrorSnackbar(
-                            //     res['message'][0]['messages'][0]['message']);
+                            Fluttertoast.showToast(
+                                msg: res['message'][0]['messages'][0]
+                                    ['message'],
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                textColor: Colors.white,
+                                backgroundColor: Colors.red[400],
+                                fontSize: 16.0);
                           }
                         }).timeout(
                           const Duration(seconds: 30),
                           onTimeout: () {
                             gAuth.signOutGoogle();
-                            // _showErrorSnackbar('Connection Timeout Error!');
+                            Fluttertoast.showToast(
+                                msg: "Connection Timeout Error!",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red[400],
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                           },
                         );
                       } on SocketException {
                         gAuth.signOutGoogle();
-                        // _showErrorSnackbar('Network Not Connected!');
+                        Fluttertoast.showToast(
+                            msg: "Network Not Connected!",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red[400],
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       } catch (e) {
                         print(e);
                         gAuth.signOutGoogle();
-                        // _showErrorSnackbar(e.toString());
+                        Fluttertoast.showToast(
+                            msg: e.toString(),
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red[400],
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       }
                     });
                   }
