@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(500),
                                     borderSide: BorderSide(
-                                        color: Color(0xFFFF5555), width: 1),
+                                        color: Color(0xFFFF0000), width: 1),
                                   ),
                                   errorText: null,
                                   hintText: "Email Address",
@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(500),
                                     borderSide: BorderSide(
-                                        color: Color(0xFFFF5555), width: 1),
+                                        color: Color(0xFFFF0000), width: 1),
                                   ),
                                   errorText: null,
                                   hintText: "Password",
@@ -336,9 +336,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
                         child: Container(
                           decoration: BoxDecoration(
-                            // color: isEmailValid && isPassValid
-                            //     ? Color(0x00FFFFFF)
-                            //     : Color(0xFFFFFFFF).withOpacity(0.2),
                             boxShadow: [
                               BoxShadow(
                                   color: isEmailValid && isPassValid
