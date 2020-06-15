@@ -31,6 +31,7 @@ dependencies:
   fluttertoast: ^4.0.1
   visibility_detector: ^0.1.5
   mailer: ^3.0.4
+  pin_code_fields: ^3.1.2
 
 
   # The following adds the Cupertino Icons font to your application.

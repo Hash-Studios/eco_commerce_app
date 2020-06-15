@@ -178,7 +178,8 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                       padding: EdgeInsets.all(0),
                       shape: StadiumBorder(),
                       onPressed: () {
-                        Navigator.pushNamed(context, OnboardRoute3);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, OnboardRoute3, (route) => false);
                       },
                       child: SizedBox(
                         width: width * 0.75,

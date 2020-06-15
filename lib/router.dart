@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/categoriesScreen.dart';
 import 'package:eco_commerce_app/ui/pages/categoryScreen.dart';
+import 'package:eco_commerce_app/ui/pages/codeVerificationScreen.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen1.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen2.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
@@ -47,6 +48,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return CupertinoPageRoute(builder: (context) => OnboardScreen2());
     case OnboardRoute3:
       return CupertinoPageRoute(builder: (context) => OnboardScreen3());
+    case CodeVerificationRoute:
+      return CupertinoPageRoute(
+        builder: (context) => CodeVerificationScreen(
+          arguements: settings.arguments,
+        ),
+      );
     case CategoryRoute:
       return CupertinoPageRoute(
         builder: (context) => CategoryScreen(

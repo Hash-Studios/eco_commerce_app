@@ -13,6 +13,7 @@ import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -471,7 +472,7 @@ class _LoginScreenState extends State<LoginScreen> {
         for (int u = 0; u < res2.length; u++) {
           if (emailController.text == res2[u]["email"]) {
             Fluttertoast.showToast(
-                msg: "Verification code sent to ${emailController.text}",
+                msg: "Reset Password code sent to ${emailController.text}",
                 toastLength: Toast.LENGTH_LONG,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -480,8 +481,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontSize: 16.0);
             userId = res2[u]["id"];
             userFound = true;
-            Random random = new Random();
-            int randomNumber = random.nextInt(899999) + 100000;
             break;
           }
         }
@@ -494,6 +493,16 @@ class _LoginScreenState extends State<LoginScreen> {
               textColor: Colors.white,
               backgroundColor: Colors.red[400],
               fontSize: 16.0);
+        } else {
+          Random random = new Random();
+          int code = random.nextInt(899999) + 100000;
+          mail.sendForgotPasswordMail(emailController.text, code.toString());
+          Navigator.pushReplacementNamed(context, CodeVerificationRoute,
+              arguments: [
+                code.toString(),
+                userId.toString(),
+                emailController.text
+              ]);
         }
       } else {
         Fluttertoast.showToast(

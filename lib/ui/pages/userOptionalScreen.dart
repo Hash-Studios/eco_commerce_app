@@ -100,24 +100,24 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 30, vertical: 10),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFF0000), width: 2),
+                                      color: Color(0xFFFF0000), width: 1),
                                 ),
                                 errorText: null,
                                 hintText: "Organisation Name",
@@ -192,24 +192,24 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 contentPadding:
                                     EdgeInsets.fromLTRB(30, 10, 10, 10),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFF0000), width: 2),
+                                      color: Color(0xFFFF0000), width: 1),
                                 ),
                                 errorText: null,
                                 hintText: "Corporate Email Address",
@@ -280,24 +280,24 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 30, vertical: 10),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFFFFFF), width: 2),
+                                      color: Color(0xFFFFFFFF), width: 1),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(500),
                                   borderSide: BorderSide(
-                                      color: Color(0xFFFF0000), width: 2),
+                                      color: Color(0xFFFF0000), width: 1),
                                 ),
                                 errorText: null,
                                 hintText: "Phone Number",

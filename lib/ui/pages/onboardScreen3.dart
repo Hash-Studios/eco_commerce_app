@@ -32,26 +32,26 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      floatingActionButton: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 40,
-            left: 20,
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              backgroundColor: Colors.transparent,
-              child: Icon(LineAwesomeIcons.arrow_left),
-              elevation: 0,
-              highlightElevation: 0,
-              disabledElevation: 0,
-              focusElevation: 0,
-              splashColor: Colors.transparent,
-            ),
-          ),
-        ],
-      ),
+      // floatingActionButton: Stack(
+      //   children: <Widget>[
+      //     Positioned(
+      //       top: 40,
+      //       left: 20,
+      //       child: FloatingActionButton(
+      //         onPressed: () {
+      //           Navigator.pop(context);
+      //         },
+      //         backgroundColor: Colors.transparent,
+      //         child: Icon(LineAwesomeIcons.arrow_left),
+      //         elevation: 0,
+      //         highlightElevation: 0,
+      //         disabledElevation: 0,
+      //         focusElevation: 0,
+      //         splashColor: Colors.transparent,
+      //       ),
+      //     ),
+      // ],
+      // ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
