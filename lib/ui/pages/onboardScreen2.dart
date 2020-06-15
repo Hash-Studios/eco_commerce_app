@@ -10,6 +10,25 @@ class OnboardScreen2 extends StatefulWidget {
 }
 
 class _OnboardScreen2State extends State<OnboardScreen2> {
+  double opacity = 0;
+
+  void setOpacity() {
+    setState(() {
+      opacity = 0;
+    });
+    Future.delayed(Duration(seconds: 0)).then((value) {
+      setState(() {
+        opacity = 1;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setOpacity();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -48,7 +67,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: Text(
                   'Eco-friendly',
                   style: TextStyle(
@@ -60,9 +79,9 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 40.0),
+                padding: const EdgeInsets.only(bottom: 0.0),
                 child: Text(
-                  "One of the first conditions of happiness is that the\nlink between man and nature shall not be broken.",
+                  "One of the first conditions of happiness\nlink between man.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Roboto',
@@ -73,12 +92,24 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 130.0),
+                padding: const EdgeInsets.symmetric(horizontal: 95.0),
                 child: Container(
                   width: width,
-                  child: Image(
-                      image: AssetImage("assets/images/onboard2.png"),
-                      fit: BoxFit.fitWidth),
+                  child: AnimatedOpacity(
+                    duration: Duration(seconds: 1),
+                    opacity: opacity,
+                    curve: Curves.easeInBack,
+                    child: AnimatedPadding(
+                      duration: Duration(seconds: 1),
+                      padding: opacity == 0
+                          ? EdgeInsets.only(bottom: 20)
+                          : EdgeInsets.fromLTRB(20, 50, 20, 20),
+                      curve: Curves.easeInBack,
+                      child: Image(
+                          image: AssetImage("assets/images/onboard2.png"),
+                          fit: BoxFit.fitWidth),
+                    ),
+                  ),
                 ),
               ),
               Hero(

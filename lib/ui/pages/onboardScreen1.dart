@@ -10,6 +10,25 @@ class OnboardScreen1 extends StatefulWidget {
 }
 
 class _OnboardScreen1State extends State<OnboardScreen1> {
+  double opacity = 0;
+
+  void setOpacity() {
+    setState(() {
+      opacity = 0;
+    });
+    Future.delayed(Duration(seconds: 0)).then((value) {
+      setState(() {
+        opacity = 1;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setOpacity();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -29,12 +48,24 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
             children: <Widget>[
               Container(
                 width: width,
-                child: Image(
-                    image: AssetImage("assets/images/onboard1.png"),
-                    fit: BoxFit.fitWidth),
+                child: AnimatedOpacity(
+                  duration: Duration(seconds: 1),
+                  opacity: opacity,
+                  curve: Curves.easeInBack,
+                  child: AnimatedPadding(
+                    duration: Duration(seconds: 1),
+                    padding: opacity == 0
+                        ? EdgeInsets.only(bottom: 0)
+                        : EdgeInsets.only(bottom: 40),
+                    curve: Curves.easeInBack,
+                    child: Image(
+                        image: AssetImage("assets/images/onboard1.png"),
+                        fit: BoxFit.fitWidth),
+                  ),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: Text(
                   'Eco-friendly',
                   style: TextStyle(

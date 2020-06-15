@@ -9,6 +9,25 @@ class OnboardScreen3 extends StatefulWidget {
 }
 
 class _OnboardScreen3State extends State<OnboardScreen3> {
+  double opacity = 0;
+
+  void setOpacity() {
+    setState(() {
+      opacity = 0;
+    });
+    Future.delayed(Duration(seconds: 0)).then((value) {
+      setState(() {
+        opacity = 1;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setOpacity();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -58,14 +77,22 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40.0, vertical: 40),
-                child: Container(
-                  width: width,
-                  child: Image(
-                      image: AssetImage("assets/images/onboard3.png"),
-                      fit: BoxFit.fitWidth),
+              Container(
+                width: width,
+                child: AnimatedOpacity(
+                  duration: Duration(seconds: 1),
+                  opacity: opacity,
+                  curve: Curves.easeInBack,
+                  child: AnimatedPadding(
+                    duration: Duration(seconds: 1),
+                    padding: opacity == 0
+                        ? EdgeInsets.only(bottom: 0)
+                        : EdgeInsets.fromLTRB(40, 40, 40, 50),
+                    curve: Curves.easeInBack,
+                    child: Image(
+                        image: AssetImage("assets/images/onboard3.png"),
+                        fit: BoxFit.fitWidth),
+                  ),
                 ),
               ),
               Text(
