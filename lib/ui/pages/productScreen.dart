@@ -2,6 +2,7 @@ import 'package:eco_commerce_app/core/model/product.dart';
 // import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/newImageSlider.dart';
+import 'package:eco_commerce_app/ui/widgets/productBadges.dart';
 import 'package:eco_commerce_app/ui/widgets/productCarousel.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:expand_widget/expand_widget.dart';
@@ -217,6 +218,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ],
                 ),
               ),
+              Container(height: height * 0.2, child: ProductBadges()),
               Container(
                 width: width * 0.9,
                 child: Padding(
