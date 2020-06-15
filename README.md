@@ -6,7 +6,7 @@
 - [x] make phone required
 - [x] Submit button login, to check mark when successful
 - [ ] Remove the clutter from sign up (google vs Free email,second - org, orgmail, phone|name,email,phone,third-org,orgmail,fourth-pswd,cnfm pswd)
-- [ ] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
+- [x] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
 - [x] UI update PreSignUp Intro Slider
 - [x] Snackbars to popup with GIFs
 - [ ] Search should be working
@@ -39,3 +39,10 @@
 - [ ] email on order successful
 - [ ] categories should be appbar title
 - [ ] search wishlist only on home, appbar cleaning
+- [ ] back button product page appbar
+- [ ] replace snackbars with toasts in google sign in
+- [ ] Update Popups UI
+- [ ] Update more info page UI
+- [ ] Remove uneccessary widgets, pages and packages
+- [ ] change icon
+- [ ] add splash screen
