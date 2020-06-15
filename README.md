@@ -36,7 +36,7 @@
 - [x] product page UI update (add buy button in front of price, add one more buy button as FAB when the other is not visible)
 - [x] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
 - [ ] order now working (db update, email update)
-- [ ] email on order successful
+- [x] email on order successful
 - [ ] categories should be appbar title
 - [ ] search wishlist only on home, appbar cleaning
 - [x] back button product page appbar
@@ -46,3 +46,5 @@
 - [ ] Remove uneccessary widgets, pages and packages
 - [ ] change icon
 - [ ] add splash screen
+- [ ] order popup validation
+- [ ] assets quality lower

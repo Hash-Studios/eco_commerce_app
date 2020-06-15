@@ -1,8 +1,6 @@
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class OnboardScreen1 extends StatefulWidget {
   @override

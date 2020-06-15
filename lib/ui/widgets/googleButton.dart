@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eco_commerce_app/main.dart' as main;
 
 final GoogleAuth gAuth = GoogleAuth();
