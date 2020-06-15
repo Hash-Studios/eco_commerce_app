@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
@@ -27,7 +28,9 @@ class MainDrawer extends StatelessWidget {
                         Navigator.pushNamed(context, ProfileRoute);
                       },
                       child: Container(
-                        color: Colors.teal[300],
+                        decoration: BoxDecoration(
+                          gradient: config.Colors().mildSea,
+                        ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -66,10 +69,12 @@ class MainDrawer extends StatelessWidget {
                                       const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text(
                                     "Hello, ${currentUser.username.split(' ')[0]}",
-                                    style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF000000),
-                                        fontSize: 22),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        .copyWith(
+                                          color: config.Colors().mainColor(1),
+                                        ),
                                   ),
                                 ),
                               ],
@@ -89,10 +94,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Home',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -107,10 +109,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Shop by Category',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -124,10 +123,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Trending Products',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -145,10 +141,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Your Orders',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -158,10 +151,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Your Wishlist',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -171,10 +161,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Your Account',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -196,10 +183,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'About us',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -209,10 +193,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Contact us',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -231,10 +212,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Help',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
@@ -244,10 +222,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Terms and Conditions',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -261,10 +236,7 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Frequently Asked Questions',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF000000),
-                                fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
                       ),
