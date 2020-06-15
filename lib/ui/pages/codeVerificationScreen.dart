@@ -14,6 +14,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
 import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class CodeVerificationScreen extends StatefulWidget {
   final List<String> arguements;
@@ -47,11 +48,7 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF4CA1AF), Color(0xFF2C3E50)],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+          gradient: config.Colors().deepSpace,
         ),
         child: SizedBox(
           height: height,
@@ -68,16 +65,23 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                       const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
                   child: RichText(
                     text: TextSpan(
-                        text: "Enter the code sent to ",
-                        children: [
-                          TextSpan(
-                              text: widget.arguements[2],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19)),
-                        ],
-                        style: TextStyle(color: Colors.white54, fontSize: 17)),
+                      text: "Enter the code sent to ",
+                      children: [
+                        TextSpan(
+                          text: widget.arguements[2],
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Poppins",
+                              letterSpacing: 0.4),
+                        ),
+                      ],
+                      style: Theme.of(context).textTheme.headline6.copyWith(
+                            color: Colors.white54,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Roboto",
+                          ),
+                    ),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -251,12 +255,7 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                                   : Text(
                                       'Submit',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xFFFFFFFF),
-                                      ),
+                                      style: Theme.of(context).textTheme.button,
                                     ),
                             ],
                           ),

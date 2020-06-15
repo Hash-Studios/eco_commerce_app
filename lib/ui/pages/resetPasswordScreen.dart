@@ -14,6 +14,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
 import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class ResetPasswordScreen extends StatefulWidget {
   final List<String> arguements;
@@ -60,11 +61,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFA044FF), Color(0xFF6A3093)],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          ),
+          gradient: config.Colors().purplin,
         ),
         child: SizedBox(
           height: height,
@@ -81,16 +78,23 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
                   child: RichText(
                     text: TextSpan(
-                        text: "Enter a new Password for ",
-                        children: [
-                          TextSpan(
-                              text: widget.arguements[2],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19)),
-                        ],
-                        style: TextStyle(color: Colors.white54, fontSize: 17)),
+                      text: "Enter a new Password for ",
+                      children: [
+                        TextSpan(
+                          text: widget.arguements[2],
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Poppins",
+                              letterSpacing: 0.4),
+                        ),
+                      ],
+                      style: Theme.of(context).textTheme.headline6.copyWith(
+                            color: Colors.white54,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Roboto",
+                          ),
+                    ),
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -428,12 +432,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     : Text(
                                         'Submit',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFFFFFFFF),
-                                        ),
+                                        style:
+                                            Theme.of(context).textTheme.button,
                                       ),
                               ],
                             ),
