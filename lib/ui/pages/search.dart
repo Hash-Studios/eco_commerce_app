@@ -5,7 +5,9 @@ import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,12 +18,17 @@ class SearchScreen extends StatefulWidget {
   _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends State<SearchScreen>
+    with TickerProviderStateMixin {
   final FocusNode _searchFocus = FocusNode();
   bool isFocussed;
   bool isNull;
   bool isLoading;
+  bool sortPrice;
+  bool sortName;
   List<Product> products;
+  ScrollController scrollController;
+  bool dialVisible = true;
   final TextEditingController searchController = TextEditingController();
 
   final List<String> searchQuery = [
@@ -42,17 +49,51 @@ class _SearchScreenState extends State<SearchScreen> {
     isFocussed = false;
     isLoading = false;
     isNull = true;
+    sortName = false;
+    sortPrice = true;
     super.initState();
+    scrollController = ScrollController()
+      ..addListener(() {
+        setDialVisible(scrollController.position.userScrollDirection ==
+            ScrollDirection.forward);
+      });
+  }
+
+  void toggleSort() {
+    setState(() {
+      sortName = !sortName;
+      sortPrice = !sortPrice;
+    });
+  }
+
+  void setDialVisible(bool value) {
+    setState(() {
+      dialVisible = value;
+    });
   }
 
   void getData(String query) async {
+    String sorting;
     setState(() {
       isLoading = true;
       isNull = false;
     });
+    if (sortPrice) {
+      setState(() {
+        sorting = "&_sort=price:ASC";
+      });
+    } else if (sortName) {
+      setState(() {
+        sorting = "&_sort=name:ASC";
+      });
+    } else {
+      setState(() {
+        sorting = "";
+      });
+    }
     http
         .get(
-      'https://ecocommerce.herokuapp.com/products?name_contains=$query&_sort=price:DESC',
+      'https://ecocommerce.herokuapp.com/products?name_contains=$query$sorting',
     )
         .then((http.Response response) {
       if (response.statusCode == 200) {
@@ -274,6 +315,46 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             preferredSize: Size(width * 1, height * 0.06)),
       ),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 22.0),
+        // child: Icon(Icons.add),
+        onOpen: () => print('OPENING DIAL'),
+        onClose: () => print('DIAL CLOSED'),
+        visible: dialVisible,
+        curve: Curves.bounceIn,
+        children: [
+          sortName
+              ? SpeedDialChild(
+                  child: Icon(Icons.attach_money, color: Colors.white),
+                  backgroundColor: Colors.teal[300],
+                  onTap: () {
+                    toggleSort();
+                    getData(searchController.text);
+                  },
+                  label: 'Sort by price',
+                  labelStyle: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFFFFFFFF),
+                      fontWeight: FontWeight.w500),
+                  labelBackgroundColor: Colors.teal[300],
+                )
+              : SpeedDialChild(
+                  child: Icon(Icons.sort_by_alpha, color: Colors.white),
+                  backgroundColor: Colors.teal[300],
+                  onTap: () {
+                    toggleSort();
+                    getData(searchController.text);
+                  },
+                  label: 'Sort by name',
+                  labelStyle: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFFFFFFFF),
+                      fontWeight: FontWeight.w500),
+                  labelBackgroundColor: Colors.teal[300],
+                ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -285,6 +366,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 : isLoading
                     ? LinearProgressIndicator()
                     : ListView.builder(
+                        controller: scrollController,
                         shrinkWrap: true,
                         itemCount: products.length,
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 20),

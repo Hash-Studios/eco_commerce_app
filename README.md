@@ -1,6 +1,6 @@
 # TODO
 - [x] Sign in with Google
-- [ ] Forgot Password
+- [x] Forgot Password
 - [x] Profile photo implementation
 - [x] Fluttertoast from snackbar
 - [x] make phone required
@@ -9,14 +9,14 @@
 - [x] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
 - [x] UI update PreSignUp Intro Slider
 - [x] Snackbars to popup with GIFs
-- [ ] Search should be working
+- [x] Search should be working
 - [ ] tags should be relevant
-- [ ] tags should be choiceChips
+- [x] tags should be choiceChips
 - [ ] wishlist working using shared prefs
 - [ ] wishlist page UI
-- [ ] fix searchBar length issue
+- [x] fix searchBar length issue
 - [ ] add refresh indicator in search
-- [ ] search bar loader (end cross to loader)
+- [x] search bar loader (end cross to loader)
 - [x] home screen categories grid fix
 - [ ] home screen widget redsign (need more types of widgets)
 - [ ] product widget grids, different types
@@ -40,11 +40,11 @@
 - [ ] categories should be appbar title
 - [ ] search wishlist only on home, appbar cleaning
 - [x] back button product page appbar
-- [ ] replace snackbars with toasts in google sign in
+- [x] replace snackbars with toasts in google sign in
 - [ ] Update Popups UI
-- [ ] Update more info page UI
+- [x] Update more info page UI
 - [ ] Remove uneccessary widgets, pages and packages
-- [ ] change icon
+- [x] change icon
 - [ ] add splash screen
 - [ ] order popup validation
 - [ ] assets quality lower
