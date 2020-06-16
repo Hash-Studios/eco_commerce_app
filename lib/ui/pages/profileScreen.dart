@@ -1,12 +1,18 @@
+import 'dart:convert';
+
+import 'package:eco_commerce_app/core/model/image.dart';
+import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
+import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/globals.dart' as globals;
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
 
@@ -16,13 +22,78 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List<Widget> orders;
+  bool isLoading = true;
+  bool isLoaded;
+  List<Product> products;
+  List<Widget> orders = [];
 
   @override
   void initState() {
     super.initState();
-    orders = new List();
-    getOrders();
+    isLoaded = false;
+    getData();
+  }
+
+  void getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    String id = main.prefs.getString("id");
+    String jwt = main.prefs.getString("jwt");
+    print(id);
+    http
+        .put(
+      'https://ecocommerce.herokuapp.com/users/$id',
+    )
+        .then((http.Response res) {
+      print(json.decode(res.body));
+      products = [];
+      if (res.statusCode == 200) {
+        for (int c = 0; c < json.decode(res.body)["products"].length; c++) {
+          products.add(
+            Product(
+              id: json.decode(res.body)["products"][c]["id"],
+              name: json.decode(res.body)["products"][c]["name"],
+              price: json.decode(res.body)["products"][c]["price"].toString(),
+              images: new List<ProductImage>.generate(
+                  jsonDecode(res.body)["products"][c]["images"].length,
+                  (image) {
+                return ProductImage(
+                    id: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["id"],
+                    name: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["name"],
+                    ext: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["ext"],
+                    size: jsonDecode(res.body)["products"][c]["images"][image]["size"]
+                        .toString(),
+                    width: jsonDecode(res.body)["products"][c]["images"][image]
+                            ["width"]
+                        .toString(),
+                    height: jsonDecode(res.body)["products"][c]["images"][image]
+                            ["height"]
+                        .toString(),
+                    url: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["url"],
+                    thumbnailUrl: jsonDecode(res.body)["products"][c]["images"]
+                        [image]["formats"]["thumbnail"]["url"],
+                    smallUrl: jsonDecode(res.body)["products"][c]["images"]
+                        [image]["formats"]["small"]["url"],
+                    createdAt: jsonDecode(res.body)["products"][c]["images"]
+                        [image]["createdAt"]);
+              }),
+              category: json.decode(res.body)["products"][c]["category"],
+              desc: json.decode(res.body)["products"][c]["desc"],
+              features: json.decode(res.body)["products"][c]["features"],
+              createdAt: json.decode(res.body)["products"][c]["createdAt"],
+            ),
+          );
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
   }
 
   @override
@@ -111,67 +182,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: Color(0xff464646)),
                         )),
                   )),
-              SliverList(delegate: SliverChildListDelegate(orders)),
+              SliverList(
+                  delegate: SliverChildListDelegate(<Widget>[
+                isLoading
+                    ? LinearProgressIndicator()
+                    : Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: Builder(
+                          builder: (context) {
+                            orders = [];
+                            for (int index = 0;
+                                index < products.length;
+                                index++) {
+                              orders.add(ProductListTileDynamic(
+                                  arguements: [products[index]]));
+                            }
+                            return Column(children: orders);
+                          },
+                        ),
+                      ),
+              ])),
             ],
           ),
-          // Positioned(
-          //     left: MediaQuery.of(context).size.width / 2 - 120,
-          //     right: MediaQuery.of(context).size.width / 2 - 120,
-          //     bottom: 100,
-          //     child: Container(
-          //       height: 40,
-          //       child: RaisedButton(
-          //         onPressed: () {
-          //           print("WishList");
-          //         },
-          //         shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(10)),
-          //         child: Text(
-          //           "Your WishList",
-          //           style: TextStyle(
-          //               fontFamily: "Poppins",
-          //               fontSize: 24,
-          //               color: Colors.white),
-          //         ),
-          //         color: Color(0xff004445),
-          //       ),
-          //     )),
-          // Positioned(
-          //     left: MediaQuery.of(context).size.width / 2 - 90,
-          //     right: MediaQuery.of(context).size.width / 2 - 90,
-          //     bottom: 20,
-          //     child: Container(
-          //       height: 40,
-          //       child: RaisedButton(
-          //         onPressed: () {
-          //           print("Sign Out");
-          //         },
-          //         shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(10)),
-          //         child: Text(
-          //           "SIGN OUT",
-          //           style: TextStyle(
-          //               fontFamily: "Poppins",
-          //               fontSize: 24,
-          //               color: Colors.white),
-          //         ),
-          //         color: Color(0xff004445),
-          //       ),
-          //     )),
         ],
       ),
     );
-  }
-
-  void getOrders() {
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
-    orders.add(ProductListTile());
   }
 }
 

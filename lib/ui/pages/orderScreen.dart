@@ -23,7 +23,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   bool isLoading = true;
   bool isLoaded;
   List<Product> products;
-  List<Widget> trending = [];
+  List<Widget> orders = [];
 
   void getData() async {
     setState(() {
@@ -124,22 +124,19 @@ class _OrdersScreenState extends State<OrdersScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 isLoading
-                    ? Padding(
-                        padding: const EdgeInsets.all(100.0),
-                        child: CircularProgressIndicator(),
-                      )
+                    ? LinearProgressIndicator()
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                         child: Builder(
                           builder: (context) {
-                            trending = [];
+                            orders = [];
                             for (int index = 0;
                                 index < products.length;
                                 index++) {
-                              trending.add(ProductListTileDynamic(
+                              orders.add(ProductListTileDynamic(
                                   arguements: [products[index]]));
                             }
-                            return Column(children: trending);
+                            return Column(children: orders);
                           },
                         ),
                       ),
