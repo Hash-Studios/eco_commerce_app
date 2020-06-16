@@ -15,8 +15,9 @@ class _HelpScreenState extends State<HelpScreen> {
     return Scaffold(
       appBar: AppBar(
         title: AppBarTitle(text: "Help"),
-        elevation: 0.0,
-        backgroundColor: Colors.white.withOpacity(0),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        brightness: Brightness.light,
         leading: IconButton(
           icon: Icon(LineAwesomeIcons.arrow_left),
           color: Colors.black,
