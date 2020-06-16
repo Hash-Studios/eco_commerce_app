@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/onboardHeading.dart';
+import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
@@ -118,6 +119,11 @@ class _SignUpLandingScreenState extends State<SignUpLandingScreen> {
                       ),
                     ),
                   ),
+                  SecondarySubmitButton(
+                    text: 'Already have an account',
+                    boldText: 'Login',
+                    routeName: LoginRoute,
+                  )
                 ],
               ),
             ],

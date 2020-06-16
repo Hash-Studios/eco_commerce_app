@@ -48,7 +48,7 @@
 - [ ] add splash screen
 - [ ] order popup validation
 - [ ] assets quality lower
-- [ ] sign up landing must have login button
+- [x] sign up landing must have login button
 - [ ] fix overflow in onboarding pages
 - [ ] change paddig in onboarding
 - [ ] use stack/position in onboarding

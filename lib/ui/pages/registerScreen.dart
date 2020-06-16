@@ -510,11 +510,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
             ),
           ),
-          SecondarySubmitButton(
-            text: 'Already have an account',
-            boldText: 'Login',
-            routeName: LoginRoute,
-          )
         ]);
   }
 }

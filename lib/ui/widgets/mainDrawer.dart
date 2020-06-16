@@ -326,7 +326,7 @@ class MainDrawer extends StatelessWidget {
                                     Navigator.pop(context);
                                     currentUser.deleteUser();
                                     Navigator.pushReplacementNamed(
-                                        context, LoginRoute);
+                                        context, SignUpLandingRoute);
                                   },
                                   button1text: "Yes",
                                   func2: () {
