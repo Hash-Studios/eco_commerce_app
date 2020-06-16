@@ -1,8 +1,11 @@
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/pages/FAQScreen.dart';
 import 'package:eco_commerce_app/ui/pages/aboutUsScreen.dart';
 import 'package:eco_commerce_app/ui/pages/categoriesScreen.dart';
 import 'package:eco_commerce_app/ui/pages/categoryScreen.dart';
 import 'package:eco_commerce_app/ui/pages/codeVerificationScreen.dart';
+import 'package:eco_commerce_app/ui/pages/contactUsScreen.dart';
+import 'package:eco_commerce_app/ui/pages/helpScreen.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen1.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen2.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
@@ -18,11 +21,8 @@ import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
 import 'package:eco_commerce_app/ui/pages/profileScreen.dart';
 import 'package:eco_commerce_app/ui/pages/registerScreen.dart';
 import 'package:eco_commerce_app/ui/pages/trendingScreen.dart';
-
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
-
-import 'package:eco_commerce_app/ui/pages/contactUs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ui/pages/homeScreen.dart';
@@ -46,7 +46,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeRoute:
       return CupertinoPageRoute(builder: (context) => HomeScreen());
     case ContactUsRoute:
-      return MaterialPageRoute(builder: (context) => ContactUs());
+      return CupertinoPageRoute(builder: (context) => ContactUsScreen());
+    case HelpRoute:
+      return CupertinoPageRoute(builder: (context) => HelpScreen());
+    case FAQRoute:
+      return CupertinoPageRoute(builder: (context) => FAQScreen());
     case CategoriesRoute:
       return CupertinoPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:

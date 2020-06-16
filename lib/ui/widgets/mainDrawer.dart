@@ -230,6 +230,10 @@ class MainDrawer extends StatelessWidget {
                             'Help',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, HelpRoute);
+                          },
                         ),
                       ),
                       Padding(
@@ -254,6 +258,10 @@ class MainDrawer extends StatelessWidget {
                             'Frequently Asked Questions',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, FAQRoute);
+                          },
                         ),
                       ),
                       Padding(
