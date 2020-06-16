@@ -4,18 +4,24 @@ import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
+import 'package:eco_commerce_app/ui/widgets/gradientBanner.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
+import 'package:eco_commerce_app/ui/widgets/popularSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/productCardSlider.dart';
+import 'package:eco_commerce_app/ui/widgets/productGridTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
+import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:eco_commerce_app/main.dart' as main;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -149,21 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Hero(
-                  transitionOnUserGestures: true,
-                  tag: 'bookmark',
-                  child: Card(
-                    elevation: 0,
-                    color: Colors.transparent,
-                    child: IconButton(
-                      onPressed: () {
-                        print("Bookmark");
-                      },
-                      color: Colors.black,
-                      icon: Icon(LineAwesomeIcons.bookmark),
-                    ),
-                  ),
-                )
               ],
             ),
             backgroundColor: Colors.white,
@@ -173,12 +164,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  // Stack(
-                  // children: <Widget>[
-                  TrendingSlider(),
-                  // TextSlider(),
-                  // ],
-                  // ),
+                  isLoading ? LinearProgressIndicator() : Container(),
+                  Stack(
+                    children: <Widget>[
+                      TrendingSlider(),
+                      TextSlider(),
+                    ],
+                  ),
+                  SectionHeader(
+                    text: "Popular Now",
+                  ),
+                  PopularSlider(),
                   SectionHeader(
                     text: "Categories",
                   ),
@@ -276,7 +272,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GradientBanner(
+                    gradient: config.Colors().peachy,
+                    message:
+                        "While you are here ${main.prefs.getString('username').toString().split(" ")[0]}, do check these amazing offers!",
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: config.Colors().peachy,
+                    ),
+                    child: PopularSlider(),
+                  ),
                   Center(child: SectionHeader(text: "Trending Products")),
                   isLoading
                       ? Padding(
@@ -288,9 +297,55 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Builder(
                             builder: (context) {
                               trending = [];
-                              for (int index = 0;
-                                  index < products.length;
-                                  index++) {
+                              for (int index = 4; index < 9; index++) {
+                                trending.add(ProductListTileDynamic(
+                                    arguements: [products[index]]));
+                              }
+                              return Column(children: trending);
+                            },
+                          ),
+                        ),
+                  GradientBanner(
+                      gradient: config.Colors().aqua,
+                      message:
+                          "Find the greatest collection of Natural Products!"),
+                  isLoading
+                      ? Padding(
+                          padding: const EdgeInsets.all(100.0),
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            gradient: config.Colors().aqua,
+                          ),
+                          child: GridView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              itemCount: 4,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 0.58,
+                                crossAxisCount: 2,
+                              ),
+                              itemBuilder: (context, index) {
+                                return ProductGridTileDynamic(
+                                    arguements: [products[index]]);
+                              }),
+                        ),
+                  TrendingSlider(),
+                  Center(child: SectionHeader(text: "Latest for You")),
+                  isLoading
+                      ? Padding(
+                          padding: const EdgeInsets.all(100.0),
+                          child: CircularProgressIndicator(),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          child: Builder(
+                            builder: (context) {
+                              trending = [];
+                              for (int index = 9; index < 13; index++) {
                                 trending.add(ProductListTileDynamic(
                                     arguements: [products[index]]));
                               }
