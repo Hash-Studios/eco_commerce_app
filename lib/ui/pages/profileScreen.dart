@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Navigator.pop(context);
                                 currentUser.deleteUser();
                                 Navigator.pushReplacementNamed(
-                                    context, LoginRoute);
+                                    context, SignUpLandingRoute);
                               },
                               button1text: "Yes",
                               func2: () {

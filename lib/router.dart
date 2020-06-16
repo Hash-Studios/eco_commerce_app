@@ -32,9 +32,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     // case PreSignUpRoute:
     //   return CupertinoPageRoute(builder: (context) => PreSignUpSlider());
-    case MainRoute:
-      main();
-      break;
+    // case MainRoute:
+    //   main();
+    //   break;
     case LoginRoute:
       return CupertinoPageRoute(builder: (context) => LoginScreen());
     case RegisterRoute:

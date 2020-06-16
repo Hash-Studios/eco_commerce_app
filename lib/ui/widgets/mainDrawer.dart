@@ -94,7 +94,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Home',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -109,7 +112,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Shop by Category',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -123,7 +129,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Trending Products',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -145,7 +154,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Your Orders',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -159,7 +171,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Your Wishlist',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                         ),
                       ),
@@ -169,7 +184,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Your Account',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -191,7 +209,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'About us',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -205,7 +226,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Contact us',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -228,7 +252,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Help',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -242,7 +269,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Terms and Conditions',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -256,7 +286,10 @@ class MainDrawer extends StatelessWidget {
                           dense: true,
                           title: Text(
                             'Frequently Asked Questions',
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 16),
                           ),
                           onTap: () {
                             Navigator.pop(context);
@@ -279,10 +312,10 @@ class MainDrawer extends StatelessWidget {
                             dense: true,
                             title: Text(
                               'Logout',
-                              style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color: Color(0xFF000000),
-                                  fontSize: 16),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .copyWith(fontSize: 16),
                             ),
                             onTap: () {
                               popUpAlertDialog(
@@ -293,7 +326,7 @@ class MainDrawer extends StatelessWidget {
                                     Navigator.pop(context);
                                     currentUser.deleteUser();
                                     Navigator.pushReplacementNamed(
-                                        context, LoginRoute);
+                                        context, SignUpLandingRoute);
                                   },
                                   button1text: "Yes",
                                   func2: () {

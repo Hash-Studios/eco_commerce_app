@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen>
   ScrollController scrollController;
   bool dialVisible = true;
   final TextEditingController searchController = TextEditingController();
-
+  var refreshKey2 = GlobalKey<RefreshIndicatorState>();
   final List<String> searchQuery = [
     'Stationery',
     'Mug',
@@ -141,6 +141,13 @@ class _SearchScreenState extends State<SearchScreen>
         }
       }
     });
+  }
+
+  Future<Null> refreshList() async {
+    refreshKey2.currentState?.show(atTop: true);
+    await Future.delayed(Duration(milliseconds: 500));
+    getData(searchController.text);
+    return null;
   }
 
   @override
@@ -353,26 +360,29 @@ class _SearchScreenState extends State<SearchScreen>
                 ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            isNull
-                ? Container()
-                : isLoading
-                    ? LinearProgressIndicator()
-                    : ListView.builder(
-                        controller: scrollController,
-                        shrinkWrap: true,
-                        itemCount: products.length,
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        itemBuilder: (context, index) {
-                          return ProductListTileDynamic(
-                              arguements: [products[index]]);
-                        })
-          ],
+      body: RefreshIndicator(
+        onRefresh: refreshList,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              isNull
+                  ? Container()
+                  : isLoading
+                      ? LinearProgressIndicator()
+                      : ListView.builder(
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          itemCount: products.length,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          itemBuilder: (context, index) {
+                            return ProductListTileDynamic(
+                                arguements: [products[index]]);
+                          })
+            ],
+          ),
         ),
       ),
     );

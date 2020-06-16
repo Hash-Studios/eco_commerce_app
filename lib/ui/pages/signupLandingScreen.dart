@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/onboardHeading.dart';
+import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
@@ -59,7 +60,7 @@ class _SignUpLandingScreenState extends State<SignUpLandingScreen> {
                     duration: Duration(seconds: 1),
                     padding: opacity == 0
                         ? EdgeInsets.only(bottom: 0)
-                        : EdgeInsets.fromLTRB(40, 40, 40, 50),
+                        : EdgeInsets.fromLTRB(40, 10, 40, 10),
                     curve: Curves.easeInBack,
                     child: Image(
                         image: AssetImage("assets/images/splashIcon.png"),
@@ -118,6 +119,11 @@ class _SignUpLandingScreenState extends State<SignUpLandingScreen> {
                       ),
                     ),
                   ),
+                  SecondarySubmitButton(
+                    text: 'Already have an account',
+                    boldText: 'Login',
+                    routeName: LoginRoute,
+                  )
                 ],
               ),
             ],
