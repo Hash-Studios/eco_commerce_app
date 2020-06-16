@@ -212,7 +212,7 @@ class _ContacUsState extends State<ContactUs> {
         ),
       ),
       body: SingleChildScrollView(
-          child: Column(
+        child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -264,9 +264,53 @@ class _ContacUsState extends State<ContactUs> {
                         print(_yourMsg);
                       }),
                 )
+                
+                
               ],
             ),
           ),
+          FlatButton(
+            onPressed: () {},
+            textColor: Colors.black,
+            color: Colors.white,
+            child: Align(
+              alignment: Alignment.centerLeft,
+                child: Text(
+                  'For Business Queries:',
+                  style: TextStyle(
+                    fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+          ),
+                   
+          FlatButton(
+            onPressed: (
+               
+            ) {},
+            textColor: Colors.black,
+            color: Colors.white,
+            child: Align(
+              alignment: Alignment.centerLeft,
+                child: Text(
+                  '+91 98XXXXXX01',
+                  style: TextStyle(
+                    fontFamily: 'Poppins', fontSize: 16, ),
+                ),
+              ),
+          ),  
+          FlatButton(
+            onPressed: () {},
+            textColor: Colors.black,
+            color: Colors.white,
+            child: Align(
+              alignment: Alignment.centerLeft,
+                child: Text(
+                  'xyz@gmail.com',
+                  style: TextStyle(
+                    fontFamily: 'Poppins', fontSize: 16, ),
+                ),
+              ),
+          ),         
         ],
       )),
     );

@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      
       initialRoute: email == null ? OnboardRoute1 : HomeRoute,
     );
   }
