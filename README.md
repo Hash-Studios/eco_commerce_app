@@ -1,6 +1,6 @@
 # TODO
 - [x] Sign in with Google
-- [ ] Forgot Password
+- [x] Forgot Password
 - [x] Profile photo implementation
 - [x] Fluttertoast from snackbar
 - [x] make phone required
@@ -9,15 +9,15 @@
 - [x] Gamify sign up screen (Progress bar, Cross mark to PresignUp,)
 - [x] UI update PreSignUp Intro Slider
 - [x] Snackbars to popup with GIFs
-- [ ] Search should be working
+- [x] Search should be working
 - [ ] tags should be relevant
-- [ ] tags should be choiceChips
+- [x] tags should be choiceChips
 - [ ] wishlist working using shared prefs
 - [ ] wishlist page UI
-- [ ] fix searchBar length issue
+- [x] fix searchBar length issue
 - [ ] add refresh indicator in search
-- [ ] search bar loader (end cross to loader)
-- [ ] home screen categories grid fix
+- [x] search bar loader (end cross to loader)
+- [x] home screen categories grid fix
 - [ ] home screen widget redsign (need more types of widgets)
 - [ ] product widget grids, different types
 - [x] drawer redesign (Category to Shop by Category, Your Order/Your Wishlist, Your Account, no email,white should be the bg, header color should be teal)
@@ -34,15 +34,17 @@
 - [x] product page UI update (name should be small, pictures should be fully wide, show carousel indicators)
 - [x] product page UI update (name above image, wishlist button redesign, share button, price should be biggest element)
 - [x] product page UI update (add buy button in front of price, add one more buy button as FAB when the other is not visible)
-- [ ] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
+- [x] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
 - [ ] order now working (db update, email update)
-- [ ] email on order successful
+- [x] email on order successful
 - [ ] categories should be appbar title
 - [ ] search wishlist only on home, appbar cleaning
-- [ ] back button product page appbar
-- [ ] replace snackbars with toasts in google sign in
+- [x] back button product page appbar
+- [x] replace snackbars with toasts in google sign in
 - [ ] Update Popups UI
-- [ ] Update more info page UI
+- [x] Update more info page UI
 - [ ] Remove uneccessary widgets, pages and packages
-- [ ] change icon
+- [x] change icon
 - [ ] add splash screen
+- [ ] order popup validation
+- [ ] assets quality lower

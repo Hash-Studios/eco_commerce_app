@@ -1,11 +1,10 @@
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
-import 'package:eco_commerce_app/ui/widgets/orDivider.dart';
 import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -19,7 +18,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPassValid = false;
   bool isPassConfirmValid = false;
   bool isLoading;
-
   List<bool> validators = [false, false, false, false];
   double value = 0;
   final FocusNode _nameFocus = FocusNode();
@@ -61,11 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFFA1A3FF), Color(0xFF6D63EF)],
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-              ),
+              gradient: config.Colors().nebula,
             ),
             child: SizedBox(
               height: height,
@@ -91,7 +85,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                             child: TextFormField(
-                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
                               enabled: !isLoading,
                               controller: nameController,
                               focusNode: _nameFocus,
@@ -128,7 +127,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Name",
-                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 labelText: "Name",
                                 labelStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
@@ -153,7 +157,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                             child: TextFormField(
-                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
                               enabled: !isLoading,
                               controller: emailController,
                               focusNode: _emailFocus,
@@ -220,7 +229,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Email Address",
-                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 labelText: "Email Address",
                                 labelStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
@@ -266,7 +280,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         Colors.white),
                                   ),
                                   TextFormField(
-                                    style: TextStyle(color: Color(0xFFFFFFFF)),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                          color: Colors.white,
+                                        ),
                                     enabled: !isLoading,
                                     focusNode: _passFocus,
                                     onChanged: (term) {
@@ -417,7 +436,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
                             child: TextFormField(
-                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
                               enabled: !isLoading,
                               focusNode: _passConfirmFocus,
                               onFieldSubmitted: (term) {
@@ -478,7 +502,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Confirm Password",
-                                hintStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
                                 labelText: "Confirm Password",
                                 labelStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
@@ -560,12 +589,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   form.currentState.save();
                                   print(
                                       "name:${nameController.text},email:${emailController.text},pwd:${passwordController.text}");
-                                  Navigator.pushReplacementNamed(
-                                      context, UserOptionalRoute, arguments: [
-                                    nameController.text,
-                                    emailController.text,
-                                    passwordController.text
-                                  ]);
+                                  Future.delayed(Duration(milliseconds: 500))
+                                      .then((value) {
+                                    Navigator.pushReplacementNamed(
+                                        context, UserOptionalRoute, arguments: [
+                                      nameController.text,
+                                      emailController.text,
+                                      passwordController.text
+                                    ]);
+                                  });
                                 }
                               : () {},
                           child: SizedBox(
@@ -585,12 +617,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       : Text(
                                           'Submit',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFFFFFFF),
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button,
                                         ),
                                 ],
                               ),
@@ -617,7 +646,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Navigator.pop(context);
               },
               backgroundColor: Colors.transparent,
-              child: Icon(LineAwesomeIcons.close),
+              child: Icon(
+                LineAwesomeIcons.close,
+                color: Theme.of(context).primaryColor,
+              ),
               elevation: 0,
               highlightElevation: 0,
               disabledElevation: 0,

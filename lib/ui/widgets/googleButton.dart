@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eco_commerce_app/main.dart' as main;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 final GoogleAuth gAuth = GoogleAuth();
 
 class GoogleButton extends StatefulWidget {
   final bool login;
+  final String text;
   const GoogleButton({
     @required this.login,
+    @required this.text,
     Key key,
   }) : super(key: key);
 
@@ -32,16 +35,24 @@ class _GoogleButtonState extends State<GoogleButton> {
       padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
       child: Consumer<CurrentUser>(
         builder: (_, currentUser, __) => Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  color: Color(0xFFEFF5FF).withOpacity(0.4),
-                  blurRadius: 16,
-                  offset: Offset(0, 4)),
-            ],
-            borderRadius: BorderRadius.circular(500),
-          ),
+          decoration: widget.login
+              ? BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xFFEFF5FF).withOpacity(0.4),
+                        blurRadius: 16,
+                        offset: Offset(0, 4)),
+                  ],
+                  borderRadius: BorderRadius.circular(500),
+                )
+              : BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.circular(500),
+                ),
           child: FlatButton(
             colorBrightness: Brightness.light,
             padding: EdgeInsets.all(0),
@@ -59,29 +70,64 @@ class _GoogleButtonState extends State<GoogleButton> {
                           res = (json.decode(response.body));
                           print(res);
                           if (response.statusCode == 200) {
-                            // _showSuccessSnackbar();
+                            Fluttertoast.showToast(
+                                msg: "Login Successful!",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.green[400],
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                             currentUser.getUserfromResp(res);
                             currentUser.saveUsertoSP();
                             _redirectUser();
                           } else {
                             gAuth.signOutGoogle();
-                            // _showErrorSnackbar(
-                            //     res['message'][0]['messages'][0]['message']);
+                            Fluttertoast.showToast(
+                                msg: res['message'][0]['messages'][0]
+                                    ['message'],
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                textColor: Colors.white,
+                                backgroundColor: Colors.red[400],
+                                fontSize: 16.0);
                           }
                         }).timeout(
                           const Duration(seconds: 30),
                           onTimeout: () {
                             gAuth.signOutGoogle();
-                            // _showErrorSnackbar('Connection Timeout Error!');
+                            Fluttertoast.showToast(
+                                msg: "Connection Timeout Error!",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red[400],
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                           },
                         );
                       } on SocketException {
                         gAuth.signOutGoogle();
-                        // _showErrorSnackbar('Network Not Connected!');
+                        Fluttertoast.showToast(
+                            msg: "Network Not Connected!",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red[400],
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       } catch (e) {
                         print(e);
                         gAuth.signOutGoogle();
-                        // _showErrorSnackbar(e.toString());
+                        Fluttertoast.showToast(
+                            msg: e.toString(),
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red[400],
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       }
                     });
                   }
@@ -108,16 +154,15 @@ class _GoogleButtonState extends State<GoogleButton> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        "Sign in with Google",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF1C1C1C),
-                        ),
-                      ),
+                      child: Text(widget.text,
+                          textAlign: TextAlign.center,
+                          style: widget.login
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .button
+                                  .copyWith(color: config.Colors().mainColor(1))
+                              : Theme.of(context).textTheme.button.copyWith(
+                                  color: Theme.of(context).primaryColor)),
                     ),
                   ],
                 ),

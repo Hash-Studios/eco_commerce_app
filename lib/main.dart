@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
+import 'package:eco_commerce_app/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/router.dart' as router;
 import 'package:provider/provider.dart';
@@ -40,10 +41,7 @@ class MyApp extends StatelessWidget {
           builder: (context) => UndefinedScreen(
                 name: settings.name,
               )),
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: kDefaultTheme,
       initialRoute: email == null ? OnboardRoute1 : HomeRoute,
     );
   }

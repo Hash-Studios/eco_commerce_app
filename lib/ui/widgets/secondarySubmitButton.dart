@@ -31,22 +31,19 @@ class SecondarySubmitButton extends StatelessWidget {
               Text(
                 text + '?  ',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xEEFFFFFF),
-                ),
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: "Roboto",
+                    ),
               ),
               Text(
                 boldText,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 17,
-                  fontWeight: FontWeight.w900,
-                  color: Color(0xEEFFFFFF),
-                ),
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                    ),
               ),
             ],
           ),

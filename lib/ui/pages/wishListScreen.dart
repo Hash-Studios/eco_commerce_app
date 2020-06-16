@@ -18,13 +18,14 @@ class _WishListScreenState extends State<WishListScreen> {
   String prefWishList;
   List<Product> wishListedProducts;
   List<Widget> list;
-  bool isLoading = true;
+  bool isLoading;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     wishListedProducts = new List();
+    isLoading = true;
     list = new List();
     prefWishList = 'wishListPref';
     updateWishList();
@@ -86,8 +87,10 @@ class _WishListScreenState extends State<WishListScreen> {
                 ),
               ),
               (wishListedProducts == null || isLoading == true)
-                  ? Padding(
-                      padding: const EdgeInsets.all(100.0),
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
                       child: CircularProgressIndicator(),
                     )
                   : Padding(
@@ -115,18 +118,16 @@ class _WishListScreenState extends State<WishListScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> listTemp =
         (prefs.getStringList(prefWishList) ?? List<String>());
-        for(int i=0;i<listTemp.length;i++)
-       {
-         new Future<Product>((){
-           return  ProductLoader.loadProductById(listTemp[i]);
-         }).then((value) {
-             wishListedProducts.add(value);
-             print(value);
-         });
-        }
-       setState(() {
-         isLoading = false;
-       });
-
+    for (int i = 0; i < listTemp.length; i++) {
+      await new Future<Product>(() {
+        return ProductLoader.loadProductById(listTemp[i]);
+      }).then((value) {
+        wishListedProducts.add(value);
+        print(value.name);
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }

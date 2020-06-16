@@ -10,15 +10,7 @@ class HeaderText extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              color: Color(0xFFFFFFFF),
-              fontSize: 50,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          child: Text(text, style: Theme.of(context).textTheme.headline1),
         ),
       ],
     );

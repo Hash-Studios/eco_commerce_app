@@ -16,7 +16,7 @@ class _ProductCarouselState extends State<ProductCarousel> {
       children: <Widget>[
         CarouselSlider.builder(
           options: CarouselOptions(
-              height: 250,
+              height: 350,
               enableInfiniteScroll: false,
               aspectRatio: 1,
               viewportFraction: 1,
