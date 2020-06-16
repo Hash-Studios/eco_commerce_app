@@ -11,6 +11,7 @@ const String CategoriesRoute = '/categories';
 const String ProfileRoute = '/profile';
 const String ContactUsRoute = '/contactus';
 const String ProductRoute = '/product';
+const String WishListRoute = '/wishlist';
 const String OnboardRoute1 = '/onboard1';
 const String OnboardRoute2 = '/onboard2';
 const String OnboardRoute3 = '/onboard3';

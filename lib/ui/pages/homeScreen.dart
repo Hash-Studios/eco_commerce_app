@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
@@ -16,10 +14,10 @@ import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
+import 'package:eco_commerce_app/util/productLoderUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
@@ -37,62 +35,73 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void getData() async {
-    setState(() {
-      isLoading = true;
-    });
-    http
-        .get(
-      'https://ecocommerce.herokuapp.com/products',
-    )
-        .then((http.Response res) {
-      print(json.decode(res.body));
-      products = [];
-      if (res.statusCode == 200) {
-        for (int c = 0; c < json.decode(res.body).length; c++) {
-          products.add(
-            Product(
-              id: json.decode(res.body)[c]["id"],
-              name: json.decode(res.body)[c]["name"],
-              price: json.decode(res.body)[c]["price"].toString(),
-              images: new List<ProductImage>.generate(
-                  jsonDecode(res.body)[c]["images"].length, (image) {
-                return ProductImage(
-                    id: jsonDecode(res.body)[c]["images"][image]["id"],
-                    name: jsonDecode(res.body)[c]["images"][image]["name"],
-                    ext: jsonDecode(res.body)[c]["images"][image]["ext"],
-                    size: jsonDecode(res.body)[c]["images"][image]["size"]
-                        .toString(),
-                    width: jsonDecode(res.body)[c]["images"][image]["width"]
-                        .toString(),
-                    height: jsonDecode(res.body)[c]["images"][image]["height"]
-                        .toString(),
-                    url: jsonDecode(res.body)[c]["images"][image]["url"],
-                    thumbnailUrl: jsonDecode(res.body)[c]["images"][image]
-                        ["formats"]["thumbnail"]["url"],
-                    smallUrl: jsonDecode(res.body)[c]["images"][image]
-                        ["formats"]["small"]["url"],
-                    createdAt: jsonDecode(res.body)[c]["images"][image]
-                        ["createdAt"]);
-              }),
-              category: json.decode(res.body)[c]["category"],
-              desc: json.decode(res.body)[c]["desc"],
-              features: json.decode(res.body)[c]["features"],
-              createdAt: json.decode(res.body)[c]["createdAt"],
-            ),
-          );
-        }
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
+//    setState(() {
+//      isLoading = true;
+//    });
+    //    http
+//        .get(
+//      'https://ecocommerce.herokuapp.com/products',
+//    )
+//        .then((http.Response res) {
+//      print(json.decode(res.body));
+//      products = [];
+//      if (res.statusCode == 200) {
+//        for (int c = 0; c < json.decode(res.body).length; c++) {
+//          products.add(
+//            Product(
+//              id: json.decode(res.body)[c]["id"],
+//              name: json.decode(res.body)[c]["name"],
+//              price: json.decode(res.body)[c]["price"].toString(),
+//              images: new List<ProductImage>.generate(
+//                  jsonDecode(res.body)[c]["images"].length, (image) {
+//                return ProductImage(
+//                    id: jsonDecode(res.body)[c]["images"][image]["id"],
+//                    name: jsonDecode(res.body)[c]["images"][image]["name"],
+//                    ext: jsonDecode(res.body)[c]["images"][image]["ext"],
+//                    size: jsonDecode(res.body)[c]["images"][image]["size"]
+//                        .toString(),
+//                    width: jsonDecode(res.body)[c]["images"][image]["width"]
+//                        .toString(),
+//                    height: jsonDecode(res.body)[c]["images"][image]["height"]
+//                        .toString(),
+//                    url: jsonDecode(res.body)[c]["images"][image]["url"],
+//                    thumbnailUrl: jsonDecode(res.body)[c]["images"][image]
+//                        ["formats"]["thumbnail"]["url"],
+//                    smallUrl: jsonDecode(res.body)[c]["images"][image]
+//                        ["formats"]["small"]["url"],
+//                    createdAt: jsonDecode(res.body)[c]["images"][image]
+//                        ["createdAt"]);
+//              }),
+//              category: json.decode(res.body)[c]["category"],
+//              desc: json.decode(res.body)[c]["desc"],
+//              features: json.decode(res.body)[c]["features"],
+//              createdAt: json.decode(res.body)[c]["createdAt"],
+//            ),
+//          );
+//        }
+//        setState(() {
+//          isLoading = false;
+//        });
+//      }
+//    });
   }
 
   @override
   void initState() {
     super.initState();
     isLoaded = false;
-    getData();
+    isLoading = true;
+    products = new List();
+    new Future<List<Product>>(() {
+      return ProductLoader.loadProducts();
+    }).then((value) {
+      setState(() {
+        products = value;
+        print(value);
+        isLoading = false;
+      });
+    });
+//    getData();
   }
 
   @override
@@ -165,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  isLoading
+                  (products == null || isLoading == true)
                       ? LinearProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(Color(0xFF96EFA6)),
                           backgroundColor: Color(0x6696EFA6),
@@ -180,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       gradient: config.Colors().alive,
                       message:
                           "Find the greatest collection of Natural Products!"),
-                  isLoading
+                  (products == null || isLoading == true)
                       ? Padding(
                           padding: const EdgeInsets.all(100.0),
                           child: CircularProgressIndicator(),
@@ -316,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 20,
                   ),
                   Center(child: SectionHeader(text: "Trending Products")),
-                  isLoading
+                  (products == null || isLoading == true)
                       ? Padding(
                           padding: const EdgeInsets.all(100.0),
                           child: CircularProgressIndicator(),
@@ -338,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       gradient: config.Colors().aqua,
                       message:
                           "Find the greatest collection of Natural Products!"),
-                  isLoading
+                  (products == null || isLoading == true)
                       ? Padding(
                           padding: const EdgeInsets.all(100.0),
                           child: CircularProgressIndicator(),
@@ -368,8 +377,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextSlider(),
                     ],
                   ),
-                  Center(child: SectionHeader(text: "Latest for You")),
-                  isLoading
+                  Center(child: SectionHeader(text: "Trending Products")),
+                  (products == null || isLoading == true)
                       ? Padding(
                           padding: const EdgeInsets.all(100.0),
                           child: CircularProgressIndicator(),

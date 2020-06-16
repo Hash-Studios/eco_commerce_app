@@ -24,6 +24,7 @@ import 'package:eco_commerce_app/ui/pages/registerScreen.dart';
 import 'package:eco_commerce_app/ui/pages/trendingScreen.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
+import 'package:eco_commerce_app/ui/pages/wishListScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ui/pages/homeScreen.dart';
@@ -56,6 +57,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return CupertinoPageRoute(builder: (context) => CategoriesScreen());
     case ProfileRoute:
       return CupertinoPageRoute(builder: (context) => ProfileScreen());
+    case WishListRoute:
+      return CupertinoPageRoute(builder: (context) => WishListScreen());
     case OnboardRoute1:
       return CupertinoPageRoute(builder: (context) => OnboardScreen1());
     case OnboardRoute2:

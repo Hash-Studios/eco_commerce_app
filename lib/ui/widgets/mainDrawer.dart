@@ -176,6 +176,11 @@ class MainDrawer extends StatelessWidget {
                                 .bodyText2
                                 .copyWith(fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                WishListRoute, (Route<dynamic> route) => false);
+                          },
                         ),
                       ),
                       Padding(
