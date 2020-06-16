@@ -6,6 +6,7 @@ import 'package:eco_commerce_app/ui/pages/codeVerificationScreen.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen1.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen2.dart';
 import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
+import 'package:eco_commerce_app/ui/pages/orderScreen.dart';
 import 'package:eco_commerce_app/ui/pages/productScreen.dart';
 import 'package:eco_commerce_app/ui/pages/resetPasswordScreen.dart';
 import 'package:eco_commerce_app/ui/pages/search.dart';
@@ -22,7 +23,6 @@ import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
 
 import 'package:eco_commerce_app/ui/pages/contactUs.dart';
-import 'package:eco_commerce_app/ui/widgets/orderScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ui/pages/homeScreen.dart';
