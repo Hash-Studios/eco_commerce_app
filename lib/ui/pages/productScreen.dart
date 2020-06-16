@@ -13,7 +13,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class ProductScreen extends StatefulWidget {
   final List<Product> arguements;
-
   ProductScreen({this.arguements});
 
   @override
@@ -26,10 +25,12 @@ class _ProductScreenState extends State<ProductScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double width;
   double height;
+  bool popup;
 
   @override
   void initState() {
     fabVisible = false;
+    popup = false;
     super.initState();
     product = widget.arguements[0];
   }

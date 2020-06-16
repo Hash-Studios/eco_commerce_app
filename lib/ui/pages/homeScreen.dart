@@ -34,11 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> trending = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void getData() async {
+//  void getData() async {
 //    setState(() {
 //      isLoading = true;
 //    });
-    //    http
+  //    http
 //        .get(
 //      'https://ecocommerce.herokuapp.com/products',
 //    )
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //        });
 //      }
 //    });
-  }
+//  }
 
   @override
   void initState() {

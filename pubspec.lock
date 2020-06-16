@@ -305,7 +305,17 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+<<<<<<< HEAD
 >>>>>>> Wishlist page added + Product Loader added
+=======
+  pin_code_fields:
+    dependency: "direct main"
+    description:
+      name: pin_code_fields
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.2"
+>>>>>>> WishList Screen added + Products Loader addded
   plugin_platform_interface:
     dependency: transitive
     description:

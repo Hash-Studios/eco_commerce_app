@@ -15,7 +15,11 @@
 - [ ] wishlist working using shared prefs
 - [ ] wishlist page UI
 - [x] fix searchBar length issue
+<<<<<<< HEAD
 - [x] add refresh indicator in search
+=======
+- [ ] add refresh indicator in search
+>>>>>>> WishList Screen added + Products Loader addded
 - [x] search bar loader (end cross to loader)
 - [x] home screen categories grid fix
 - [ ] home screen widget redsign (need more types of widgets)
@@ -37,16 +41,25 @@
 - [x] product page UI update (description and features with different widgets, increase spacing over all, add badges in UI)
 - [ ] order now working (db update, email update)
 - [x] email on order successful
+<<<<<<< HEAD
 - [x] categories should be appbar title
 - [ ] search wishlist only on home, appbar cleaning
 - [x] back button product page appbar
 - [x] replace snackbars with toasts in google sign in
 - [x] Update Popups UI
+=======
+- [ ] categories should be appbar title
+- [ ] search wishlist only on home, appbar cleaning
+- [x] back button product page appbar
+- [x] replace snackbars with toasts in google sign in
+- [ ] Update Popups UI
+>>>>>>> WishList Screen added + Products Loader addded
 - [x] Update more info page UI
 - [ ] Remove uneccessary widgets, pages and packages
 - [x] change icon
 - [ ] add splash screen
 - [ ] order popup validation
+<<<<<<< HEAD
 - [ ] assets quality lower
 - [x] sign up landing must have login button
 - [x] fix overflow in onboarding pages
@@ -54,3 +67,6 @@
 - [x] use stack/position in onboarding
 - [ ] clear list during listview builder and gridview builder to reduce multiple entries glitch
 - [ ] fix productgridtile widget padding issue
+=======
+- [ ] assets quality lower
+>>>>>>> WishList Screen added + Products Loader addded

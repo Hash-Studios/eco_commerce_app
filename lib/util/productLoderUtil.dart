@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
+import 'package:eco_commerce_app/main.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ProductLoader {
@@ -35,7 +36,7 @@ abstract class ProductLoader {
     return _products;
   }
 
- // In these we can write our algorithm to fetch similar/search/etc
+  // In these we can write our algorithm to fetch similar/search/etc
 //  static loadProductsByTag() {}
 //  static loadProductsByQuery() {}
 
@@ -47,39 +48,41 @@ abstract class ProductLoader {
           ((id != null) ? '/' + id : ""),
     )
         .then((http.Response res) {
-      print("------");
-      print(json.decode(res.body));
-      print("------");
+      String response = res.body.toString();
+      if (id != null) response = '[' + response + ']';
+
+      print(json.decode(response));
+
       if (res.statusCode == 200) {
-        for (int i = 0; i < json.decode(res.body).length; i++) {
-          _cashedProducts[json.decode(res.body)[i]["id"]] = Product(
-            id: json.decode(res.body)[i]["id"],
-            name: json.decode(res.body)[i]["name"],
-            price: json.decode(res.body)[i]["price"].toString(),
+        for (int i = 0; i < json.decode(response).length; i++) {
+          _cashedProducts[json.decode(response)[i]["id"]] = Product(
+            id: json.decode(response)[i]["id"],
+            name: json.decode(response)[i]["name"],
+            price: json.decode(response)[i]["price"].toString(),
             images: new List<ProductImage>.generate(
-                jsonDecode(res.body)[i]["images"].length, (image) {
+                jsonDecode(response)[i]["images"].length, (image) {
               return ProductImage(
-                  id: jsonDecode(res.body)[i]["images"][image]["id"],
-                  name: jsonDecode(res.body)[i]["images"][image]["name"],
-                  ext: jsonDecode(res.body)[i]["images"][image]["ext"],
-                  size: jsonDecode(res.body)[i]["images"][image]["size"]
+                  id: jsonDecode(response)[i]["images"][image]["id"],
+                  name: jsonDecode(response)[i]["images"][image]["name"],
+                  ext: jsonDecode(response)[i]["images"][image]["ext"],
+                  size: jsonDecode(response)[i]["images"][image]["size"]
                       .toString(),
-                  width: jsonDecode(res.body)[i]["images"][image]["width"]
+                  width: jsonDecode(response)[i]["images"][image]["width"]
                       .toString(),
-                  height: jsonDecode(res.body)[i]["images"][image]["height"]
+                  height: jsonDecode(response)[i]["images"][image]["height"]
                       .toString(),
-                  url: jsonDecode(res.body)[i]["images"][image]["url"],
-                  thumbnailUrl: jsonDecode(res.body)[i]["images"][image]
+                  url: jsonDecode(response)[i]["images"][image]["url"],
+                  thumbnailUrl: jsonDecode(response)[i]["images"][image]
                       ["formats"]["thumbnail"]["url"],
-                  smallUrl: jsonDecode(res.body)[i]["images"][image]["formats"]
+                  smallUrl: jsonDecode(response)[i]["images"][image]["formats"]
                       ["small"]["url"],
-                  createdAt: jsonDecode(res.body)[i]["images"][image]
+                  createdAt: jsonDecode(response)[i]["images"][image]
                       ["createdAt"]);
             }),
-            category: json.decode(res.body)[i]["category"],
-            desc: json.decode(res.body)[i]["desc"],
-            features: json.decode(res.body)[i]["features"],
-            createdAt: json.decode(res.body)[i]["createdAt"],
+            category: json.decode(response)[i]["category"],
+            desc: json.decode(response)[i]["desc"],
+            features: json.decode(response)[i]["features"],
+            createdAt: json.decode(response)[i]["createdAt"],
           );
         }
       }
