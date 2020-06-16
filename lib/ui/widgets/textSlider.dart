@@ -28,7 +28,7 @@ class _TextSliderState extends State<TextSlider> {
 
   @override
   Widget build(BuildContext context) {
-    print(_current);
+    // print(_current);
     final width = MediaQuery.of(context).size.width;
     return CarouselSlider(
       options: CarouselOptions(
@@ -76,7 +76,7 @@ class _TextSliderState extends State<TextSlider> {
                                 .toUpperCase(),
                             style: TextStyle(
                                 fontSize: 25,
-                                color: Color(0xFF004445),
+                                color: Theme.of(context).accentColor,
                                 fontFamily: "Poppins",
                                 fontWeight: FontWeight.w700)),
                       ],

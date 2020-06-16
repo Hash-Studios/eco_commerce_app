@@ -75,22 +75,22 @@ class _TrendingSliderState extends State<TrendingSlider> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   margin: const EdgeInsets.symmetric(
-                      //       vertical: 20, horizontal: 20),
-                      //   height: 200,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(13),
-                      //     gradient: LinearGradient(
-                      //       colors: [
-                      //         Colors.white10,
-                      //         Colors.white70,
-                      //       ],
-                      //       begin: Alignment.topLeft,
-                      //       end: Alignment.bottomRight,
-                      //     ),
-                      //   ),
-                      // )
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(13),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.white10,
+                              Colors.white70,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   onTap: () {
@@ -109,21 +109,21 @@ class _TrendingSliderState extends State<TrendingSlider> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: images.map((String image) {
                 return Container(
-                  width: 7.0,
-                  height: 7.0,
+                  width: 8.0,
+                  height: 8.0,
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
-                      border: Border.all(
-                          color: _current == images.indexOf(image)
-                              ? Colors.white
-                              : Colors.white70,
-                          width: 1),
+                      // border: Border.all(
+                      //     color: _current == images.indexOf(image)
+                      //         ? Colors.white
+                      //         : Colors.white70,
+                      //     width: 1),
                       borderRadius: BorderRadius.all(
-                        Radius.circular(8),
+                        Radius.circular(500),
                       ),
                       color: _current == images.indexOf(image)
-                          ? Color(0xFF004445)
-                          : Color(0xFF004445).withOpacity(0.4)),
+                          ? Theme.of(context).accentColor
+                          : Theme.of(context).accentColor.withOpacity(0.4)),
                 );
               }).toList(),
             ),
