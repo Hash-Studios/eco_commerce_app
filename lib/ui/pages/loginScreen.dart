@@ -415,7 +415,6 @@ class _LoginScreenState extends State<LoginScreen> {
           formLogin.currentState.reset();
         }
         setState(() {
-          ;
           isLoading = false;
         });
       }).timeout(

@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/ui/widgets/appBarTitle.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
-import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -30,7 +28,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       isLoading = true;
     });
     String id = main.prefs.getString("id");
-    String jwt = main.prefs.getString("jwt");
+    // String jwt = main.prefs.getString("jwt");
     print(id);
     http
         .put(
@@ -89,7 +87,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
     return Consumer<CurrentUser>(
       builder: (_, currentUser, __) {
         currentUser.getUserfromSP();

@@ -5,7 +5,6 @@ import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
-import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       isLoading = true;
     });
     String id = main.prefs.getString("id");
-    String jwt = main.prefs.getString("jwt");
+    // String jwt = main.prefs.getString("jwt");
     print(id);
     http
         .put(
