@@ -60,7 +60,7 @@ class _SignUpLandingScreenState extends State<SignUpLandingScreen> {
                     duration: Duration(seconds: 1),
                     padding: opacity == 0
                         ? EdgeInsets.only(bottom: 0)
-                        : EdgeInsets.fromLTRB(40, 40, 40, 50),
+                        : EdgeInsets.fromLTRB(40, 10, 40, 10),
                     curve: Curves.easeInBack,
                     child: Image(
                         image: AssetImage("assets/images/splashIcon.png"),

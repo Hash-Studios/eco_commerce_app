@@ -15,7 +15,7 @@
 - [ ] wishlist working using shared prefs
 - [ ] wishlist page UI
 - [x] fix searchBar length issue
-- [ ] add refresh indicator in search
+- [x] add refresh indicator in search
 - [x] search bar loader (end cross to loader)
 - [x] home screen categories grid fix
 - [ ] home screen widget redsign (need more types of widgets)
