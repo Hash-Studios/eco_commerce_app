@@ -114,12 +114,7 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF004445),
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
                     ),
@@ -156,12 +151,7 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
                               child: Text(
                                 ' ₹$price',
                                 textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF004445),
-                                ),
+                                style: Theme.of(context).textTheme.headline3,
                               ),
                             ),
                             Spacer(),

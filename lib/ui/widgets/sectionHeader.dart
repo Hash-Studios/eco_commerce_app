@@ -12,15 +12,12 @@ class SectionHeader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: Container(
               width: width * 0.9,
               child: Text(
                 text,
-                style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.w700),
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
           ),

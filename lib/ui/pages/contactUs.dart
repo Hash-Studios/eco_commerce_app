@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class ContactUs extends StatefulWidget {
   ContactUs({Key key}) : super(key: key);
@@ -204,7 +205,7 @@ class _ContacUsState extends State<ContactUs> {
         elevation: 0.0,
         backgroundColor: Colors.white.withOpacity(0),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(LineAwesomeIcons.arrow_left),
           color: Colors.black,
           onPressed: () {
             Navigator.pop(context);
