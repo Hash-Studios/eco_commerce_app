@@ -147,6 +147,10 @@ class MainDrawer extends StatelessWidget {
                             'Your Orders',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, OrderRoute);
+                          },
                         ),
                       ),
                       Padding(

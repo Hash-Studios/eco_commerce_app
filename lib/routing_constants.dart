@@ -16,5 +16,6 @@ const String OnboardRoute2 = '/onboard2';
 const String OnboardRoute3 = '/onboard3';
 const String SignUpLandingRoute = '/registration';
 const String TrendingRoute = '/trending';
+const String OrderRoute = '/orders';
 const String CodeVerificationRoute = '/codeverification';
 const String ResetPasswordRoute = '/resetpassword';
