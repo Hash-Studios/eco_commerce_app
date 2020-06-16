@@ -16,14 +16,17 @@ class GradientBanner extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
       ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 50, 30, 50),
-        child: Text(
-          message,
-          style: Theme.of(context)
-              .textTheme
-              .headline3
-              .copyWith(color: Colors.white),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 50, 30, 50),
+          child: Text(
+            message,
+            style: Theme.of(context)
+                .textTheme
+                .headline3
+                .copyWith(color: Colors.white),
+          ),
         ),
       ),
     );
