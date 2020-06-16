@@ -70,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GoogleButton(
                       login: true,
+                      text: "Sign in with Google",
                     ),
                     OrDivider(),
                     Form(

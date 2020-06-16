@@ -8,6 +8,7 @@ import 'package:eco_commerce_app/ui/pages/onboardScreen3.dart';
 import 'package:eco_commerce_app/ui/pages/productScreen.dart';
 import 'package:eco_commerce_app/ui/pages/resetPasswordScreen.dart';
 import 'package:eco_commerce_app/ui/pages/search.dart';
+import 'package:eco_commerce_app/ui/pages/signupLandingScreen.dart';
 import 'package:eco_commerce_app/ui/pages/terms.dart';
 import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
 import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
@@ -22,11 +23,15 @@ import 'package:eco_commerce_app/ui/pages/contactUs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ui/pages/homeScreen.dart';
+import 'package:eco_commerce_app/main.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     // case PreSignUpRoute:
     //   return CupertinoPageRoute(builder: (context) => PreSignUpSlider());
+    case MainRoute:
+      main();
+      break;
     case LoginRoute:
       return CupertinoPageRoute(builder: (context) => LoginScreen());
     case RegisterRoute:
@@ -49,6 +54,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return CupertinoPageRoute(builder: (context) => OnboardScreen2());
     case OnboardRoute3:
       return CupertinoPageRoute(builder: (context) => OnboardScreen3());
+    case SignUpLandingRoute:
+      return CupertinoPageRoute(builder: (context) => SignUpLandingScreen());
     case CodeVerificationRoute:
       return CupertinoPageRoute(
         builder: (context) => CodeVerificationScreen(

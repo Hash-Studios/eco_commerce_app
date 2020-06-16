@@ -1,19 +1,17 @@
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/widgets/onboardCaption.dart';
+import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
 import 'package:eco_commerce_app/ui/widgets/onboardHeading.dart';
-import 'package:eco_commerce_app/ui/widgets/onboardPageIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
-class OnboardScreen3 extends StatefulWidget {
+class SignUpLandingScreen extends StatefulWidget {
   @override
-  _OnboardScreen3State createState() => _OnboardScreen3State();
+  _SignUpLandingScreenState createState() => _SignUpLandingScreenState();
 }
 
-class _OnboardScreen3State extends State<OnboardScreen3> {
+class _SignUpLandingScreenState extends State<SignUpLandingScreen> {
   double opacity = 0;
   String heading = 'Eco-friendly';
-  int index = 3;
   String caption =
       "Look deep into nature, and then you will\nunderstand everything better.";
 
@@ -40,7 +38,7 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: config.Colors().mildSea,
+          gradient: config.Colors().purplin,
         ),
         child: Center(
           child: Column(
@@ -64,38 +62,20 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
                         : EdgeInsets.fromLTRB(40, 40, 40, 50),
                     curve: Curves.easeInBack,
                     child: Image(
-                        image: AssetImage("assets/images/onboard3.png"),
+                        image: AssetImage("assets/images/splashIcon.png"),
                         fit: BoxFit.fitWidth),
                   ),
                 ),
               ),
-              OnboardCaption(caption: caption),
-              OnboardPageIndicator(index: index),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: OutlineButton(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                      padding: EdgeInsets.all(0),
-                      shape: StadiumBorder(),
-                      onPressed: () {
-                        Navigator.pushNamed(context, LoginRoute);
-                      },
-                      child: SizedBox(
-                        width: width * 0.375,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),
-                          child: Text("Login",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.button),
-                        ),
-                      ),
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: GoogleButton(
+                        login: false,
+                        text: "Sign up with Google",
+                      )),
                   Hero(
                     tag: 'OnboardButton',
                     transitionOnUserGestures: true,
@@ -117,15 +97,15 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
                           padding: EdgeInsets.all(0),
                           shape: StadiumBorder(),
                           onPressed: () {
-                            Navigator.pushNamed(context, SignUpLandingRoute);
+                            Navigator.pushNamed(context, RegisterRoute);
                           },
                           child: SizedBox(
-                            width: width * 0.375,
+                            width: width * 0.75,
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 15.0),
                               child: Text(
-                                "Signup",
+                                "Create free account",
                                 textAlign: TextAlign.center,
                                 style:
                                     Theme.of(context).textTheme.button.copyWith(
