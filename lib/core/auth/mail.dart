@@ -61,3 +61,24 @@ sendForgotPasswordMail(String email, String code) async {
     print('Message not sent. \n' + e.toString());
   }
 }
+
+sendContactUsMail(String email, String phone, String name, String msg) async {
+  String username = 'ecofriendlycommerceapp@gmail.com';
+  String password = 'Eco123App';
+
+  final smtpServer = gmail(username, password);
+  final message = Message()
+    ..from = Address(username)
+    ..recipients.add("akshaymaurya3006@gmail.com")
+    ..subject =
+        '$email wants to Contact! || Eco-Friendly App' //subject of the email
+    ..text =
+        'Hey,\nI am $name ($email) and I wanted to contact you regarding the message below:\n\n$msg\nHere is my contact number $phone.\n\nStay Awesome,\nEco-Friendly App'; //body of the email
+
+  try {
+    final sendReport = await send(message, smtpServer);
+    print('Message sent: ' + sendReport.toString());
+  } on MailerException catch (e) {
+    print('Message not sent. \n' + e.toString());
+  }
+}
