@@ -193,6 +193,10 @@ class MainDrawer extends StatelessWidget {
                             'About us',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, AboutRoute);
+                          },
                         ),
                       ),
                       Padding(
