@@ -77,7 +77,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   ];
 
   void getData() async {
-    Future.delayed(Duration(milliseconds: 300)).then((value) {
+    Future.delayed(Duration(milliseconds: 0)).then((value) {
       setState(() {
         isLoading = false;
       });

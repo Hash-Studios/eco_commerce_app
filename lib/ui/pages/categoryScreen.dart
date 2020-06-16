@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/gradientBanner.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
+import 'package:eco_commerce_app/ui/widgets/productGridTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
-import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class CategoryScreen extends StatefulWidget {
   final List<String> arguements;
@@ -112,7 +114,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         leading: Hero(
-                      transitionOnUserGestures: true,
+          transitionOnUserGestures: true,
           tag: 'menu',
           child: Card(
             elevation: 0,
@@ -127,9 +129,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
             ),
           ),
         ),
+        title: Text(
+          categoryName,
+          style: Theme.of(context).textTheme.headline2,
+        ),
         actions: <Widget>[
           Hero(
-                      transitionOnUserGestures: true,
+            transitionOnUserGestures: true,
             tag: 'search',
             child: Card(
               elevation: 0,
@@ -144,21 +150,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ),
           ),
-          Hero(
-                      transitionOnUserGestures: true,
-            tag: 'bookmark',
-            child: Card(
-              elevation: 0,
-              color: Colors.transparent,
-              child: IconButton(
-                onPressed: () {
-                  print("Bookmark");
-                },
-                color: Colors.black,
-                icon: Icon(LineAwesomeIcons.bookmark),
-              ),
-            ),
-          )
         ],
       ),
       backgroundColor: Color(0xFFFFFFFF),
@@ -169,21 +160,49 @@ class _CategoryScreenState extends State<CategoryScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Center(
-                child: SectionHeader(text: categoryName)),
             isLoading
-                ? Padding(
-                    padding: const EdgeInsets.all(100.0),
-                    child: CircularProgressIndicator(),
+                ? LinearProgressIndicator()
+                : Column(
+                    children: <Widget>[
+                      GradientBanner(
+                          gradient: config.Colors().nebula,
+                          message: "Your quest for $categoryName ends here!"),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: config.Colors().nebula,
+                        ),
+                        child: GridView(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            ProductGridTileDynamic(arguements: [products[0]]),
+                            ProductGridTileDynamic(arguements: [products[1]]),
+                            ProductGridTileDynamic(arguements: [products[2]]),
+                            ProductGridTileDynamic(arguements: [products[3]])
+                          ],
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 0.58,
+                            crossAxisCount: 2,
+                          ),
+                        ),
+                      ),
+                      GradientBanner(
+                          gradient: config.Colors().nebula,
+                          message:
+                              "Find the greatest collection of $categoryName! All! Evertything!"),
+                      ListView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: products.length - 4,
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          itemBuilder: (context, index) {
+                            return ProductListTileDynamic(
+                                arguements: [products[index + 4]]);
+                          }),
+                    ],
                   )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: products.length,
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    itemBuilder: (context, index) {
-                      return ProductListTileDynamic(
-                          arguements: [products[index]]);
-                    })
           ],
         ),
       ),
