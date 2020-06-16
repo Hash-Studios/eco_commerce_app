@@ -27,6 +27,7 @@ class GoogleButton extends StatefulWidget {
 
 class _GoogleButtonState extends State<GoogleButton> {
   bool loader = false;
+  bool isError = false;
   Map<String, dynamic> res;
   @override
   Widget build(BuildContext context) {
@@ -60,50 +61,69 @@ class _GoogleButtonState extends State<GoogleButton> {
             onPressed: widget.login
                 ? () {
                     gAuth.signInWithGoogle().whenComplete(() async {
-                      try {
-                        http.post(
-                            'https://ecocommerce.herokuapp.com/auth/local/',
-                            body: {
-                              'identifier': main.prefs.getString('googleemail'),
-                              'password': main.prefs.getString('googleemail')
-                            }).then((http.Response response) {
-                          res = (json.decode(response.body));
-                          print(res);
-                          if (response.statusCode == 200) {
-                            toasts.successLog();
-                            currentUser.getUserfromResp(res);
-                            currentUser.saveUsertoSP();
-                            _redirectUser();
-                          } else {
-                            gAuth.signOutGoogle();
-                            toasts.error(
-                                res['message'][0]['messages'][0]['message']);
-                          }
-                        }).timeout(
-                          const Duration(seconds: 30),
-                          onTimeout: () {
-                            gAuth.signOutGoogle();
-                            toasts.timeout();
-                          },
-                        );
-                      } on SocketException {
-                        gAuth.signOutGoogle();
-                        toasts.network();
-                      } catch (e) {
-                        print(e);
-                        gAuth.signOutGoogle();
-                        toasts.error(e.toString());
+                      if (!isError) {
+                        try {
+                          http.post(
+                              'https://ecocommerce.herokuapp.com/auth/local/',
+                              body: {
+                                'identifier':
+                                    main.prefs.getString('googleemail'),
+                                'password': main.prefs.getString('googleemail')
+                              }).then((http.Response response) {
+                            res = (json.decode(response.body));
+                            print(res);
+                            if (response.statusCode == 200) {
+                              toasts.successLog();
+                              currentUser.getUserfromResp(res);
+                              currentUser.saveUsertoSP();
+                              _redirectUser();
+                            } else {
+                              gAuth.signOutGoogle();
+                              toasts.error(
+                                  res['message'][0]['messages'][0]['message']);
+                            }
+                          }).timeout(
+                            const Duration(seconds: 30),
+                            onTimeout: () {
+                              gAuth.signOutGoogle();
+                              toasts.timeout();
+                            },
+                          );
+                        } on SocketException {
+                          gAuth.signOutGoogle();
+                          toasts.network();
+                        } catch (e) {
+                          print(e);
+                          gAuth.signOutGoogle();
+                          toasts.error(e.toString());
+                        }
                       }
+                    }).catchError((e) {
+                      toasts.error(e.toString());
+                      setState(() {
+                        isError = true;
+                      });
+                      Future.delayed(Duration(milliseconds: 500))
+                          .then((value) => Navigator.pop(context));
                     });
                   }
                 : () {
                     gAuth.signInWithGoogle().whenComplete(() async {
-                      Navigator.pushReplacementNamed(context, UserOptionalRoute,
-                          arguments: [
-                            main.prefs.getString('googleemail'),
-                            main.prefs.getString('googlename'),
-                            main.prefs.getString('googleemail')
-                          ]);
+                      if (!isError) {
+                        Navigator.pushNamed(context, UserOptionalRoute,
+                            arguments: [
+                              main.prefs.getString('googleemail'),
+                              main.prefs.getString('googlename'),
+                              main.prefs.getString('googleemail')
+                            ]);
+                      }
+                    }).catchError((e) {
+                      toasts.error(e.toString());
+                      setState(() {
+                        isError = true;
+                      });
+                      Future.delayed(Duration(milliseconds: 500))
+                          .then((value) => Navigator.pop(context));
                     });
                   },
             child: SizedBox(
