@@ -82,6 +82,18 @@ class Colors {
     end: Alignment.bottomLeft,
   );
 
+  LinearGradient aqua = LinearGradient(
+    colors: [Color(0xFF5B86E5), Color(0xFF36D1DC)],
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+  );
+
+  LinearGradient alive = LinearGradient(
+    colors: [Color(0xFFBD3F32), Color(0xFFCB356B)],
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+  );
+
   Color mainColor(double opacity) {
     return this._mainColor.withOpacity(opacity);
   }

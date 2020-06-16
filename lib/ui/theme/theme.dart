@@ -59,7 +59,7 @@ var kDefaultTheme = ThemeData(
     bodyText2: TextStyle(
         fontFamily: 'Poppins',
         color: config.Colors().mainColor(1),
-        fontSize: 16),
+        fontSize: 14),
     bodyText1: TextStyle(
       fontFamily: 'Poppins',
       fontSize: 36,
