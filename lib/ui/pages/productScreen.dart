@@ -68,15 +68,22 @@ class _ProductScreenState extends State<ProductScreen> {
               visible: fabVisible,
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 3),
-                          blurRadius: 10,
-                          color: Color(0xFF004445).withOpacity(0.2))
-                    ]),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xFF76ED92).withOpacity(0.4),
+                        blurRadius: 16,
+                        offset: Offset(0, 4)),
+                  ],
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF26A6B5), Color(0xFF96EFA6)],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                  ),
+                  borderRadius: BorderRadius.circular(500),
+                ),
                 child: FloatingActionButton(
-                    backgroundColor: Color(0xFF004445),
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
                     child: Icon(Icons.shopping_cart),
                     onPressed: () {
                       setState(() {
@@ -194,33 +201,48 @@ class _ProductScreenState extends State<ProductScreen> {
                             }
                           },
                           child: Container(
-                            height: 40,
-                            margin: EdgeInsets.only(top: 10, bottom: 10),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                      offset: Offset(0, 3),
-                                      blurRadius: 10,
-                                      color: Color(0xFF004445).withOpacity(0.2))
-                                ]),
-                            child: RaisedButton(
-                              elevation: 0,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF76ED92).withOpacity(0.4),
+                                    blurRadius: 16,
+                                    offset: Offset(0, 4)),
+                              ],
+                              gradient: LinearGradient(
+                                colors: [Color(0xFF26A6B5), Color(0xFF96EFA6)],
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                              ),
+                              borderRadius: BorderRadius.circular(500),
+                            ),
+                            child: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              colorBrightness: Brightness.dark,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(500)),
+                              color: Colors.transparent,
                               onPressed: () {
-                                print("BUY NOW");
                                 setState(() {
                                   popup = true;
                                 });
                               },
-                              shape: StadiumBorder(),
-                              child: Text(
-                                "BUY NOW",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 20,
-                                    color: Colors.white),
+                              child: SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Buy Now",
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            Theme.of(context).textTheme.button,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              color: Color(0xff004445),
                             ),
                           ),
                         ),
@@ -251,6 +273,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               ExpandText(
                                 product.features,
                                 textAlign: TextAlign.justify,
+                                style: Theme.of(context).textTheme.subtitle2,
                                 maxLength: 8,
                                 arrowSize: 30,
                               )
@@ -281,6 +304,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               ExpandText(
                                 product.desc,
                                 textAlign: TextAlign.justify,
+                                style: Theme.of(context).textTheme.subtitle2,
                                 maxLength: 3,
                                 arrowSize: 30,
                               )
@@ -349,7 +373,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   getRating(3.5),
-                                  Text('From 25,764 ratings')
+                                  Text(
+                                    'From 25,764 ratings',
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  )
                                 ],
                               ),
                             ),
@@ -842,33 +870,34 @@ class _ProductScreenState extends State<ProductScreen> {
       else if (i == 5) c = Colors.red;
 
       ratingBar.add(new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Text(
               (6 - i).toString(),
-              style: TextStyle(fontSize: 20),
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Icon(
             Icons.star,
             size: 10,
           ),
-          Expanded(
-              child: Padding(
+          Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
               height: 4,
+              width: 4.00 * (26 - i * i),
               decoration: BoxDecoration(
                 color: c,
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-          )),
+          ),
           Text(
             (26 - i * i).toString(),
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 14),
           )
         ],
       ));

@@ -41,7 +41,7 @@
 - [ ] search wishlist only on home, appbar cleaning
 - [x] back button product page appbar
 - [x] replace snackbars with toasts in google sign in
-- [ ] Update Popups UI
+- [x] Update Popups UI
 - [x] Update more info page UI
 - [ ] Remove uneccessary widgets, pages and packages
 - [x] change icon
