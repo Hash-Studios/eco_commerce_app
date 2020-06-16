@@ -52,3 +52,5 @@
 - [ ] fix overflow in onboarding pages
 - [ ] change paddig in onboarding
 - [ ] use stack/position in onboarding
+- [ ] clear list during listview builder and gridview builder to reduce multiple entries glitch
+- [ ] fix productgridtile widget padding issue
