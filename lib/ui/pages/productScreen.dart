@@ -1,4 +1,5 @@
 import 'package:eco_commerce_app/core/model/product.dart';
+
 // import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/newImageSlider.dart';
@@ -12,6 +13,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class ProductScreen extends StatefulWidget {
   final List<Product> arguements;
+
   ProductScreen({this.arguements});
 
   @override
@@ -103,25 +105,25 @@ class _ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Hero(
-                      tag: product.name,
-                      transitionOnUserGestures: true,
-                      child: ProductCarousel(
-                        [
-                          'assets/images' +
-                              product.images[0].url
-                                  .toString()
-                                  .split("_")[0]
-                                  .toString()
-                                  .replaceAll("/uploads", "") +
-                              ".jpg",
-
-                          // product.images[1].url,
-                          // product.images[2].url,
-                          // product.images[3].url
-                        ],
-                      ),
-                    ),
+//                    Hero(
+//                      tag: product.name,
+//                      transitionOnUserGestures: true,
+//                      child:
+                    ProductCarousel(
+                      [
+                        'assets/images' +
+                            product.images[0].url
+                                .toString()
+                                .split("_")[0]
+                                .toString()
+                                .replaceAll("/uploads", "") +
+                            ".jpg",
+                        // product.images[1].url,
+                        // product.images[2].url,
+                        // product.images[3].url
+                      ],
+//                      ),
+                    )
                   ],
                 ),
               ),

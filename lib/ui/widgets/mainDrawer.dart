@@ -164,6 +164,11 @@ class MainDrawer extends StatelessWidget {
                                 color: Color(0xFF000000),
                                 fontSize: 16),
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                WishListRoute, (Route<dynamic> route) => false);
+                          },
                         ),
                       ),
                       Padding(
