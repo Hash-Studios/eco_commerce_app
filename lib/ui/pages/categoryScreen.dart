@@ -166,32 +166,30 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     children: <Widget>[
                       GradientBanner(
                           gradient: config.Colors().nebula,
-                          message: "Your quest for $categoryName ends here!"),
+                          message:
+                              "Find the greatest collection of $categoryName! All! Evertything!"),
                       Container(
                         decoration: BoxDecoration(
                           gradient: config.Colors().nebula,
                         ),
-                        child: GridView(
-                          physics: ScrollPhysics(),
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ProductGridTileDynamic(arguements: [products[0]]),
-                            ProductGridTileDynamic(arguements: [products[1]]),
-                            ProductGridTileDynamic(arguements: [products[2]]),
-                            ProductGridTileDynamic(arguements: [products[3]])
-                          ],
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 0.58,
-                            crossAxisCount: 2,
-                          ),
-                        ),
+                        child: GridView.builder(
+                            physics: ScrollPhysics(),
+                            shrinkWrap: true,
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            itemCount: 4,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 0.58,
+                              crossAxisCount: 2,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ProductGridTileDynamic(
+                                  arguements: [products[index]]);
+                            }),
                       ),
                       GradientBanner(
                           gradient: config.Colors().nebula,
-                          message:
-                              "Find the greatest collection of $categoryName! All! Evertything!"),
+                          message: "Your quest for $categoryName ends here!"),
                       ListView.builder(
                           physics: ScrollPhysics(),
                           shrinkWrap: true,
