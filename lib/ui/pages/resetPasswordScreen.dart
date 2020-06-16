@@ -6,11 +6,11 @@ import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
 class ResetPasswordScreen extends StatefulWidget {
   final List<String> arguements;
@@ -456,24 +456,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          Fluttertoast.showToast(
-              msg: "Password Reset Successful!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.successPassReset();
           loginUser(currentUser);
         } else {
-          Fluttertoast.showToast(
-              msg: res['message'][0]['messages'][0]['message'],
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              textColor: Colors.white,
-              backgroundColor: Colors.red[400],
-              fontSize: 16.0);
+          toasts.error(res['message'][0]['messages'][0]['message']);
           form.currentState.reset();
           setState(() {
             isLoading = false;
@@ -482,14 +468,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
-          Fluttertoast.showToast(
-              msg: "Connection Timeout Error!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.timeout();
           form.currentState.reset();
           setState(() {
             isLoading = false;
@@ -497,28 +476,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         },
       );
     } on SocketException {
-      Fluttertoast.showToast(
-          msg: "Network Not Connected!",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.network();
       form.currentState.reset();
       setState(() {
         isLoading = false;
       });
     } catch (e) {
       print(e);
-      Fluttertoast.showToast(
-          msg: e.toString(),
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.error(e.toString());
       setState(() {
         isLoading = false;
       });
@@ -534,26 +499,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          Fluttertoast.showToast(
-              msg: "Login Successful!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.successLog();
           currentUser.getUserfromResp(res);
           currentUser.saveUsertoSP();
           _redirectUser();
         } else {
-          Fluttertoast.showToast(
-              msg: res['message'][0]['messages'][0]['message'],
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              textColor: Colors.white,
-              backgroundColor: Colors.red[400],
-              fontSize: 16.0);
+          toasts.error(res['message'][0]['messages'][0]['message']);
           form.currentState.reset();
         }
         setState(() {
@@ -562,14 +513,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
-          Fluttertoast.showToast(
-              msg: "Connection Timeout Error!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.timeout();
           form.currentState.reset();
           setState(() {
             isLoading = false;
@@ -577,28 +521,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         },
       );
     } on SocketException {
-      Fluttertoast.showToast(
-          msg: "Network Not Connected!",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.network();
       form.currentState.reset();
       setState(() {
         isLoading = false;
       });
     } catch (e) {
       print(e);
-      Fluttertoast.showToast(
-          msg: e.toString(),
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.error(e.toString());
       setState(() {
         isLoading = false;
       });

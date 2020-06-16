@@ -8,13 +8,13 @@ import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:eco_commerce_app/ui/widgets/submitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
 import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
 final GoogleAuth gAuth = googleButton.gAuth;
 
@@ -353,27 +353,13 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          Fluttertoast.showToast(
-              msg: "Successfully Registered!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.successReg();
           currentUser.getUserfromResp(res);
           currentUser.saveUsertoSP();
           _redirectUser();
         } else {
           gAuth.signOutGoogle();
-          Fluttertoast.showToast(
-              msg: res['message'][0]['messages'][0]['message'],
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              textColor: Colors.white,
-              backgroundColor: Colors.red[400],
-              fontSize: 16.0);
+          toasts.error(res['message'][0]['messages'][0]['message']);
           formOptional.currentState.reset();
           setState(() {
             isLoading = false;
@@ -383,14 +369,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
         const Duration(seconds: 30),
         onTimeout: () {
           gAuth.signOutGoogle();
-          Fluttertoast.showToast(
-              msg: "Connection Timeout Error!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.timeout();
           formOptional.currentState.reset();
           setState(() {
             isLoading = false;
@@ -399,14 +378,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
       );
     } on SocketException {
       gAuth.signOutGoogle();
-      Fluttertoast.showToast(
-          msg: "Network Not Connected!",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.network();
       formOptional.currentState.reset();
       setState(() {
         isLoading = false;

@@ -14,9 +14,9 @@ import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -305,14 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 HapticFeedback.vibrate();
                 if (emailController.text == "" || !isEmailValid) {
-                  Fluttertoast.showToast(
-                      msg: "Please enter valid email address!",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      textColor: Colors.white,
-                      backgroundColor: Colors.red[400],
-                      fontSize: 16.0);
+                  toasts.validEmail();
                   print("email:${emailController.text}");
                 } else {
                   forgotPassword();
@@ -373,28 +366,15 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         for (int u = 0; u < res2.length; u++) {
           if (emailController.text == res2[u]["email"]) {
-            Fluttertoast.showToast(
-                msg: "Reset Password code sent to ${emailController.text}",
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                textColor: Colors.white,
-                backgroundColor: Colors.green[400],
-                fontSize: 16.0);
+            toasts.codeSend(
+                "Reset Password code sent to ${emailController.text}");
             userId = res2[u]["id"];
             userFound = true;
             break;
           }
         }
         if (!userFound) {
-          Fluttertoast.showToast(
-              msg: "Sorry no user found with this email address!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              textColor: Colors.white,
-              backgroundColor: Colors.red[400],
-              fontSize: 16.0);
+          toasts.noUser();
         } else {
           Random random = new Random();
           int code = random.nextInt(899999) + 100000;
@@ -407,15 +387,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ]);
         }
       } else {
-        Fluttertoast.showToast(
-            msg: json.decode(response.body)['message'][0]['messages'][0]
-                ['message'],
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            backgroundColor: Colors.red[400],
-            fontSize: 16.0);
+        toasts.error(
+            json.decode(response.body)['message'][0]['messages'][0]['message']);
         formLogin.currentState.reset();
       }
       setState(() {
@@ -433,42 +406,22 @@ class _LoginScreenState extends State<LoginScreen> {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {
-          Fluttertoast.showToast(
-              msg: "Login Successful!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.successLog();
           currentUser.getUserfromResp(res);
           currentUser.saveUsertoSP();
           _redirectUser();
         } else {
-          Fluttertoast.showToast(
-              msg: res['message'][0]['messages'][0]['message'],
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              textColor: Colors.white,
-              backgroundColor: Colors.red[400],
-              fontSize: 16.0);
+          toasts.error(res['message'][0]['messages'][0]['message']);
           formLogin.currentState.reset();
         }
         setState(() {
+          ;
           isLoading = false;
         });
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
-          Fluttertoast.showToast(
-              msg: "Connection Timeout Error!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+          toasts.timeout();
           formLogin.currentState.reset();
           setState(() {
             isLoading = false;
@@ -476,28 +429,14 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       );
     } on SocketException {
-      Fluttertoast.showToast(
-          msg: "Network Not Connected!",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.network();
       formLogin.currentState.reset();
       setState(() {
         isLoading = false;
       });
     } catch (e) {
       print(e);
-      Fluttertoast.showToast(
-          msg: e.toString(),
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red[400],
-          textColor: Colors.white,
-          fontSize: 16.0);
+      toasts.error(e.toString());
       setState(() {
         isLoading = false;
       });

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
 final GoogleAuth gAuth = GoogleAuth();
 
@@ -70,64 +70,29 @@ class _GoogleButtonState extends State<GoogleButton> {
                           res = (json.decode(response.body));
                           print(res);
                           if (response.statusCode == 200) {
-                            Fluttertoast.showToast(
-                                msg: "Login Successful!",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.green[400],
-                                textColor: Colors.white,
-                                fontSize: 16.0);
+                            toasts.successLog();
                             currentUser.getUserfromResp(res);
                             currentUser.saveUsertoSP();
                             _redirectUser();
                           } else {
                             gAuth.signOutGoogle();
-                            Fluttertoast.showToast(
-                                msg: res['message'][0]['messages'][0]
-                                    ['message'],
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                textColor: Colors.white,
-                                backgroundColor: Colors.red[400],
-                                fontSize: 16.0);
+                            toasts.error(
+                                res['message'][0]['messages'][0]['message']);
                           }
                         }).timeout(
                           const Duration(seconds: 30),
                           onTimeout: () {
                             gAuth.signOutGoogle();
-                            Fluttertoast.showToast(
-                                msg: "Connection Timeout Error!",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red[400],
-                                textColor: Colors.white,
-                                fontSize: 16.0);
+                            toasts.timeout();
                           },
                         );
                       } on SocketException {
                         gAuth.signOutGoogle();
-                        Fluttertoast.showToast(
-                            msg: "Network Not Connected!",
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red[400],
-                            textColor: Colors.white,
-                            fontSize: 16.0);
+                        toasts.network();
                       } catch (e) {
                         print(e);
                         gAuth.signOutGoogle();
-                        Fluttertoast.showToast(
-                            msg: e.toString(),
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red[400],
-                            textColor: Colors.white,
-                            fontSize: 16.0);
+                        toasts.error(e.toString());
                       }
                     });
                   }
