@@ -1,8 +1,10 @@
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/gradientBanner.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
-import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:eco_commerce_app/main.dart' as main;
 
 class CategoriesScreen extends StatefulWidget {
   @override
@@ -11,11 +13,13 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isLoading;
   List<Map<String, dynamic>> categoryData = [
     {
       "name": "Ceramics",
       "subcategory": ["Mugs", "Cups", "Bowls", "Spoons", "Forks", "Plates"],
-      "icon": LineAwesomeIcons.spoon
+      "icon": LineAwesomeIcons.spoon,
+      "gradient": config.Colors().peachy
     },
     {
       "name": "Stationary",
@@ -27,7 +31,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         "Erasors",
         "Rulers"
       ],
-      "icon": LineAwesomeIcons.pencil
+      "icon": LineAwesomeIcons.pencil,
+      "gradient": config.Colors().nebula
     },
     {
       "name": "Gifting Items",
@@ -39,7 +44,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         "Pen Holders",
         "Greeting Cards"
       ],
-      "icon": LineAwesomeIcons.heart
+      "icon": LineAwesomeIcons.heart,
+      "gradient": config.Colors().mildSeaRev
     },
     {
       "name": "Office Products",
@@ -48,23 +54,44 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         "Sticky Notes",
         "Mousepads",
         "Staplers",
+        "Notepads",
         "Diary",
         "Journals",
         "Organisers"
       ],
-      "icon": LineAwesomeIcons.desktop
+      "icon": LineAwesomeIcons.desktop,
+      "gradient": config.Colors().deepSpace
     },
     {
       "name": "Furniture",
       "subcategory": ["Chairs", "Plants"],
-      "icon": LineAwesomeIcons.paperclip
+      "icon": LineAwesomeIcons.paperclip,
+      "gradient": config.Colors().disco
     },
     {
       "name": "Recyclables",
       "subcategory": ["Straws", "Plates", "Papers", "Handbags"],
-      "icon": LineAwesomeIcons.recycle
+      "icon": LineAwesomeIcons.recycle,
+      "gradient": config.Colors().easyMed
     }
   ];
+
+  void getData() async {
+    Future.delayed(Duration(milliseconds: 300)).then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isLoading = true;
+    });
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +119,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
           ),
         ),
+        title: Text(
+          "Categories",
+          style: Theme.of(context).textTheme.headline2,
+        ),
         actions: <Widget>[
           Hero(
             transitionOnUserGestures: true,
@@ -109,49 +140,46 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
             ),
           ),
-          Hero(
-            transitionOnUserGestures: true,
-            tag: 'bookmark',
-            child: Card(
-              elevation: 0,
-              color: Colors.transparent,
-              child: IconButton(
-                onPressed: () {
-                  print("Bookmark");
-                },
-                color: Colors.black,
-                icon: Icon(LineAwesomeIcons.bookmark),
-              ),
-            ),
-          )
         ],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Wrap(
-          runSpacing: 20,
-          children: <Widget>[
-            SectionHeader(text: "Categories"),
-            Wrap(
-              runSpacing: 30,
-              children: List.generate(categoryData.length, (index) {
-                String category = categoryData.elementAt(index)["name"];
-                List<String> subcategory =
-                    categoryData.elementAt(index)["subcategory"];
-                IconData icon = categoryData.elementAt(index)["icon"];
-                return index.isEven
-                    ? buildEvenCategory(context, category, subcategory, icon)
-                    : buildOddCategory(context, category, subcategory, icon);
-              }),
+      body: isLoading
+          ? LinearProgressIndicator()
+          : SingleChildScrollView(
+              child: Wrap(
+                runSpacing: 20,
+                children: <Widget>[
+                  GradientBanner(
+                    gradient: config.Colors().aqua,
+                    message:
+                        "Welcome ${main.prefs.getString('username').toString().split(" ")[0]}, find the products you deserve!",
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                    child: Wrap(
+                      runSpacing: 30,
+                      children: List.generate(categoryData.length, (index) {
+                        String category = categoryData.elementAt(index)["name"];
+                        List<String> subcategory =
+                            categoryData.elementAt(index)["subcategory"];
+                        IconData icon = categoryData.elementAt(index)["icon"];
+                        LinearGradient gradient =
+                            categoryData.elementAt(index)["gradient"];
+                        return index.isEven
+                            ? buildEvenCategory(
+                                context, category, subcategory, icon, gradient)
+                            : buildOddCategory(
+                                context, category, subcategory, icon, gradient);
+                      }),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 
   Widget buildEvenCategory(BuildContext context, String category,
-      List<String> subcategory, IconData icon) {
+      List<String> subcategory, IconData icon, LinearGradient gradient) {
     subcategory.shuffle();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +189,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           child: Stack(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -173,31 +201,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           offset: Offset(0, 4),
                           blurRadius: 10)
                     ],
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [
-                          Theme.of(context).accentColor,
-                          Theme.of(context).accentColor.withOpacity(0.2),
-                        ])),
+                    gradient: gradient),
                 child: Column(
                   children: <Widget>[
-                    Hero(
-                      transitionOnUserGestures: true,
-                      tag: category,
-                      child: Icon(
-                        icon,
-                        color: Color(0xFFFFFFFF),
-                        size: 40,
-                      ),
+                    Icon(
+                      icon,
+                      color: Color(0xFFFFFFFF),
+                      size: 40,
                     ),
                     SizedBox(height: 5),
                     Text(
                       category,
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontFamily: "Poppins",
-                          fontSize: 14),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          .copyWith(color: Colors.white),
                     )
                   ],
                 ),
@@ -275,10 +294,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       ),
                       child: Text(
                         sub,
-                        style: TextStyle(
-                            color: Color(0xFF004445),
-                            fontFamily: "Poppins",
-                            fontSize: 10),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            .copyWith(color: Colors.black),
                       ),
                     ),
                   ),
@@ -292,7 +311,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 
   Widget buildOddCategory(BuildContext context, String category,
-      List<String> subcategory, IconData icon) {
+      List<String> subcategory, IconData icon, LinearGradient gradient) {
     subcategory.shuffle();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,10 +362,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       ),
                       child: Text(
                         sub,
-                        style: TextStyle(
-                            color: Color(0xFF004445),
-                            fontFamily: "Poppins",
-                            fontSize: 10),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            .copyWith(color: Colors.black),
                       ),
                     ),
                   ),
@@ -360,7 +379,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           child: Stack(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -372,31 +391,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           offset: Offset(0, 4),
                           blurRadius: 10)
                     ],
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [
-                          Theme.of(context).accentColor,
-                          Theme.of(context).accentColor.withOpacity(0.2),
-                        ])),
+                    gradient: gradient),
                 child: Column(
                   children: <Widget>[
-                    Hero(
-                      transitionOnUserGestures: true,
-                      tag: category,
-                      child: Icon(
-                        icon,
-                        color: Color(0xFFFFFFFF),
-                        size: 40,
-                      ),
+                    Icon(
+                      icon,
+                      color: Color(0xFFFFFFFF),
+                      size: 40,
                     ),
                     SizedBox(height: 5),
                     Text(
                       category,
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontFamily: "Poppins",
-                          fontSize: 14),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          .copyWith(color: Colors.white),
                     )
                   ],
                 ),
