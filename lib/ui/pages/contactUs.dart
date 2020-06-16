@@ -1,7 +1,13 @@
-import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
+import 'package:eco_commerce_app/ui/widgets/gradientResponsiveContainer.dart';
+import 'package:eco_commerce_app/ui/widgets/headerText.dart';
+import 'package:eco_commerce_app/ui/widgets/submitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
+import 'package:eco_commerce_app/main.dart' as main;
+import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
 class ContactUs extends StatefulWidget {
   ContactUs({Key key}) : super(key: key);
@@ -11,309 +17,314 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContacUsState extends State<ContactUs> {
-  String _name;
-  String _email;
-  String _phoneNumber;
-  String _yourMsg;
-
+  bool isLoading;
+  bool isMessageValid;
+  List<bool> validators = [false];
+  double value = 0;
+  final FocusNode _msgFocus = FocusNode();
+  final FocusNode _nameFocus = FocusNode();
+  final FocusNode _phoneFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  Map<String, dynamic> res;
+  final GlobalKey<ScaffoldState> scaffoldContactKey =
+      GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-
-  Widget _buildName() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
-      child: TextFormField(
-        textInputAction: TextInputAction.next,
-        cursorColor: Color(0xFF000000),
-        cursorRadius: Radius.circular(8),
-        cursorWidth: 1.8,
-        decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFF000000), width: 2),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFF000000), width: 2),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFF044455), width: 2),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFFFF0000), width: 2),
-            ),
-            errorText: null,
-            labelText: 'Name'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Name is Required';
-          }
-
-          return null;
-        },
-        onSaved: (String value) {
-          _name = value;
-        },
-      ),
-    );
+  TextEditingController msgController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    isLoading = false;
+    isMessageValid = false;
+    emailController.text = main.prefs.getString("email");
+    nameController.text = main.prefs.getString("username");
+    phoneController.text = main.prefs.getString("phone");
   }
 
-  Widget _buildEmail() {
+  Widget _buildyourName() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
+      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
       child: TextFormField(
+        style: Theme.of(context).textTheme.headline6.copyWith(
+              color: Colors.white,
+            ),
+        enabled: false,
+        controller: nameController,
+        focusNode: _nameFocus,
         textInputAction: TextInputAction.next,
-        cursorColor: Color(0xFF000000),
+        cursorColor: Color(0xFFFFFFFF),
         cursorRadius: Radius.circular(8),
-        cursorWidth: 1.8,
-        decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFF000000), width: 2),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFF000000), width: 2),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFF044455), width: 2),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Color(0xFFFF0000), width: 2),
-            ),
-            errorText: null,
-            labelText: 'Email'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Email is Required';
-          }
-
-          if (!RegExp(
-                  r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-              .hasMatch(value)) {
-            return 'Please enter a valid email Address';
-          }
-
-          return null;
-        },
-        onSaved: (String value) {
-          _email = value;
-        },
-      ),
-    );
-  }
-
-  Widget _buildPhoneNumber() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
-      child: TextFormField(
-        textInputAction: TextInputAction.next,
-        cursorColor: Color(0xFF000000),
-        cursorRadius: Radius.circular(8),
-        cursorWidth: 1.8,
+        cursorWidth: 4,
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF000000), width: 2),
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
           ),
           contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF000000), width: 2),
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF044455), width: 2),
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFFFF0000), width: 2),
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFF0000), width: 1),
           ),
           errorText: null,
-          labelText: "Phone number",
+          hintText: "Name",
+          hintStyle: Theme.of(context).textTheme.headline6.copyWith(
+                color: Colors.white,
+              ),
+          labelText: "Name",
+          labelStyle: TextStyle(
+            color: Color(0xFFFFFFFF),
+          ),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: Icon(
+              LineAwesomeIcons.user,
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
         ),
-        keyboardType: TextInputType.phone,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Phone number is Required';
-          }
+        expands: false,
+        inputFormatters: [BlacklistingTextInputFormatter.singleLineFormatter],
+        keyboardType: TextInputType.text,
+        textCapitalization: TextCapitalization.words,
+      ),
+    );
+  }
 
-          return null;
-        },
-        onSaved: (String value) {
-          _phoneNumber = value;
-        },
+  Widget _buildyourEmail() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+      child: TextFormField(
+        style: Theme.of(context).textTheme.headline6.copyWith(
+              color: Colors.white,
+            ),
+        enabled: false,
+        controller: emailController,
+        focusNode: _emailFocus,
+        textInputAction: TextInputAction.next,
+        cursorColor: Color(0xFFFFFFFF),
+        cursorRadius: Radius.circular(8),
+        cursorWidth: 4,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFF0000), width: 1),
+          ),
+          errorText: null,
+          hintText: "Email Address",
+          hintStyle: Theme.of(context).textTheme.headline6.copyWith(
+                color: Colors.white,
+              ),
+          labelText: "Email Address",
+          labelStyle: TextStyle(
+            color: Color(0xFFFFFFFF),
+          ),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: Icon(
+              LineAwesomeIcons.at,
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
+        ),
+        expands: false,
+        inputFormatters: [BlacklistingTextInputFormatter.singleLineFormatter],
+        keyboardType: TextInputType.emailAddress,
+      ),
+    );
+  }
+
+  Widget _buildyourPhone() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
+      child: TextFormField(
+        style: Theme.of(context).textTheme.headline6.copyWith(
+              color: Colors.white,
+            ),
+        enabled: false,
+        controller: phoneController,
+        focusNode: _phoneFocus,
+        textInputAction: TextInputAction.done,
+        cursorColor: Color(0xFFFFFFFF),
+        cursorRadius: Radius.circular(8),
+        cursorWidth: 4,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide(color: Color(0xFFFF0000), width: 1),
+          ),
+          errorText: null,
+          hintText: "Phone Number",
+          hintStyle: Theme.of(context).textTheme.headline6.copyWith(
+                color: Colors.white,
+              ),
+          labelText: "Phone Number",
+          labelStyle: TextStyle(
+            color: Color(0xFFFFFFFF),
+          ),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: Icon(
+              LineAwesomeIcons.phone,
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
+        ),
+        expands: false,
+        inputFormatters: [BlacklistingTextInputFormatter.singleLineFormatter],
+        keyboardType: TextInputType.phone,
+        textCapitalization: TextCapitalization.words,
       ),
     );
   }
 
   Widget _buildyourMsg() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
+      padding: EdgeInsets.fromLTRB(40, 15.6, 40, 15.6),
       child: TextFormField(
-        // expands: true,
-        minLines: 1,
-        maxLines: 12,
-        textInputAction: TextInputAction.next,
-        cursorColor: Color(0xFF000000),
-        cursorRadius: Radius.circular(8),
-        cursorWidth: 1.8,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF000000), width: 2),
+          style: Theme.of(context).textTheme.headline6.copyWith(
+                color: Colors.white,
+              ),
+          minLines: 3,
+          maxLines: 12,
+          enabled: !isLoading,
+          onChanged: (tex) {
+            if (tex.length > 0) {
+              setState(() {
+                isMessageValid = true;
+              });
+            } else {
+              setState(() {
+                isMessageValid = false;
+              });
+            }
+          },
+          controller: msgController,
+          focusNode: _msgFocus,
+          onFieldSubmitted: (term) {
+            _msgFocus.unfocus();
+          },
+          textInputAction: TextInputAction.next,
+          cursorColor: Color(0xFFFFFFFF),
+          cursorRadius: Radius.circular(8),
+          cursorWidth: 4,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(color: Color(0xFFFFFFFF), width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(color: Color(0xFFFF0000), width: 1),
+            ),
+            errorText: null,
+            hintText: "Your Message",
+            hintStyle: Theme.of(context).textTheme.headline6.copyWith(
+                  color: Colors.white,
+                ),
+            labelText: "Your Message",
+            labelStyle: TextStyle(
+              color: Color(0xFFFFFFFF),
+            ),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: Icon(
+                LineAwesomeIcons.user,
+                color: Color(0xFFFFFFFF),
+              ),
+            ),
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF000000), width: 2),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFF044455), width: 2),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Color(0xFFFF0000), width: 2),
-          ),
-          errorText: null,
-          labelText: 'Your message...',
-        ),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Required';
-          }
-
-          return null;
-        },
-        onSaved: (String value) {
-          _yourMsg = value;
-        },
-      ),
+          expands: false,
+          inputFormatters: [BlacklistingTextInputFormatter.singleLineFormatter],
+          keyboardType: TextInputType.text,
+          textCapitalization: TextCapitalization.sentences),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white.withOpacity(0),
-        leading: IconButton(
-          icon: Icon(LineAwesomeIcons.arrow_left),
-          color: Colors.black,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SectionHeader(text: 'Contact Us'),
-          FlatButton(
-            color: Color(0xFF004445),
-            onPressed: () {},
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Text(
-              'We would love to hear from you...',
-              style: TextStyle(
-                  color: Colors.white, fontFamily: 'Poppins', fontSize: 18),
-            ),
-          ),
-          Form(
-            key: _formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _buildName(),
-                _buildEmail(),
-                _buildPhoneNumber(),
-                _buildyourMsg(),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(31, 0, 31, 15.6),
-                  child: RaisedButton(
-                      color: Color(0xff004445),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontSize: 16),
-                      ),
-                      onPressed: () {
-                        if (!_formkey.currentState.validate()) {
-                          return;
-                        }
-                        _formkey.currentState.save();
-                        print(_name);
-                        print(_email);
-                        print(_phoneNumber);
-                        print(_yourMsg);
-                      }),
-                )
-                
-                
-              ],
-            ),
-          ),
-          FlatButton(
-            onPressed: () {},
-            textColor: Colors.black,
-            color: Colors.white,
-            child: Align(
-              alignment: Alignment.centerLeft,
-                child: Text(
-                  'For Business Queries:',
-                  style: TextStyle(
-                    fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+      body: GradientResponsiveContainer(
+          scaffoldLoginKey: scaffoldContactKey,
+          fab: true,
+          gradient: config.Colors().deepSpace,
+          height: height,
+          widgets: [
+            HeaderText(text: "Contact"),
+            Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buildyourName(),
+                  _buildyourEmail(),
+                  _buildyourPhone(),
+                  _buildyourMsg(),
+                  SizedBox(height: 10),
+                  SubmitButton(
+                      validatorSeq: isMessageValid,
+                      isLoading: isLoading,
+                      width: width,
+                      buttonText: "Submit",
+                      func: () {
+                        mail.sendContactUsMail(
+                            emailController.text,
+                            phoneController.text,
+                            nameController.text,
+                            msgController.text);
+                        toasts.successContact();
+                        Navigator.pop(context);
+                      })
+                ],
               ),
-          ),
-                   
-          FlatButton(
-            onPressed: (
-               
-            ) {},
-            textColor: Colors.black,
-            color: Colors.white,
-            child: Align(
-              alignment: Alignment.centerLeft,
-                child: Text(
-                  '+91 98XXXXXX01',
-                  style: TextStyle(
-                    fontFamily: 'Poppins', fontSize: 16, ),
-                ),
-              ),
-          ),  
-          FlatButton(
-            onPressed: () {},
-            textColor: Colors.black,
-            color: Colors.white,
-            child: Align(
-              alignment: Alignment.centerLeft,
-                child: Text(
-                  'xyz@gmail.com',
-                  style: TextStyle(
-                    fontFamily: 'Poppins', fontSize: 16, ),
-                ),
-              ),
-          ),         
-        ],
-      )),
+            ),
+          ]),
     );
   }
 }

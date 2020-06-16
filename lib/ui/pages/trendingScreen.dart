@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
+import 'package:eco_commerce_app/ui/widgets/appBarTitle.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
-import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -83,12 +83,13 @@ class _TrendingScreenState extends State<TrendingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
     return Consumer<CurrentUser>(
       builder: (_, currentUser, __) {
         currentUser.getUserfromSP();
         return Scaffold(
           appBar: AppBar(
+            title: AppBarTitle(text: "Trending"),
             elevation: 0,
             backgroundColor: Colors.white,
             brightness: Brightness.light,
@@ -116,12 +117,8 @@ class _TrendingScreenState extends State<TrendingScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Center(child: SectionHeader(text: "Trending Products")),
                 isLoading
-                    ? Padding(
-                        padding: const EdgeInsets.all(100.0),
-                        child: CircularProgressIndicator(),
-                      )
+                    ? LinearProgressIndicator()
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                         child: Builder(

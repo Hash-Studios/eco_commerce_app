@@ -104,3 +104,23 @@ void network() {
     fontSize: 16.0,
   );
 }
+
+void successContact() {
+  Fluttertoast.showToast(
+    msg: "Message sent successfully!",
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: Colors.green[400],
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+  Fluttertoast.showToast(
+    msg: "We will contact you shortly.",
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
