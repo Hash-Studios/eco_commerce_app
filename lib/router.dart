@@ -15,6 +15,7 @@ import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
 // import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
 import 'package:eco_commerce_app/ui/pages/profileScreen.dart';
 import 'package:eco_commerce_app/ui/pages/registerScreen.dart';
+import 'package:eco_commerce_app/ui/pages/trendingScreen.dart';
 
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
@@ -56,6 +57,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return CupertinoPageRoute(builder: (context) => OnboardScreen3());
     case SignUpLandingRoute:
       return CupertinoPageRoute(builder: (context) => SignUpLandingScreen());
+    case TrendingRoute:
+      return CupertinoPageRoute(builder: (context) => TrendingScreen());
     case CodeVerificationRoute:
       return CupertinoPageRoute(
         builder: (context) => CodeVerificationScreen(

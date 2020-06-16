@@ -125,6 +125,10 @@ class MainDrawer extends StatelessWidget {
                             'Trending Products',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, TrendingRoute);
+                          },
                         ),
                       ),
                       Padding(
