@@ -166,8 +166,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.pop(context);
-                            Navigator.pushNamedAndRemoveUntil(context,
-                                WishListRoute, (Route<dynamic> route) => false);
+                            Navigator.pushNamed(context, WishListRoute);
                           },
                         ),
                       ),
