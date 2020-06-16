@@ -9,14 +9,14 @@ import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
-class ContactUs extends StatefulWidget {
-  ContactUs({Key key}) : super(key: key);
+class ContactUsScreen extends StatefulWidget {
+  ContactUsScreen({Key key}) : super(key: key);
 
   @override
-  _ContacUsState createState() => _ContacUsState();
+  _ContactUsScreenState createState() => _ContactUsScreenState();
 }
 
-class _ContacUsState extends State<ContactUs> {
+class _ContactUsScreenState extends State<ContactUsScreen> {
   bool isLoading;
   bool isMessageValid;
   List<bool> validators = [false];
