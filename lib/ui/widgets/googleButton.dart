@@ -14,8 +14,10 @@ final GoogleAuth gAuth = GoogleAuth();
 
 class GoogleButton extends StatefulWidget {
   final bool login;
+  final String text;
   const GoogleButton({
     @required this.login,
+    @required this.text,
     Key key,
   }) : super(key: key);
 
@@ -33,16 +35,24 @@ class _GoogleButtonState extends State<GoogleButton> {
       padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
       child: Consumer<CurrentUser>(
         builder: (_, currentUser, __) => Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  color: Color(0xFFEFF5FF).withOpacity(0.4),
-                  blurRadius: 16,
-                  offset: Offset(0, 4)),
-            ],
-            borderRadius: BorderRadius.circular(500),
-          ),
+          decoration: widget.login
+              ? BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xFFEFF5FF).withOpacity(0.4),
+                        blurRadius: 16,
+                        offset: Offset(0, 4)),
+                  ],
+                  borderRadius: BorderRadius.circular(500),
+                )
+              : BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.circular(500),
+                ),
           child: FlatButton(
             colorBrightness: Brightness.light,
             padding: EdgeInsets.all(0),
@@ -144,12 +154,15 @@ class _GoogleButtonState extends State<GoogleButton> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text("Sign in with Google",
+                      child: Text(widget.text,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .button
-                              .copyWith(color: config.Colors().mainColor(1))),
+                          style: widget.login
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .button
+                                  .copyWith(color: config.Colors().mainColor(1))
+                              : Theme.of(context).textTheme.button.copyWith(
+                                  color: Theme.of(context).primaryColor)),
                     ),
                   ],
                 ),
