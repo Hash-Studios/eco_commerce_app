@@ -1,19 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'package:eco_commerce_app/core/auth/google_auth.dart';
-import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:provider/provider.dart';
-import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
-import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class CodeVerificationScreen extends StatefulWidget {

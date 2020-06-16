@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
-import 'package:eco_commerce_app/ui/widgets/productListTile.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
