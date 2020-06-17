@@ -1,8 +1,10 @@
 // import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/ButtonBounceAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductGridTileDynamic extends StatefulWidget {
   final List<Product> arguements;
@@ -17,6 +19,8 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
   String name;
   String desc;
   String price;
+  bool isWishListed;
+  String prefWishList;
 
   @override
   void initState() {
@@ -33,6 +37,9 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
     name = widget.arguements[0].name;
     desc = widget.arguements[0].desc;
     price = widget.arguements[0].price.toString();
+    prefWishList = 'wishListPref';
+    isWishListed = false;
+    updateWishList(widget.arguements[0].id, false);
   }
 
   @override
@@ -136,11 +143,27 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
                               ),
                             ),
                             Spacer(),
-                            IconButton(
-                                icon: Icon(LineAwesomeIcons.bookmark_o),
-                                onPressed: () {
-                                  print('heart');
-                                })
+                            ButtonBounceAnimation(
+                              child: Icon(
+                                  (!isWishListed)
+                                      ? LineAwesomeIcons.heart_o
+                                      : LineAwesomeIcons.heart,
+                                  color: (!isWishListed)
+                                      ? Colors.black
+                                      : Colors.red),
+                              onTap: () {
+                                print('heart');
+                                setState(() {
+                                  updateWishList(widget.arguements[0].id, true);
+                                  isWishListed = !isWishListed;
+                                });
+                              },
+                              scale: 1,
+                              duration: 300,
+                              how: 1,
+                              width: 40,
+                              height: 40,
+                            )
                           ],
                         ),
                       ),
@@ -153,5 +176,20 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
         ),
       ),
     );
+  }
+
+  updateWishList(String id, bool update) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> wishList =
+        (prefs.getStringList(prefWishList) ?? List<String>());
+
+    if (!update) {
+      setState(() {
+        wishList.contains(id) ? isWishListed = true : isWishListed = false;
+      });
+    } else {
+      wishList.contains(id) ? wishList.remove(id) : wishList.add(id);
+      await prefs.setStringList(prefWishList, wishList);
+    }
   }
 }

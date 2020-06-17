@@ -33,82 +33,79 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          brightness: Brightness.light,
-          leading: IconButton(
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        brightness: Brightness.light,
+        leading: IconButton(
+          onPressed: () {
+            print("Nav Drawer");
+            _scaffoldKey.currentState.openDrawer();
+          },
+          color: Colors.black,
+          icon: Icon(LineAwesomeIcons.navicon),
+        ),
+        actions: <Widget>[
+          IconButton(
             onPressed: () {
-              print("Nav Drawer");
-              _scaffoldKey.currentState.openDrawer();
+              print("Search");
             },
             color: Colors.black,
-            icon: Icon(LineAwesomeIcons.navicon),
+            icon: Icon(LineAwesomeIcons.search),
           ),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                print("Search");
-              },
-              color: Colors.black,
-              icon: Icon(LineAwesomeIcons.search),
-            ),
-            IconButton(
-              onPressed: () {
-                print("Bookmark");
-              },
-              color: Colors.black,
-              icon: Icon(LineAwesomeIcons.bookmark),
-            )
-          ],
+          IconButton(
+            onPressed: () {
+              print("Bookmark");
+            },
+            color: Colors.black,
+            icon: Icon(LineAwesomeIcons.bookmark),
+          )
+        ],
+      ),
+      backgroundColor: Colors.white,
+      drawer: MainDrawer(),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
         ),
-        backgroundColor: Colors.white,
-        drawer: MainDrawer(),
-        body: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 0, 0, 0),
-                child: Text(
-                  'WishList',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 24,
-                    color: Colors.black,
-                  ),
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 0, 0, 0),
+              child: Text(
+                'WishList',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 24,
+                  color: Colors.black,
                 ),
               ),
-              (wishListedProducts == null || isLoading == true)
-                  ? Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      child: CircularProgressIndicator(),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                      child: Builder(
-                        builder: (context) {
-                          for (int index = 0;
-                              index < wishListedProducts.length;
-                              index++) {
-                            list.add(ProductListTileDynamic(
-                                arguements: [wishListedProducts[index]]));
-                          }
-                          return Column(children: list);
-                        },
-                      ),
+            ),
+            (wishListedProducts == null || isLoading == true)
+                ? Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    child: Builder(
+                      builder: (context) {
+                        for (int index = 0;
+                            index < wishListedProducts.length;
+                            index++) {
+                          list.add(ProductListTileDynamic(
+                              arguements: [wishListedProducts[index]]));
+                        }
+                        return Column(children: list);
+                      },
                     ),
-            ],
-          ),
+                  ),
+          ],
         ),
       ),
     );
@@ -126,8 +123,10 @@ class _WishListScreenState extends State<WishListScreen> {
         print(value.name);
       });
     }
-    setState(() {
-      isLoading = false;
-    });
+    if (this.mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

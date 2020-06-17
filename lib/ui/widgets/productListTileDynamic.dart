@@ -24,25 +24,6 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
   String price;
   bool isWishListed;
   String prefWishList;
-  var images = [
-    "assets/images/papers.jpg",
-    "assets/images/mugs.jpg",
-    "assets/images/cups.jpg",
-    "assets/images/pencils.jpg",
-    "assets/images/pens.jpg",
-    "assets/images/erasers.jpg",
-    "assets/images/rulers.jpg",
-    "assets/images/spoons.jpg",
-    "assets/images/picture_frames.jpg",
-    "assets/images/calendars.jpg",
-    "assets/images/mousepads.jpg",
-  ];
-
-  String getImage() {
-    final _random = new Random();
-    var element = images[_random.nextInt(images.length)];
-    return element;
-  }
 
   @override
   void initState() {
@@ -167,10 +148,13 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
                             ),
                             Spacer(),
                             ButtonBounceAnimation(
-                              child: Icon((!isWishListed)
-                                  ? LineAwesomeIcons.heart_o
-                                  :LineAwesomeIcons.heart
-                                  ,color:(!isWishListed)?Colors.black:Colors.red),
+                              child: Icon(
+                                  (!isWishListed)
+                                      ? LineAwesomeIcons.heart_o
+                                      : LineAwesomeIcons.heart,
+                                  color: (!isWishListed)
+                                      ? Colors.black
+                                      : Colors.red),
                               onTap: () {
                                 print('heart');
                                 setState(() {
