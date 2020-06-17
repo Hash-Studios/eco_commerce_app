@@ -391,9 +391,11 @@ class _LoginScreenState extends State<LoginScreen> {
             json.decode(response.body)['message'][0]['messages'][0]['message']);
         formLogin.currentState.reset();
       }
-      setState(() {
-        isLoading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -414,31 +416,39 @@ class _LoginScreenState extends State<LoginScreen> {
           toasts.error(res['message'][0]['messages'][0]['message']);
           formLogin.currentState.reset();
         }
-        setState(() {
-          isLoading = false;
-        });
+        if (this.mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
           toasts.timeout();
           formLogin.currentState.reset();
-          setState(() {
-            isLoading = false;
-          });
+          if (this.mounted) {
+            setState(() {
+              isLoading = false;
+            });
+          }
         },
       );
     } on SocketException {
       toasts.network();
       formLogin.currentState.reset();
-      setState(() {
-        isLoading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     } catch (e) {
       print(e);
       toasts.error(e.toString());
-      setState(() {
-        isLoading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 

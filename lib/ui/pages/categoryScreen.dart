@@ -89,9 +89,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               );
             }
-            setState(() {
-              isLoading = false;
-            });
+            if (this.mounted) {
+              setState(() {
+                isLoading = false;
+              });
+            }
           }
         });
       }

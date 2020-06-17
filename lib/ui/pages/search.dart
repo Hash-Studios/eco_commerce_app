@@ -135,9 +135,11 @@ class _SearchScreenState extends State<SearchScreen>
               ),
             );
           }
-          setState(() {
-            isLoading = false;
-          });
+          if (this.mounted) {
+            setState(() {
+              isLoading = false;
+            });
+          }
         }
       }
     });

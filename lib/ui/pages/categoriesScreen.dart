@@ -78,9 +78,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   void getData() async {
     Future.delayed(Duration(milliseconds: 0)).then((value) {
-      setState(() {
-        isLoading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 

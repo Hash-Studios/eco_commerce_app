@@ -67,9 +67,11 @@ class _TrendingScreenState extends State<TrendingScreen> {
             ),
           );
         }
-        setState(() {
-          isLoading = false;
-        });
+        if (this.mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
       }
     });
   }

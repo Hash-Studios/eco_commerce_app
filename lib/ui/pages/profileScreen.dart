@@ -88,10 +88,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         }
+        if (this.mounted){
         setState(() {
           isLoading = false;
         });
-      }
+      }}
     });
   }
 

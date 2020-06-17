@@ -192,13 +192,17 @@ class _ProductScreenState extends State<ProductScreen> {
                                 fabVisible = false;
                               });
                             } else if (visibilityInfo.visibleFraction == 0) {
-                              setState(() {
-                                fabVisible = true;
-                              });
+                              if (this.mounted) {
+                                setState(() {
+                                  fabVisible = true;
+                                });
+                              }
                             } else {
-                              setState(() {
-                                fabVisible = true;
-                              });
+                              if (this.mounted) {
+                                setState(() {
+                                  fabVisible = true;
+                                });
+                              }
                             }
                           },
                           child: Container(

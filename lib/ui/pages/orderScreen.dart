@@ -78,9 +78,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
           );
         }
-        setState(() {
-          isLoading = false;
-        });
+        if (this.mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
       }
     });
   }

@@ -461,32 +461,40 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         } else {
           toasts.error(res['message'][0]['messages'][0]['message']);
           form.currentState.reset();
-          setState(() {
-            isLoading = false;
-          });
+          if (this.mounted) {
+            setState(() {
+              isLoading = false;
+            });
+          }
         }
       }).timeout(
         const Duration(seconds: 30),
         onTimeout: () {
           toasts.timeout();
           form.currentState.reset();
-          setState(() {
-            isLoading = false;
-          });
+          if (this.mounted) {
+            setState(() {
+              isLoading = false;
+            });
+          }
         },
       );
     } on SocketException {
       toasts.network();
       form.currentState.reset();
-      setState(() {
-        isLoading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     } catch (e) {
       print(e);
       toasts.error(e.toString());
-      setState(() {
-        isLoading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 

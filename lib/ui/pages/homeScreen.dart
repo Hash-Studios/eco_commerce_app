@@ -98,7 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         products = value;
         print(value);
-        isLoading = false;
+        if (this.mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
       });
     });
 //    getData();
