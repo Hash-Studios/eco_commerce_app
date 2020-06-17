@@ -79,7 +79,7 @@ abstract class ProductLoader {
                   createdAt: jsonDecode(response)[i]["images"][image]
                       ["createdAt"]);
             }),
-            category: json.decode(response)[i]["category"],
+            category: json.decode(response)[i]["categories"][0]["name"],
             desc: json.decode(response)[i]["desc"],
             features: json.decode(response)[i]["features"],
             createdAt: json.decode(response)[i]["createdAt"],

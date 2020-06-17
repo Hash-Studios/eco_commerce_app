@@ -82,7 +82,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             [image]["formats"]["small"]["url"],
                         createdAt: jsonDecode(res.body)["products"][c]["images"][image]["createdAt"]);
                   }),
-                  category: json.decode(res.body)["products"][c]["category"],
+                  category: json.decode(res.body)["name"],
                   desc: json.decode(res.body)["products"][c]["desc"],
                   features: json.decode(res.body)["products"][c]["features"],
                   createdAt: json.decode(res.body)["products"][c]["createdAt"],
