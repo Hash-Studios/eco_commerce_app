@@ -102,15 +102,6 @@ class _TrendingScreenState extends State<TrendingScreen> {
                 Navigator.pop(context);
               },
             ),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {
-                  print("Bookmark");
-                },
-                color: Colors.black,
-                icon: Icon(LineAwesomeIcons.bookmark),
-              )
-            ],
           ),
           backgroundColor: Colors.white,
           drawer: MainDrawer(),

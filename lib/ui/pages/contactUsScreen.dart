@@ -224,7 +224,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           maxLines: 12,
           enabled: !isLoading,
           onChanged: (tex) {
-            if (tex.length > 0) {
+            if (tex.length > 49) {
               setState(() {
                 isMessageValid = true;
               });
@@ -297,6 +297,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           height: height,
           widgets: [
             HeaderText(text: "Contact"),
+            SizedBox(height: 20),
             Form(
               key: _formkey,
               child: Column(
@@ -306,7 +307,36 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   _buildyourEmail(),
                   _buildyourPhone(),
                   _buildyourMsg(),
-                  SizedBox(height: 10),
+                  (50 - msgController.text.length > 1)
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              LineAwesomeIcons.info_circle,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              '${50 - msgController.text.length} more characters required',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        )
+                      : (50 - msgController.text.length == 1)
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  LineAwesomeIcons.info_circle,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  '1 more character required',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            )
+                          : Container(),
+                  SizedBox(height: 50),
                   SubmitButton(
                       validatorSeq: isMessageValid,
                       isLoading: isLoading,

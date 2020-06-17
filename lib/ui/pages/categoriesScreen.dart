@@ -105,21 +105,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
-        leading: Hero(
-          tag: 'menu',
-          transitionOnUserGestures: true,
-          child: Card(
-            elevation: 0,
-            color: Colors.transparent,
-            child: IconButton(
-              onPressed: () {
-                print("Nav Drawer");
-                _scaffoldKey.currentState.openDrawer();
-              },
-              color: Colors.black,
-              icon: Icon(LineAwesomeIcons.navicon),
-            ),
-          ),
+        leading: IconButton(
+          icon: Icon(LineAwesomeIcons.arrow_left),
+          color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Text(
           "Categories",

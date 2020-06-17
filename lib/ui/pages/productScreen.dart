@@ -61,7 +61,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   print("Bookmark");
                 },
                 color: Colors.black,
-                icon: Icon(LineAwesomeIcons.bookmark),
+                icon: Icon(LineAwesomeIcons.heart_o),
               )
             ],
           ),

@@ -113,15 +113,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 Navigator.pop(context);
               },
             ),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {
-                  print("Bookmark");
-                },
-                color: Colors.black,
-                icon: Icon(LineAwesomeIcons.bookmark),
-              )
-            ],
           ),
           backgroundColor: Colors.white,
           drawer: MainDrawer(),

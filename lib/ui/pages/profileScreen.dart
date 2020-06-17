@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             print("Wishlist");
                           },
                           color: Colors.black,
-                          icon: Icon(LineAwesomeIcons.bookmark),
+                          icon: Icon(LineAwesomeIcons.heart_o),
                         ),
                       ),
                     ),
