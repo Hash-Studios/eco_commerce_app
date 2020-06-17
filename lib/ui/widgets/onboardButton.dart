@@ -19,7 +19,7 @@ class OnboardButton extends StatelessWidget {
       tag: 'OnboardButton',
       transitionOnUserGestures: true,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20.0),
+        padding: const EdgeInsets.only(top: 10.0),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,

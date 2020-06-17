@@ -49,35 +49,53 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
           gradient: config.Colors().nebula,
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                width: width,
-                child: AnimatedOpacity(
-                  duration: Duration(seconds: 1),
-                  opacity: opacity,
-                  curve: Curves.easeInBack,
-                  child: AnimatedPadding(
-                    duration: Duration(seconds: 1),
-                    padding: opacity == 0
-                        ? EdgeInsets.only(bottom: 0)
-                        : EdgeInsets.only(bottom: 40),
-                    curve: Curves.easeInBack,
-                    child: Image(
-                        image: AssetImage("assets/images/onboard1.png"),
-                        fit: BoxFit.fitWidth),
-                  ),
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              Positioned(
+                top: 70,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      width: width,
+                      child: AnimatedOpacity(
+                        duration: Duration(seconds: 1),
+                        opacity: opacity,
+                        curve: Curves.easeInBack,
+                        child: AnimatedPadding(
+                          duration: Duration(seconds: 1),
+                          padding: opacity == 0
+                              ? EdgeInsets.only(bottom: 0)
+                              : EdgeInsets.only(bottom: 40),
+                          curve: Curves.easeInBack,
+                          child: Image(
+                              image: AssetImage("assets/images/onboard1.png"),
+                              fit: BoxFit.fitWidth),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: OnboardHeading(heading: heading),
+                    ),
+                    OnboardCaption(caption: caption),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: OnboardHeading(heading: heading),
-              ),
-              OnboardCaption(caption: caption),
-              OnboardPageIndicator(index: index),
-              OnboardButton(width: width, buttonText: buttonText, func: func)
+              Positioned(
+                bottom: 60,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      OnboardPageIndicator(index: index),
+                      OnboardButton(
+                          width: width, buttonText: buttonText, func: func)
+                    ]),
+              )
             ],
           ),
         ),

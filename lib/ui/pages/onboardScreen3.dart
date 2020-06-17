@@ -5,6 +5,7 @@ import 'package:eco_commerce_app/ui/widgets/onboardHeading.dart';
 import 'package:eco_commerce_app/ui/widgets/onboardPageIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class OnboardScreen3 extends StatefulWidget {
   @override
@@ -39,45 +40,87 @@ class _OnboardScreen3State extends State<OnboardScreen3> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      floatingActionButton: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 40,
+            left: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              backgroundColor: Colors.transparent,
+              child: Icon(
+                LineAwesomeIcons.arrow_left,
+                color: Theme.of(context).primaryColor,
+              ),
+              elevation: 0,
+              highlightElevation: 0,
+              disabledElevation: 0,
+              focusElevation: 0,
+              splashColor: Colors.transparent,
+            ),
+          ),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: config.Colors().mildSea,
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: OnboardHeading(heading: heading),
-              ),
-              Container(
-                width: width,
-                child: AnimatedOpacity(
-                  duration: Duration(seconds: 1),
-                  opacity: opacity,
-                  curve: Curves.easeInBack,
-                  child: AnimatedPadding(
-                    duration: Duration(seconds: 1),
-                    padding: opacity == 0
-                        ? EdgeInsets.only(bottom: 0)
-                        : EdgeInsets.fromLTRB(40, 40, 40, 50),
-                    curve: Curves.easeInBack,
-                    child: Image(
-                        image: AssetImage("assets/images/onboard3.png"),
-                        fit: BoxFit.fitWidth),
-                  ),
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              Positioned(
+                top: 70,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: OnboardHeading(heading: heading),
+                    ),
+                    Container(
+                      width: width,
+                      child: AnimatedOpacity(
+                        duration: Duration(seconds: 1),
+                        opacity: opacity,
+                        curve: Curves.easeInBack,
+                        child: AnimatedPadding(
+                          duration: Duration(seconds: 1),
+                          padding: opacity == 0
+                              ? EdgeInsets.only(bottom: 0)
+                              : EdgeInsets.fromLTRB(40, 40, 40, 50),
+                          curve: Curves.easeInBack,
+                          child: Image(
+                              image: AssetImage("assets/images/onboard3.png"),
+                              fit: BoxFit.fitWidth),
+                        ),
+                      ),
+                    ),
+                    OnboardCaption(caption: caption),
+                  ],
                 ),
               ),
-              OnboardCaption(caption: caption),
-              OnboardPageIndicator(index: index),
-              OnboardButton(
-                  width: width,
-                  buttonText: "Next",
-                  func: () {
-                    Navigator.pushNamed(context, SignUpLandingRoute);
-                  }),
+              Positioned(
+                bottom: 60,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    OnboardPageIndicator(index: index),
+                    OnboardButton(
+                        width: width,
+                        buttonText: "Next",
+                        func: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, SignUpLandingRoute, (context) => false);
+                        }),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

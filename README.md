@@ -49,8 +49,8 @@
 - [ ] order popup validation
 - [ ] assets quality lower
 - [x] sign up landing must have login button
-- [ ] fix overflow in onboarding pages
-- [ ] change paddig in onboarding
-- [ ] use stack/position in onboarding
+- [x] fix overflow in onboarding pages
+- [x] change paddig in onboarding
+- [x] use stack/position in onboarding
 - [ ] clear list during listview builder and gridview builder to reduce multiple entries glitch
 - [ ] fix productgridtile widget padding issue

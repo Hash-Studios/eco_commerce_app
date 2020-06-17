@@ -14,64 +14,61 @@ class OnboardPageIndicator extends StatelessWidget {
     return Hero(
       tag: 'Onboard',
       transitionOnUserGestures: true,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Transform.rotate(
-                angle: math.pi / 4.0,
-                child: index == 1
-                    ? Container(
-                        width: 10,
-                        height: 10,
-                        color: Colors.white,
-                      )
-                    : Container(
-                        width: 9,
-                        height: 9,
-                        color: Colors.white38,
-                      ),
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Transform.rotate(
+              angle: math.pi / 4.0,
+              child: index == 1
+                  ? Container(
+                      width: 10,
+                      height: 10,
+                      color: Colors.white,
+                    )
+                  : Container(
+                      width: 9,
+                      height: 9,
+                      color: Colors.white38,
+                    ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Transform.rotate(
-                angle: math.pi / 4.0,
-                child: index == 2
-                    ? Container(
-                        width: 10,
-                        height: 10,
-                        color: Colors.white,
-                      )
-                    : Container(
-                        width: 9,
-                        height: 9,
-                        color: Colors.white38,
-                      ),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Transform.rotate(
+              angle: math.pi / 4.0,
+              child: index == 2
+                  ? Container(
+                      width: 10,
+                      height: 10,
+                      color: Colors.white,
+                    )
+                  : Container(
+                      width: 9,
+                      height: 9,
+                      color: Colors.white38,
+                    ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Transform.rotate(
-                angle: math.pi / 4.0,
-                child: index == 3
-                    ? Container(
-                        width: 10,
-                        height: 10,
-                        color: Colors.white,
-                      )
-                    : Container(
-                        width: 9,
-                        height: 9,
-                        color: Colors.white38,
-                      ),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Transform.rotate(
+              angle: math.pi / 4.0,
+              child: index == 3
+                  ? Container(
+                      width: 10,
+                      height: 10,
+                      color: Colors.white,
+                    )
+                  : Container(
+                      width: 9,
+                      height: 9,
+                      color: Colors.white38,
+                    ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

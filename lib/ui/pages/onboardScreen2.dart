@@ -19,7 +19,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
   int index = 2;
   String buttonText = "Next";
   void func() {
-    Navigator.pushNamedAndRemoveUntil(context, OnboardRoute3, (route) => false);
+    Navigator.pushNamed(context, OnboardRoute3);
   }
 
   String caption =
@@ -74,38 +74,56 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
           gradient: config.Colors().peachy,
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: OnboardHeading(heading: heading),
-              ),
-              OnboardCaption(caption: caption),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 95.0),
-                child: Container(
-                  width: width,
-                  child: AnimatedOpacity(
-                    duration: Duration(seconds: 1),
-                    opacity: opacity,
-                    curve: Curves.easeInBack,
-                    child: AnimatedPadding(
-                      duration: Duration(seconds: 1),
-                      padding: opacity == 0
-                          ? EdgeInsets.only(bottom: 20)
-                          : EdgeInsets.fromLTRB(20, 50, 20, 20),
-                      curve: Curves.easeInBack,
-                      child: Image(
-                          image: AssetImage("assets/images/onboard2.png"),
-                          fit: BoxFit.fitWidth),
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              Positioned(
+                top: 70,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: OnboardHeading(heading: heading),
                     ),
-                  ),
+                    OnboardCaption(caption: caption),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 95.0),
+                      child: Container(
+                        width: width,
+                        child: AnimatedOpacity(
+                          duration: Duration(seconds: 1),
+                          opacity: opacity,
+                          curve: Curves.easeInBack,
+                          child: AnimatedPadding(
+                            duration: Duration(seconds: 1),
+                            padding: opacity == 0
+                                ? EdgeInsets.fromLTRB(50, 50, 50, 20)
+                                : EdgeInsets.fromLTRB(110, 50, 110, 20),
+                            curve: Curves.easeInBack,
+                            child: Image(
+                                image: AssetImage("assets/images/onboard2.png"),
+                                fit: BoxFit.fitWidth),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              OnboardPageIndicator(index: index),
-              OnboardButton(width: width, buttonText: buttonText, func: func),
+              Positioned(
+                bottom: 60,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      OnboardPageIndicator(index: index),
+                      OnboardButton(
+                          width: width, buttonText: buttonText, func: func),
+                    ]),
+              )
             ],
           ),
         ),
