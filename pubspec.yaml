@@ -35,6 +35,7 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   firebase_analytics: ^5.0.15
   firebase_core: ^0.4.5
+  device_preview: ^0.4.5
 
 
   # The following adds the Cupertino Icons font to your application.
