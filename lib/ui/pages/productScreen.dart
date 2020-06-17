@@ -1,5 +1,6 @@
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
+import 'package:eco_commerce_app/ui/widgets/ButtonBounceAnimation.dart';
 // import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productBadges.dart';
@@ -9,6 +10,7 @@ import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -26,13 +28,17 @@ class _ProductScreenState extends State<ProductScreen> {
   double width;
   double height;
   bool popup;
-
+  bool isWishListed;
+  String prefWishList;
   @override
   void initState() {
     fabVisible = false;
     popup = false;
     super.initState();
     product = widget.arguements[0];
+    prefWishList = 'wishListPref';
+    isWishListed = false;
+    updateWishList(product.id, false);
   }
 
   @override
@@ -56,12 +62,27 @@ class _ProductScreenState extends State<ProductScreen> {
               },
             ),
             actions: <Widget>[
-              IconButton(
-                onPressed: () {
-                  print("Bookmark");
-                },
-                color: Colors.black,
-                icon: Icon(LineAwesomeIcons.heart_o),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ButtonBounceAnimation(
+                  child: Icon(
+                      (!isWishListed)
+                          ? LineAwesomeIcons.heart_o
+                          : LineAwesomeIcons.heart,
+                      color: (!isWishListed) ? Colors.black : Colors.red),
+                  onTap: () {
+                    print('heart');
+                    setState(() {
+                      updateWishList(product.id, true);
+                      isWishListed = !isWishListed;
+                    });
+                  },
+                  scale: 1,
+                  duration: 300,
+                  how: 1,
+                  width: 40,
+                  height: 40,
+                ),
               )
             ],
           ),
@@ -519,5 +540,20 @@ class _ProductScreenState extends State<ProductScreen> {
       ));
     }
     return ratingBar;
+  }
+
+  updateWishList(String id, bool update) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> wishList =
+        (prefs.getStringList(prefWishList) ?? List<String>());
+
+    if (!update) {
+      setState(() {
+        wishList.contains(id) ? isWishListed = true : isWishListed = false;
+      });
+    } else {
+      wishList.contains(id) ? wishList.remove(id) : wishList.add(id);
+      await prefs.setStringList(prefWishList, wishList);
+    }
   }
 }

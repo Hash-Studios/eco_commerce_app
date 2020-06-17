@@ -54,4 +54,4 @@
 - [x] use stack/position in onboarding
 - [x] clear list during listview builder and gridview builder to reduce multiple entries glitch
 - [x] fix productgridtile widget padding issue
-- [ ] replace action button in appbar in product screen with add to wishlist button
+- [x] replace action button in appbar in product screen with add to wishlist button

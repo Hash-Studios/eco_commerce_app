@@ -88,11 +88,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         }
-        if (this.mounted){
-        setState(() {
-          isLoading = false;
-        });
-      }}
+        if (this.mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      }
     });
   }
 
@@ -133,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: Colors.transparent,
                         child: IconButton(
                           onPressed: () {
-                            print("Wishlist");
+                            Navigator.pushNamed(context, WishListRoute);
                           },
                           color: Colors.black,
                           icon: Icon(LineAwesomeIcons.heart_o),
