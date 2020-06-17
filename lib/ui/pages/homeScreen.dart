@@ -16,6 +16,7 @@ import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:eco_commerce_app/util/productLoderUtil.dart';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -40,6 +41,25 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Product> products;
   List<Widget> trending = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    keywords: <String>['flutterio', 'beautiful apps'],
+    contentUrl: 'https://flutter.io',
+    childDirected: false,
+  );
+
+  BannerAd _bannerAd;
+
+  BannerAd createBannerAd() {
+    return BannerAd(
+      // adUnitId: BannerAd.testAdUnitId,
+      adUnitId: "ca-app-pub-5346688384653838/5295790295",
+      size: AdSize.banner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
 
 //  void getData() async {
 //    setState(() {
@@ -112,11 +132,25 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       });
     });
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-5346688384653838~6608871962");
+
+    _bannerAd = createBannerAd()..load();
 //    getData();
   }
 
   @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _bannerAd ??= createBannerAd();
+    _bannerAd
+      ..load()
+      ..show();
     final width = MediaQuery.of(context).size.width;
     // compute(cpuPusher, 1);
     return Consumer<CurrentUser>(

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.3+1
+version: 2.0.4+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -36,6 +36,7 @@ dependencies:
   firebase_analytics: ^5.0.15
   firebase_core: ^0.4.5
   device_preview: ^0.4.5
+  firebase_admob: ^0.9.3+2
 
 
   # The following adds the Cupertino Icons font to your application.
