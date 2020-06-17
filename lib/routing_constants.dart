@@ -22,3 +22,4 @@ const String OrderRoute = '/orders';
 const String AboutRoute = '/about';
 const String CodeVerificationRoute = '/codeverification';
 const String ResetPasswordRoute = '/resetpassword';
+const String OrderConfirmRoute = '/confirmorder';
