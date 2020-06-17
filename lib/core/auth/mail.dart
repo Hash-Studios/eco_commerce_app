@@ -95,7 +95,7 @@ sendOrderMail(String email, String phone, String name, String msg, String qty,
     ..subject =
         '$email wants to Order! || Eco-Friendly App' //subject of the email
     ..text =
-        'Hey,\nI am $name ($email) and I wanted to order $productname ($qty units) for a price of $price which was originally priced for $orgPrice per unit. I expect the delivery to be done by $date:\n\n$msg\nHere is my contact number $phone.\n\nStay Awesome,\nEco-Friendly App'; //body of the email
+        'Hey,\nI am $name ($email) and I wanted to order $productname ($qty units) for a price of ₹$price which was originally priced for ₹$orgPrice for $qty units. I expect the delivery to be done by $date:\n\n$msg\nHere is my contact number $phone.\n\nStay Awesome,\nEco-Friendly App'; //body of the email
 
   try {
     final sendReport = await send(message, smtpServer);
