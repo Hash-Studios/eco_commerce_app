@@ -5,6 +5,7 @@ import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/categoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/gradientBanner.dart';
+import 'package:eco_commerce_app/ui/widgets/landingSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/popUp.dart';
 import 'package:eco_commerce_app/ui/widgets/popularSlider.dart';
@@ -165,16 +166,50 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   isLoading ? LinearProgressIndicator() : Container(),
-                  Stack(
-                    children: <Widget>[
-                      TrendingSlider(),
-                      TextSlider(),
-                    ],
-                  ),
+                  LandingSlider(),
                   SectionHeader(
                     text: "Popular Now",
                   ),
                   PopularSlider(),
+                  GradientBanner(
+                      gradient: config.Colors().alive,
+                      message:
+                          "Find the greatest collection of Natural Products!"),
+                  isLoading
+                      ? Padding(
+                          padding: const EdgeInsets.all(100.0),
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            gradient: config.Colors().alive,
+                          ),
+                          child: GridView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              itemCount: 4,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 0.58,
+                                crossAxisCount: 2,
+                              ),
+                              itemBuilder: (context, index) {
+                                return ProductGridTileDynamic(
+                                    arguements: [products[index]]);
+                              }),
+                        ),
+                  GradientBanner(
+                    gradient: config.Colors().peachy,
+                    message:
+                        "While you are here ${main.prefs.getString('username').toString().split(" ")[0]}, do check these amazing offers!",
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: config.Colors().peachy,
+                    ),
+                    child: PopularSlider(),
+                  ),
                   SectionHeader(
                     text: "Categories",
                   ),
@@ -275,17 +310,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  GradientBanner(
-                    gradient: config.Colors().peachy,
-                    message:
-                        "While you are here ${main.prefs.getString('username').toString().split(" ")[0]}, do check these amazing offers!",
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: config.Colors().peachy,
-                    ),
-                    child: PopularSlider(),
-                  ),
                   Center(child: SectionHeader(text: "Trending Products")),
                   isLoading
                       ? Padding(
@@ -297,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Builder(
                             builder: (context) {
                               trending = [];
-                              for (int index = 4; index < 9; index++) {
+                              for (int index = 8; index < 13; index++) {
                                 trending.add(ProductListTileDynamic(
                                     arguements: [products[index]]));
                               }
@@ -330,10 +354,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               itemBuilder: (context, index) {
                                 return ProductGridTileDynamic(
-                                    arguements: [products[index]]);
+                                    arguements: [products[index + 4]]);
                               }),
                         ),
-                  TrendingSlider(),
+                  Stack(
+                    children: <Widget>[
+                      TrendingSlider(),
+                      TextSlider(),
+                    ],
+                  ),
                   Center(child: SectionHeader(text: "Latest for You")),
                   isLoading
                       ? Padding(
@@ -345,7 +374,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Builder(
                             builder: (context) {
                               trending = [];
-                              for (int index = 9; index < 13; index++) {
+                              for (int index = 13;
+                                  index < products.length;
+                                  index++) {
                                 trending.add(ProductListTileDynamic(
                                     arguements: [products[index]]));
                               }
