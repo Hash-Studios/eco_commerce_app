@@ -1,6 +1,7 @@
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
+import 'package:eco_commerce_app/ui/pages/wishListScreen.dart';
 import 'package:eco_commerce_app/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/router.dart' as router;
@@ -20,6 +21,9 @@ Future<void> main() async {
         ChangeNotifierProvider<CurrentUser>(
           create: (context) => CurrentUser(),
         ),
+        ChangeNotifierProvider<WishlistProvider>(
+          create: (context) => WishlistProvider(),
+        )
       ],
       child: MyApp(
         email: email,
