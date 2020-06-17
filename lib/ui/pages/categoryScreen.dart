@@ -161,7 +161,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             isLoading
-                ? LinearProgressIndicator()
+                ? LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Color(0xFF96EFA6)),
+                    backgroundColor: Color(0x6696EFA6),
+                  )
                 : Column(
                     children: <Widget>[
                       GradientBanner(

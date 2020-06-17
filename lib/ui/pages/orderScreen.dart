@@ -45,24 +45,31 @@ class _OrdersScreenState extends State<OrdersScreen> {
               name: json.decode(res.body)["products"][c]["name"],
               price: json.decode(res.body)["products"][c]["price"].toString(),
               images: new List<ProductImage>.generate(
-                  jsonDecode(res.body)["products"][c]["images"].length, (image) {
+                  jsonDecode(res.body)["products"][c]["images"].length,
+                  (image) {
                 return ProductImage(
-                    id: jsonDecode(res.body)["products"][c]["images"][image]["id"],
-                    name: jsonDecode(res.body)["products"][c]["images"][image]["name"],
-                    ext: jsonDecode(res.body)["products"][c]["images"][image]["ext"],
+                    id: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["id"],
+                    name: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["name"],
+                    ext: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["ext"],
                     size: jsonDecode(res.body)["products"][c]["images"][image]["size"]
                         .toString(),
-                    width: jsonDecode(res.body)["products"][c]["images"][image]["width"]
+                    width: jsonDecode(res.body)["products"][c]["images"][image]
+                            ["width"]
                         .toString(),
-                    height: jsonDecode(res.body)["products"][c]["images"][image]["height"]
+                    height: jsonDecode(res.body)["products"][c]["images"][image]
+                            ["height"]
                         .toString(),
-                    url: jsonDecode(res.body)["products"][c]["images"][image]["url"],
-                    thumbnailUrl: jsonDecode(res.body)["products"][c]["images"][image]
-                        ["formats"]["thumbnail"]["url"],
-                    smallUrl: jsonDecode(res.body)["products"][c]["images"][image]
-                        ["formats"]["small"]["url"],
-                    createdAt: jsonDecode(res.body)["products"][c]["images"][image]
-                        ["createdAt"]);
+                    url: jsonDecode(res.body)["products"][c]["images"][image]
+                        ["url"],
+                    thumbnailUrl: jsonDecode(res.body)["products"][c]["images"]
+                        [image]["formats"]["thumbnail"]["url"],
+                    smallUrl: jsonDecode(res.body)["products"][c]["images"]
+                        [image]["formats"]["small"]["url"],
+                    createdAt: jsonDecode(res.body)["products"][c]["images"]
+                        [image]["createdAt"]);
               }),
               category: json.decode(res.body)["products"][c]["category"],
               desc: json.decode(res.body)["products"][c]["desc"],
@@ -122,7 +129,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 isLoading
-                    ? LinearProgressIndicator()
+                    ? LinearProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Color(0xFF96EFA6)),
+                        backgroundColor: Color(0x6696EFA6),
+                      )
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                         child: Builder(

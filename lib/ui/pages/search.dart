@@ -371,7 +371,10 @@ class _SearchScreenState extends State<SearchScreen>
               isNull
                   ? Container()
                   : isLoading
-                      ? LinearProgressIndicator()
+                      ? LinearProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Color(0xFF96EFA6)),
+                          backgroundColor: Color(0x6696EFA6),
+                        )
                       : ListView.builder(
                           controller: scrollController,
                           shrinkWrap: true,

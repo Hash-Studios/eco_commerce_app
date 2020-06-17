@@ -143,7 +143,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ],
       ),
       body: isLoading
-          ? LinearProgressIndicator()
+          ? LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Color(0xFF96EFA6)),
+              backgroundColor: Color(0x6696EFA6),
+            )
           : SingleChildScrollView(
               child: Wrap(
                 runSpacing: 20,

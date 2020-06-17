@@ -118,7 +118,10 @@ class _TrendingScreenState extends State<TrendingScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 isLoading
-                    ? LinearProgressIndicator()
+                    ? LinearProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Color(0xFF96EFA6)),
+                          backgroundColor: Color(0x6696EFA6),
+                        )
                     : Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                         child: Builder(
