@@ -1,4 +1,5 @@
 import 'package:eco_commerce_app/core/model/product.dart';
+import 'package:eco_commerce_app/ui/widgets/appBarTitle.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/util/productLoderUtil.dart';
@@ -22,7 +23,6 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     wishListedProducts = new List();
     isLoading = true;
@@ -36,33 +36,17 @@ class _WishListScreenState extends State<WishListScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        title: AppBarTitle(text: "Wishlist"),
         elevation: 0,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         leading: IconButton(
-          onPressed: () {
-            print("Nav Drawer");
-            _scaffoldKey.currentState.openDrawer();
-          },
+          icon: Icon(LineAwesomeIcons.arrow_left),
           color: Colors.black,
-          icon: Icon(LineAwesomeIcons.navicon),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              print("Search");
-            },
-            color: Colors.black,
-            icon: Icon(LineAwesomeIcons.search),
-          ),
-          IconButton(
-            onPressed: () {
-              print("Bookmark");
-            },
-            color: Colors.black,
-            icon: Icon(LineAwesomeIcons.bookmark),
-          )
-        ],
       ),
       backgroundColor: Colors.white,
       drawer: MainDrawer(),
@@ -73,17 +57,6 @@ class _WishListScreenState extends State<WishListScreen> {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30.0, 0, 0, 0),
-              child: Text(
-                'WishList',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 24,
-                  color: Colors.black,
-                ),
-              ),
-            ),
             (wishListedProducts == null || isLoading == true)
                 ? Container(
                     height: MediaQuery.of(context).size.height,
@@ -95,6 +68,7 @@ class _WishListScreenState extends State<WishListScreen> {
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Builder(
                       builder: (context) {
+                        list = [];
                         for (int index = 0;
                             index < wishListedProducts.length;
                             index++) {
