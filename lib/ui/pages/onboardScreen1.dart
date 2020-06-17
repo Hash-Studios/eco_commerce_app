@@ -54,7 +54,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
             fit: StackFit.expand,
             children: [
               Positioned(
-                top: 70,
+                top: 30,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -68,8 +68,8 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
                         child: AnimatedPadding(
                           duration: Duration(seconds: 1),
                           padding: opacity == 0
-                              ? EdgeInsets.only(bottom: 0)
-                              : EdgeInsets.only(bottom: 40),
+                              ? EdgeInsets.only(top: 0, bottom: 20)
+                              : EdgeInsets.only(top: 40, bottom: 20),
                           curve: Curves.easeInBack,
                           child: Image(
                               image: AssetImage("assets/images/onboard1.png"),
