@@ -94,7 +94,7 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 7, horizontal: 5),
+                          vertical: 5, horizontal: 5),
                       child: Container(
                         width: width * 0.45,
                         child: Text(
@@ -108,12 +108,12 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 5),
+                          vertical: 2, horizontal: 5),
                       child: SizedBox(
                         width: width * 0.435,
                         child: Text(
                           desc,
-                          maxLines: 2,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: TextStyle(
