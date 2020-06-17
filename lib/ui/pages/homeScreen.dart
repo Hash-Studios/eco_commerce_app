@@ -15,12 +15,19 @@ import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
 import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:eco_commerce_app/util/productLoderUtil.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
+
+Future<void> cpuPusher(int i) async {
+  while (true) {
+    print(DateTime.now());
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -111,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    // compute(cpuPusher, 1);
     return Consumer<CurrentUser>(
       builder: (_, currentUser, __) {
         currentUser.getUserfromSP();
