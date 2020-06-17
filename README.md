@@ -10,7 +10,7 @@
 - [x] UI update PreSignUp Intro Slider
 - [x] Snackbars to popup with GIFs
 - [x] Search should be working
-- [ ] tags should be relevant
+- [x] tags should be relevant
 - [x] tags should be choiceChips
 - [x] wishlist working using shared prefs
 - [x] wishlist page UI
@@ -46,7 +46,7 @@
 - [ ] Remove uneccessary widgets, pages and packages
 - [x] change icon
 - [x] add splash screen
-- [ ] order popup validation
+- [x] order popup validation
 - [ ] assets quality lower
 - [x] sign up landing must have login button
 - [x] fix overflow in onboarding pages
