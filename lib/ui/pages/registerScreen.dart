@@ -1,7 +1,6 @@
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/gradientResponsiveContainer.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
-import 'package:eco_commerce_app/ui/widgets/secondarySubmitButton.dart';
 import 'package:eco_commerce_app/ui/widgets/submitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -367,7 +366,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 errorText: null,
                                 hintText: "Password",
-                                // labelText: "Password",
                                 hintStyle: TextStyle(
                                   color: Color(0xFFFFFFFF),
                                 ),
@@ -498,27 +496,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Padding(
                 padding: EdgeInsets.fromLTRB(40, 40, 40, 0),
                 child: SubmitButton(
-                  validatorSeq: isEmailValid && isPassValid,
+                  validatorSeq: true,
                   isLoading: isLoading,
                   width: width,
                   buttonText: 'Submit',
                   func: () {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    HapticFeedback.vibrate();
-                    form.currentState.validate();
-                    form.currentState.save();
-                    print(
-                        "name:${nameController.text},email:${emailController.text},pwd:${passwordController.text}");
-                    Future.delayed(Duration(milliseconds: 500)).then((value) {
-                      Navigator.pushReplacementNamed(context, UserOptionalRoute,
-                          arguments: [
-                            nameController.text,
-                            emailController.text,
-                            passwordController.text
-                          ]);
-                    });
+                    Navigator.pushReplacementNamed(context, UserOptionalRoute);
                   },
                 ),
               ),

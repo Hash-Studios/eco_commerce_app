@@ -79,9 +79,7 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: PinCodeTextField(
-                    onChanged: (text) {
-                      print(textEditingController.text.length);
-                    },
+                    onChanged: (text) {},
                     length: 6,
                     obsecureText: false,
                     animationType: AnimationType.fade,
@@ -154,7 +152,6 @@ class _CodeVerificationScreenState extends State<CodeVerificationScreen> {
                     animationDuration: Duration(milliseconds: 300),
                     backgroundColor: Colors.transparent,
                     onCompleted: (v) {
-                      print("Completed");
                       if (v == widget.arguements[0]) {
                         setState(() {
                           isLoading = true;

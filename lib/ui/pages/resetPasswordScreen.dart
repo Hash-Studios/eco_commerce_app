@@ -1,16 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
-import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
 class ResetPasswordScreen extends StatefulWidget {
   final List<String> arguements;
@@ -238,7 +234,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   ),
                                   errorText: null,
                                   hintText: "Password",
-                                  // labelText: "Password",
                                   hintStyle: TextStyle(
                                     color: Color(0xFFFFFFFF),
                                   ),
@@ -409,7 +404,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   isLoading = true;
                                 });
                                 HapticFeedback.vibrate();
-                                resetPassword(currentUser);
+                                _redirectUser();
                               }
                             : () {},
                         child: SizedBox(
@@ -445,102 +440,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         ),
       ),
     );
-  }
-
-  void resetPassword(CurrentUser currentUser) async {
-    try {
-      http.put('http://ecocommerce.herokuapp.com/users/${widget.arguements[1]}',
-          body: {
-            'password': passwordController.text
-          }).then((http.Response response) {
-        res = (json.decode(response.body));
-        print(res);
-        if (response.statusCode == 200) {
-          toasts.successPassReset();
-          loginUser(currentUser);
-        } else {
-          toasts.error(res['message'][0]['messages'][0]['message']);
-          form.currentState.reset();
-          if (this.mounted) {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        }
-      }).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          toasts.timeout();
-          form.currentState.reset();
-          if (this.mounted) {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        },
-      );
-    } on SocketException {
-      toasts.network();
-      form.currentState.reset();
-      if (this.mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } catch (e) {
-      print(e);
-      toasts.error(e.toString());
-      if (this.mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-  }
-
-  void loginUser(CurrentUser currentUser) async {
-    try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/', body: {
-        'identifier': widget.arguements[2],
-        'password': passwordController.text
-      }).then((http.Response response) {
-        res = (json.decode(response.body));
-        print(res);
-        if (response.statusCode == 200) {
-          toasts.successLog();
-          currentUser.getUserfromResp(res);
-          currentUser.saveUsertoSP();
-          _redirectUser();
-        } else {
-          toasts.error(res['message'][0]['messages'][0]['message']);
-          form.currentState.reset();
-        }
-        setState(() {
-          isLoading = false;
-        });
-      }).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          toasts.timeout();
-          form.currentState.reset();
-          setState(() {
-            isLoading = false;
-          });
-        },
-      );
-    } on SocketException {
-      toasts.network();
-      form.currentState.reset();
-      setState(() {
-        isLoading = false;
-      });
-    } catch (e) {
-      print(e);
-      toasts.error(e.toString());
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 
   void _redirectUser() {

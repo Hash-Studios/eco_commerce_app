@@ -97,8 +97,6 @@ class _ProductCardsSliderState extends State<ProductCardsSlider> {
               ),
             ),
           ),
-
-          // LinearGradient(colors: [Colors.black, Colors.transparent])
         ],
       ),
     );

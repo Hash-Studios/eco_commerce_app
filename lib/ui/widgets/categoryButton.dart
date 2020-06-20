@@ -42,7 +42,6 @@ class CategoryButton extends StatelessWidget {
         onPressed: function,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -56,7 +55,6 @@ class CategoryButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: Container(
-                // width: width * 0.24,
                 child: Center(
                   child: Text(
                     text,

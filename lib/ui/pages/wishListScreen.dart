@@ -94,7 +94,6 @@ class _WishListScreenState extends State<WishListScreen> {
         return ProductLoader.loadProductById(listTemp[i]);
       }).then((value) {
         wishListedProducts.add(value);
-        print(value.name);
       });
     }
     if (this.mounted) {

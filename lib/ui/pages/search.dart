@@ -1,6 +1,3 @@
-import 'dart:collection';
-import 'dart:convert';
-import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
-import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 final GlobalKey<FormState> formSearch = GlobalKey<FormState>();
 
@@ -63,119 +58,9 @@ class _SearchScreenState extends State<SearchScreen>
     });
   }
 
-  void getData(String query) async {
-    String sorting;
-    String search = "";
-    setState(() {
-      isLoading = true;
-      isNull = false;
-    });
-    if (sortPrice) {
-      setState(() {
-        sorting = "&_sort=price:ASC";
-      });
-    } else if (sortName) {
-      setState(() {
-        sorting = "&_sort=name:ASC";
-      });
-    } else {
-      setState(() {
-        sorting = "";
-      });
-    }
-    for (int q = 0; q < query.split(" ").length; q++) {
-      if (q > 0) {
-        search = search + "&";
-      }
-      search = search + "name_contains=${query.split(" ")[q]}";
-    }
-    http
-        .get(
-      'https://ecocommerce.herokuapp.com/products?$search$sorting',
-    )
-        .then((http.Response response) {
-      if (response.statusCode == 200) {
-        searchQuery = [];
-        tags = [];
-        products = [];
-        print(response.body);
-        if (response.statusCode == 200) {
-          for (int c = 0; c < json.decode(response.body).length; c++) {
-            products.add(
-              Product(
-                id: json.decode(response.body)[c]["id"],
-                name: json.decode(response.body)[c]["name"],
-                price: json.decode(response.body)[c]["price"].toString(),
-                images: new List<ProductImage>.generate(
-                    jsonDecode(response.body)[c]["images"].length, (image) {
-                  return ProductImage(
-                      id: jsonDecode(response.body)[c]["images"][image]["id"],
-                      name: jsonDecode(response.body)[c]["images"][image]
-                          ["name"],
-                      ext: jsonDecode(response.body)[c]["images"][image]["ext"],
-                      size: jsonDecode(response.body)[c]["images"][image]
-                              ["size"]
-                          .toString(),
-                      width: jsonDecode(response.body)[c]["images"][image]
-                              ["width"]
-                          .toString(),
-                      height: jsonDecode(response.body)[c]["images"][image]
-                              ["height"]
-                          .toString(),
-                      url: jsonDecode(response.body)[c]["images"][image]["url"],
-                      thumbnailUrl: jsonDecode(response.body)[c]["images"]
-                          [image]["formats"]["thumbnail"]["url"],
-                      smallUrl: jsonDecode(response.body)[c]["images"][image]
-                          ["formats"]["small"]["url"],
-                      createdAt: jsonDecode(response.body)[c]["images"][image]
-                          ["createdAt"]);
-                }),
-                category: json.decode(response.body)[c]["categories"][0]
-                    ["name"],
-                desc: json.decode(response.body)[c]["desc"],
-                features: json.decode(response.body)[c]["features"],
-                createdAt: json.decode(response.body)[c]["createdAt"],
-              ),
-            );
-            searchQuery.add(json
-                .decode(response.body)[c]["categories"][0]["name"]
-                .toString());
-            searchQuery =
-                searchQuery + json.decode(response.body)[c]["tags"].split(",");
-          }
-          if (this.mounted) {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        }
-      }
-      var map = Map();
-
-      searchQuery.forEach((element) {
-        if (!map.containsKey(element)) {
-          map[element] = 1;
-        } else {
-          map[element] += 1;
-        }
-      });
-
-      var sortedKeys = map.keys.toList(growable: false)
-        ..sort((k1, k2) => map[k1].compareTo(map[k2]));
-      LinkedHashMap sortedMap = new LinkedHashMap.fromIterable(sortedKeys,
-          key: (k) => k, value: (k) => map[k]);
-      tags = List.from(sortedMap.keys.toList().reversed);
-      if (tags.contains(searchController.text.toLowerCase())) {
-        tags.removeAt(tags.indexOf(searchController.text.toLowerCase()));
-        tags.insert(0, searchController.text.toLowerCase());
-      }
-    });
-  }
-
   Future<Null> refreshList() async {
     refreshKey2.currentState?.show(atTop: true);
     await Future.delayed(Duration(milliseconds: 500));
-    getData(searchController.text);
     return null;
   }
 
@@ -234,16 +119,12 @@ class _SearchScreenState extends State<SearchScreen>
                       });
                     },
                     onChanged: (text) {
-                      // getData(text);
                     },
-                    onSaved: (text) {
-                      getData(text);
-                    },
+                    onSaved: (text) {},
                     controller: searchController,
                     focusNode: _searchFocus,
                     onFieldSubmitted: (term) {
                       _searchFocus.unfocus();
-                      getData(term);
                       setState(() {
                         isFocussed = false;
                       });
@@ -366,9 +247,6 @@ class _SearchScreenState extends State<SearchScreen>
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(size: 22.0),
-        // child: Icon(Icons.add),
-        onOpen: () => print('OPENING DIAL'),
-        onClose: () => print('DIAL CLOSED'),
         visible: dialVisible,
         curve: Curves.bounceIn,
         children: [
@@ -378,7 +256,6 @@ class _SearchScreenState extends State<SearchScreen>
                   backgroundColor: Colors.teal[300],
                   onTap: () {
                     toggleSort();
-                    getData(searchController.text);
                   },
                   label: 'Sort by price',
                   labelStyle: TextStyle(
@@ -392,7 +269,6 @@ class _SearchScreenState extends State<SearchScreen>
                   backgroundColor: Colors.teal[300],
                   onTap: () {
                     toggleSort();
-                    getData(searchController.text);
                   },
                   label: 'Sort by name',
                   labelStyle: TextStyle(

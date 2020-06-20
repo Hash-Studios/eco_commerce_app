@@ -29,7 +29,6 @@ class _ProductBadgesState extends State<ProductBadges> {
     for (int i = 0; i < 4; i++) {
       nextInd();
     }
-    print(indexes);
     super.initState();
   }
 

@@ -1,17 +1,8 @@
-import 'package:eco_commerce_app/core/auth/google_auth.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:io';
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
-import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
-
-final GoogleAuth gAuth = GoogleAuth();
 
 class GoogleButton extends StatefulWidget {
   final bool login;
@@ -59,74 +50,7 @@ class _GoogleButtonState extends State<GoogleButton> {
             colorBrightness: Brightness.light,
             padding: EdgeInsets.all(0),
             shape: StadiumBorder(),
-            onPressed: widget.login
-                ? () {
-                    gAuth.signInWithGoogle().whenComplete(() async {
-                      if (!isError) {
-                        try {
-                          http.post(
-                              'https://ecocommerce.herokuapp.com/auth/local/',
-                              body: {
-                                'identifier':
-                                    main.prefs.getString('googleemail'),
-                                'password': main.prefs.getString('googleemail')
-                              }).then((http.Response response) {
-                            res = (json.decode(response.body));
-                            print(res);
-                            if (response.statusCode == 200) {
-                              toasts.successLog();
-                              currentUser.getUserfromResp(res);
-                              currentUser.saveUsertoSP();
-                              _redirectUser();
-                            } else {
-                              gAuth.signOutGoogle();
-                              toasts.error(
-                                  res['message'][0]['messages'][0]['message']);
-                            }
-                          }).timeout(
-                            const Duration(seconds: 30),
-                            onTimeout: () {
-                              gAuth.signOutGoogle();
-                              toasts.timeout();
-                            },
-                          );
-                        } on SocketException {
-                          gAuth.signOutGoogle();
-                          toasts.network();
-                        } catch (e) {
-                          print(e);
-                          gAuth.signOutGoogle();
-                          toasts.error(e.toString());
-                        }
-                      }
-                    }).catchError((e) {
-                      toasts.error(e.toString());
-                      setState(() {
-                        isError = true;
-                      });
-                      Future.delayed(Duration(milliseconds: 500))
-                          .then((value) => Navigator.pop(context));
-                    });
-                  }
-                : () {
-                    gAuth.signInWithGoogle().whenComplete(() async {
-                      if (!isError) {
-                        Navigator.pushNamed(context, UserOptionalRoute,
-                            arguments: [
-                              main.prefs.getString('googleemail'),
-                              main.prefs.getString('googlename'),
-                              main.prefs.getString('googleemail')
-                            ]);
-                      }
-                    }).catchError((e) {
-                      toasts.error(e.toString());
-                      setState(() {
-                        isError = true;
-                      });
-                      Future.delayed(Duration(milliseconds: 500))
-                          .then((value) => Navigator.pop(context));
-                    });
-                  },
+            onPressed:_redirectUser,
             child: SizedBox(
               width: width * 0.75,
               child: Padding(

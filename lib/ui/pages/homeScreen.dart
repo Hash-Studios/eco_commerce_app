@@ -12,23 +12,14 @@ import 'package:eco_commerce_app/ui/widgets/productGridTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/secondaryCategoryButton.dart';
 import 'package:eco_commerce_app/ui/widgets/sectionHeader.dart';
-import 'package:eco_commerce_app/ui/widgets/textSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/trendingSlider.dart';
 import 'package:eco_commerce_app/util/productLoderUtil.dart';
-import 'package:flutter/foundation.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
-
-Future<void> cpuPusher(int i) async {
-  while (true) {
-    print(DateTime.now());
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -41,77 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Product> products;
   List<Widget> trending = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    keywords: <String>['flutterio', 'beautiful apps'],
-    contentUrl: 'https://flutter.io',
-    childDirected: false,
-  );
-
-  BannerAd _bannerAd;
-
-  BannerAd createBannerAd() {
-    return BannerAd(
-      // adUnitId: BannerAd.testAdUnitId,
-      adUnitId: "ca-app-pub-5346688384653838/5295790295",
-      size: AdSize.banner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
-    );
-  }
-
-//  void getData() async {
-//    setState(() {
-//      isLoading = true;
-//    });
-  //    http
-//        .get(
-//      'https://ecocommerce.herokuapp.com/products',
-//    )
-//        .then((http.Response res) {
-//      print(json.decode(res.body));
-//      products = [];
-//      if (res.statusCode == 200) {
-//        for (int c = 0; c < json.decode(res.body).length; c++) {
-//          products.add(
-//            Product(
-//              id: json.decode(res.body)[c]["id"],
-//              name: json.decode(res.body)[c]["name"],
-//              price: json.decode(res.body)[c]["price"].toString(),
-//              images: new List<ProductImage>.generate(
-//                  jsonDecode(res.body)[c]["images"].length, (image) {
-//                return ProductImage(
-//                    id: jsonDecode(res.body)[c]["images"][image]["id"],
-//                    name: jsonDecode(res.body)[c]["images"][image]["name"],
-//                    ext: jsonDecode(res.body)[c]["images"][image]["ext"],
-//                    size: jsonDecode(res.body)[c]["images"][image]["size"]
-//                        .toString(),
-//                    width: jsonDecode(res.body)[c]["images"][image]["width"]
-//                        .toString(),
-//                    height: jsonDecode(res.body)[c]["images"][image]["height"]
-//                        .toString(),
-//                    url: jsonDecode(res.body)[c]["images"][image]["url"],
-//                    thumbnailUrl: jsonDecode(res.body)[c]["images"][image]
-//                        ["formats"]["thumbnail"]["url"],
-//                    smallUrl: jsonDecode(res.body)[c]["images"][image]
-//                        ["formats"]["small"]["url"],
-//                    createdAt: jsonDecode(res.body)[c]["images"][image]
-//                        ["createdAt"]);
-//              }),
-//              category: json.decode(res.body)[c]["category"],
-//              desc: json.decode(res.body)[c]["desc"],
-//              features: json.decode(res.body)[c]["features"],
-//              createdAt: json.decode(res.body)[c]["createdAt"],
-//            ),
-//          );
-//        }
-//        setState(() {
-//          isLoading = false;
-//        });
-//      }
-//    });
-//  }
 
   @override
   void initState() {
@@ -124,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }).then((value) {
       setState(() {
         products = value;
-        print(value);
         if (this.mounted) {
           setState(() {
             isLoading = false;
@@ -132,27 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       });
     });
-    FirebaseAdMob.instance
-        .initialize(appId: "ca-app-pub-5346688384653838~6608871962");
-
-    _bannerAd = createBannerAd()..load();
-//    getData();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _bannerAd ??= createBannerAd();
-    _bannerAd
-      ..load()
-      ..show();
     final width = MediaQuery.of(context).size.width;
-    // compute(cpuPusher, 1);
     return Consumer<CurrentUser>(
       builder: (_, currentUser, __) {
         currentUser.getUserfromSP();
@@ -186,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.transparent,
                   child: IconButton(
                     onPressed: () {
-                      print("Nav Drawer");
                       _scaffoldKey.currentState.openDrawer();
                     },
                     color: Colors.black,
@@ -203,7 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.transparent,
                     child: IconButton(
                       onPressed: () {
-                        print("Search");
                         Navigator.pushNamed(context, SearchRoute);
                       },
                       color: Colors.black,
@@ -417,12 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     arguements: [products[index + 4]]);
                               }),
                         ),
-                  Stack(
-                    children: <Widget>[
-                      TrendingSlider(),
-                      TextSlider(),
-                    ],
-                  ),
+                  TrendingSlider(),
                   Center(child: SectionHeader(text: "Trending Products")),
                   (products == null || isLoading == true)
                       ? Padding(

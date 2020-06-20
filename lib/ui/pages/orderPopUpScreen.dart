@@ -4,8 +4,6 @@ import 'package:eco_commerce_app/ui/widgets/headerText.dart';
 import 'package:eco_commerce_app/ui/widgets/submitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
-import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
-import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 import 'dart:async';
 
@@ -157,7 +155,6 @@ class _OrderPopUpState extends State<OrderPopUp> {
                         return null;
                       },
                       onSaved: (String value) {
-                        //  _name = value;
                       },
                     ),
                   ),
@@ -245,11 +242,9 @@ class _OrderPopUpState extends State<OrderPopUp> {
                         return null;
                       },
                       onSaved: (String value) {
-                        //   _name = value;
                       },
                     ),
                   ),
-                  // ]),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(31, 15.6, 31, 15.6),
                     child: Stack(
@@ -332,7 +327,6 @@ class _OrderPopUpState extends State<OrderPopUp> {
                             return null;
                           },
                           onSaved: (String value) {
-                            //  _name = value;
                           },
                         ),
                         GestureDetector(
@@ -395,7 +389,6 @@ class _OrderPopUpState extends State<OrderPopUp> {
                         ),
                       ),
                       onSaved: (String value) {
-                        //    _name = value;
                       },
                     ),
                   ),
@@ -425,21 +418,6 @@ class _OrderPopUpState extends State<OrderPopUp> {
                         width: width,
                         buttonText: "Order",
                         func: () {
-                          mail.sendOrderConfirmMail(
-                              main.prefs.getString("email"),
-                              main.prefs.getString("username"));
-                          mail.sendOrderMail(
-                              main.prefs.getString("email"),
-                              main.prefs.getString("phone"),
-                              main.prefs.getString("username"),
-                              msgController.text,
-                              qtyController.text,
-                              priceController.text,
-                              dateController.text,
-                              product.name,
-                              (int.parse(product.price) *
-                                      int.parse(qtyController.text))
-                                  .toString());
                           Navigator.pop(context);
                           toasts.successContact();
                         }),

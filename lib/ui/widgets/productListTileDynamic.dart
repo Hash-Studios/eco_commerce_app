@@ -1,6 +1,3 @@
-import 'dart:math';
-
-// import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +25,6 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
   @override
   void initState() {
     super.initState();
-    // 'https://ecocommerce.herokuapp.com' +
-//     products[index]["images"][0]["url"],
     image = 'assets/images' +
         widget.arguements[0].images[0].url
             .toString()
@@ -65,7 +60,6 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
         child: FlatButton(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           onPressed: () {
-            print('card');
             Navigator.pushNamed(context, ProductRoute,
                 arguments: widget.arguements);
           },
@@ -85,7 +79,6 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
                     child: Container(
                         width: height * 0.16,
                         height: height * 0.16,
-                        // child: Image.network(
                         child: Image.asset(
                           image,
                           fit: BoxFit.cover,
@@ -156,7 +149,6 @@ class _ProductListTileDynamicState extends State<ProductListTileDynamic> {
                                       ? Colors.black
                                       : Colors.red),
                               onTap: () {
-                                print('heart');
                                 setState(() {
                                   updateWishList(widget.arguements[0].id, true);
                                   isWishListed = !isWishListed;

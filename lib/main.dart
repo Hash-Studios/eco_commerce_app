@@ -1,24 +1,18 @@
 import 'package:eco_commerce_app/core/provider/user.dart';
-import 'package:eco_commerce_app/core/services/analytics_service.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/pages/undefinedScreen.dart';
 import 'package:eco_commerce_app/ui/theme/theme.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/router.dart' as router;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'routing_constants.dart';
-import 'package:device_preview/device_preview.dart';
 
 SharedPreferences prefs;
-final FirebaseAnalyticsObserver observer =
-    FirebaseAnalyticsObserver(analytics: analytics);
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   var email = prefs.getString('email');
-  print(email);
   runApp(
     MultiProvider(
       providers: [
@@ -26,11 +20,8 @@ Future<void> main() async {
           create: (context) => CurrentUser(),
         ),
       ],
-      child: DevicePreview(
-        enabled: false,
-        builder: (context) => MyApp(
-          email: email,
-        ),
+      child: MyApp(
+        email: email,
       ),
     ),
   );
@@ -42,8 +33,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorObservers: <NavigatorObserver>[observer],
-      locale: DevicePreview.of(context).locale,
       onGenerateRoute: router.generateRoute,
       debugShowCheckedModeBanner: false,
       onUnknownRoute: (settings) => MaterialPageRoute(
@@ -51,8 +40,7 @@ class MyApp extends StatelessWidget {
                 name: settings.name,
               )),
       theme: kDefaultTheme,
-      builder: DevicePreview.appBuilder,
-      initialRoute: email == null ? OnboardRoute1 : HomeRoute,
+      initialRoute: OnboardRoute1,
     );
   }
 }

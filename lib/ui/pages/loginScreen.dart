@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/googleButton.dart';
@@ -12,9 +9,7 @@ import 'package:eco_commerce_app/ui/widgets/submitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
@@ -77,18 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(500),
-                    // gradient: LinearGradient(
-                    //   colors: [
-                    //     isEmailValid
-                    //         ? Color(0xBB96EFA6)
-                    //         : Color(0x00FF7777),
-                    //     isEmailValid
-                    //         ? Color(0xBB26A6B5)
-                    //         : Color(0x00FF3333)
-                    //   ],
-                    //   begin: Alignment.topRight,
-                    //   end: Alignment.bottomLeft,
-                    // ),
                   ),
                   child: TextFormField(
                     style: Theme.of(context).textTheme.headline6.copyWith(
@@ -183,18 +166,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(500),
-                    // gradient: LinearGradient(
-                    //   colors: [
-                    //     isPassValid
-                    //         ? Color(0xBB96EFA6)
-                    //         : Color(0x00FF7777),
-                    //     isPassValid
-                    //         ? Color(0xBB26A6B5)
-                    //         : Color(0x00FF3333)
-                    //   ],
-                    //   begin: Alignment.topRight,
-                    //   end: Alignment.bottomLeft,
-                    // ),
                   ),
                   child: TextFormField(
                     style: Theme.of(context).textTheme.headline6.copyWith(
@@ -306,9 +277,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 HapticFeedback.vibrate();
                 if (emailController.text == "" || !isEmailValid) {
                   toasts.validEmail();
-                  print("email:${emailController.text}");
                 } else {
-                  forgotPassword();
+                  Navigator.pushNamed(context, CodeVerificationRoute,
+                      arguments: ["123456", "uid", emailController.text]);
                 }
               },
               child: Padding(
@@ -327,20 +298,12 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (_, currentUser, __) => Padding(
             padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
             child: SubmitButton(
-              validatorSeq: isEmailValid && isPassValid,
+              validatorSeq: true,
               isLoading: isLoading,
               width: width,
               buttonText: 'Submit',
               func: () {
-                setState(() {
-                  isLoading = true;
-                });
-                HapticFeedback.vibrate();
-                formLogin.currentState.validate();
-                formLogin.currentState.save();
-                print(
-                    "email:${emailController.text},pwd:${passwordController.text}");
-                loginUser(currentUser);
+                _redirectUser();
               },
             ),
           ),
@@ -352,104 +315,6 @@ class _LoginScreenState extends State<LoginScreen> {
         )
       ],
     );
-  }
-
-  void forgotPassword() async {
-    http
-        .get(
-      'http://ecocommerce.herokuapp.com/users',
-    )
-        .then((http.Response response) {
-      res2 = (json.decode(response.body));
-      bool userFound = false;
-      var userId;
-      if (response.statusCode == 200) {
-        for (int u = 0; u < res2.length; u++) {
-          if (emailController.text == res2[u]["email"]) {
-            toasts.codeSend(
-                "Reset Password code sent to ${emailController.text}");
-            userId = res2[u]["id"];
-            userFound = true;
-            break;
-          }
-        }
-        if (!userFound) {
-          toasts.noUser();
-        } else {
-          Random random = new Random();
-          int code = random.nextInt(899999) + 100000;
-          mail.sendForgotPasswordMail(emailController.text, code.toString());
-          Navigator.pushReplacementNamed(context, CodeVerificationRoute,
-              arguments: [
-                code.toString(),
-                userId.toString(),
-                emailController.text
-              ]);
-        }
-      } else {
-        toasts.error(
-            json.decode(response.body)['message'][0]['messages'][0]['message']);
-        formLogin.currentState.reset();
-      }
-      if (this.mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
-  }
-
-  void loginUser(CurrentUser currentUser) async {
-    try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/', body: {
-        'identifier': emailController.text,
-        'password': passwordController.text
-      }).then((http.Response response) {
-        res = (json.decode(response.body));
-        print(res);
-        if (response.statusCode == 200) {
-          toasts.successLog();
-          currentUser.getUserfromResp(res);
-          currentUser.saveUsertoSP();
-          _redirectUser();
-        } else {
-          toasts.error(res['message'][0]['messages'][0]['message']);
-          formLogin.currentState.reset();
-        }
-        if (this.mounted) {
-          setState(() {
-            isLoading = false;
-          });
-        }
-      }).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          toasts.timeout();
-          formLogin.currentState.reset();
-          if (this.mounted) {
-            setState(() {
-              isLoading = false;
-            });
-          }
-        },
-      );
-    } on SocketException {
-      toasts.network();
-      formLogin.currentState.reset();
-      if (this.mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } catch (e) {
-      print(e);
-      toasts.error(e.toString());
-      if (this.mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
   }
 
   void _redirectUser() {

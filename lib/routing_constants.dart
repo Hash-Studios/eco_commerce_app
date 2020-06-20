@@ -1,5 +1,3 @@
-// const String PreSignUpRoute = '/presignupslider';
-// const String MainRoute = '/';
 const String LoginRoute = '/login';
 const String RegisterRoute = '/register';
 const String SearchRoute = '/search';

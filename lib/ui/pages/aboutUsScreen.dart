@@ -43,7 +43,6 @@ class AboutUsScreen extends StatelessWidget {
               ),
             ),
             SectionHeader(text: "Our Values"),
-            // HalfSlider(),
             SectionHeader(text: "Who are we?"),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -60,7 +59,6 @@ class AboutUsScreen extends StatelessWidget {
               ),
             ),
             SectionHeader(text: "Meet our team!"),
-            // HalfSlider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,

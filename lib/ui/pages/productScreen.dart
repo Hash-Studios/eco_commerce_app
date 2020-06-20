@@ -1,7 +1,6 @@
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/ButtonBounceAnimation.dart';
-// import 'package:eco_commerce_app/ui/widgets/imageSlider.dart';
 import 'package:eco_commerce_app/ui/widgets/mainDrawer.dart';
 import 'package:eco_commerce_app/ui/widgets/productBadges.dart';
 import 'package:eco_commerce_app/ui/widgets/productCarousel.dart';
@@ -71,7 +70,6 @@ class _ProductScreenState extends State<ProductScreen> {
                           : LineAwesomeIcons.heart,
                       color: (!isWishListed) ? Colors.black : Colors.red),
                   onTap: () {
-                    print('heart');
                     setState(() {
                       updateWishList(product.id, true);
                       isWishListed = !isWishListed;
@@ -138,10 +136,6 @@ class _ProductScreenState extends State<ProductScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        // Hero(
-                        //   tag: product.name,
-                        //   transitionOnUserGestures: true,
-                        //   child:
                         ProductCarousel(
                           [
                             'assets/images' +
@@ -151,12 +145,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     .toString()
                                     .replaceAll("/uploads", "") +
                                 ".jpg",
-
-                            // product.images[1].url,
-                            // product.images[2].url,
-                            // product.images[3].url
                           ],
-                          // ),
                         ),
                       ],
                     ),
@@ -337,36 +326,6 @@ class _ProductScreenState extends State<ProductScreen> {
                           ))
                     ],
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(left: 30),
-                  //   alignment: Alignment.centerLeft,
-                  //   height: 30,
-                  //   child: Text(
-                  //     "Loved this product?",
-                  //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   height: 40,
-                  //   width: width * 0.6,
-                  //   margin: EdgeInsets.only(top: 10, bottom: 4),
-                  //   child: RaisedButton(
-                  //     elevation: 6,
-                  //     onPressed: () {
-                  //       print("Order now");
-                  //     },
-                  //     shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(10)),
-                  //     child: Text(
-                  //       "ORDER NOW",
-                  //       style: TextStyle(
-                  //           fontFamily: "Poppins",
-                  //           fontSize: 24,
-                  //           color: Colors.white),
-                  //     ),
-                  //     color: Color(0xff004445),
-                  //   ),
-                  // ),
                   Container(
                     width: width * 0.9,
                     child: Column(

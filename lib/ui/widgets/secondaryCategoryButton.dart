@@ -44,7 +44,6 @@ class SecondaryCategoryButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 15, 5, 15),
               child: Container(
-                // width: width * 0.365,
                 child: Center(
                   child: Text(
                     text,

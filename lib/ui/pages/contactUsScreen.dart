@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
-import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/main.dart' as main;
 import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
 
@@ -343,11 +342,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       width: width,
                       buttonText: "Submit",
                       func: () {
-                        mail.sendContactUsMail(
-                            emailController.text,
-                            phoneController.text,
-                            nameController.text,
-                            msgController.text);
                         toasts.successContact();
                         Navigator.pop(context);
                       })

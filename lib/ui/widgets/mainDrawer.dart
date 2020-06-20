@@ -21,69 +21,73 @@ class MainDrawer extends StatelessWidget {
             child: Column(
               children: [
                 Consumer<CurrentUser>(
-                  builder: (_, currentUser, __) => SafeArea(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, ProfileRoute);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: config.Colors().mildSea,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              children: [
-                                main.prefs.getString('googleimage') == null ||
-                                        main.prefs.getString('googleimage') ==
-                                            ""
-                                    ? Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            30, 10, 0, 10),
-                                        child: CircleAvatar(
-                                          radius: 25,
-                                          backgroundColor: Color(0xFFE0E0E0),
-                                          child: Text(
-                                            globals.getInitials(
-                                                currentUser.username),
-                                            style: TextStyle(
-                                                fontFamily: 'Poppins',
-                                                color: Colors.teal[300],
-                                                fontSize: 22),
-                                          ),
-                                        ),
-                                      )
-                                    : Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            30, 10, 0, 10),
-                                        child: CircleAvatar(
+                  builder: (_, currentUser, __) {
+                    currentUser.getUserfromResp();
+                    currentUser.saveUsertoSP();
+                    return SafeArea(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, ProfileRoute);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: config.Colors().mildSea,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                children: [
+                                  main.prefs.getString('googleimage') == null ||
+                                          main.prefs.getString('googleimage') ==
+                                              ""
+                                      ? Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              30, 10, 0, 10),
+                                          child: CircleAvatar(
                                             radius: 25,
-                                            backgroundImage: NetworkImage(main
-                                                .prefs
-                                                .getString("googleimage"))),
-                                      ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text(
-                                    "Hello, ${currentUser.username.split(' ')[0]}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3
-                                        .copyWith(
-                                          color: config.Colors().mainColor(1),
+                                            backgroundColor: Color(0xFFE0E0E0),
+                                            child: Text(
+                                              globals.getInitials(
+                                                  currentUser.username),
+                                              style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.teal[300],
+                                                  fontSize: 22),
+                                            ),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              30, 10, 0, 10),
+                                          child: CircleAvatar(
+                                              radius: 25,
+                                              backgroundImage: NetworkImage(main
+                                                  .prefs
+                                                  .getString("googleimage"))),
                                         ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: Text(
+                                      "Hello, ${currentUser.username.split(' ')[0]}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3
+                                          .copyWith(
+                                            color: config.Colors().mainColor(1),
+                                          ),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 Container(
                   child: Column(
@@ -241,7 +245,6 @@ class MainDrawer extends StatelessWidget {
                           },
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 60, vertical: 10),
@@ -341,56 +344,6 @@ class MainDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: [
-                      //       IconButton(
-                      //         icon: Icon(
-                      //           LineAwesomeIcons.facebook,
-                      //           size: 36,
-                      //         ),
-                      //         onPressed: () {},
-                      //       ),
-                      //       IconButton(
-                      //         icon: Icon(
-                      //           LineAwesomeIcons.instagram,
-                      //           size: 36,
-                      //         ),
-                      //         onPressed: () {},
-                      //       ),
-                      //       IconButton(
-                      //         icon: Icon(
-                      //           LineAwesomeIcons.linkedin_square,
-                      //           size: 36,
-                      //         ),
-                      //         onPressed: () {},
-                      //       ),
-                      //       IconButton(
-                      //         icon: Icon(
-                      //           LineAwesomeIcons.twitter_square,
-                      //           size: 36,
-                      //         ),
-                      //         onPressed: () {},
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                      //   child: ListTile(
-                      //     dense: true,
-                      //     title: Text(
-                      //       'All rights reserved XYZ Pvt Ltd.',
-                      //       textAlign: TextAlign.center,
-                      //       style: TextStyle(
-                      //           fontFamily: 'Poppins',
-                      //           color: Color(0xFF000000),
-                      //           fontSize: 10),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

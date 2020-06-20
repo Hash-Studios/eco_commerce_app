@@ -26,18 +26,12 @@ dependencies:
   carousel_slider: ^2.1.0
   flutter_screenutil: ^1.1.0
   line_awesome_icons: ^1.0.4+2
-  http: ^0.12.1
   shared_preferences: ^0.5.7+3
   fluttertoast: ^4.0.1
   visibility_detector: ^0.1.5
   mailer: ^3.0.4
   pin_code_fields: ^3.1.2
   flutter_speed_dial: ^1.2.5
-  firebase_analytics: ^5.0.15
-  firebase_core: ^0.4.5
-  device_preview: ^0.4.5
-  firebase_admob: ^0.9.3+2
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

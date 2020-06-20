@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 Future popUpAlertDialog({
   BuildContext context,
@@ -62,24 +61,7 @@ Future popUpAlertDialog({
                                 button1text == null ? "OK" : button1text,
                                 style: Theme.of(context).textTheme.button,
                               ),
-                            )
-                            //  RaisedButton(
-                            //   color: Color(0xFFFFFFFF),
-                            //   elevation: 0.0,
-                            //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.circular(32.0),
-                            //   ),
-                            //   onPressed: func1 == null ? () {} : func1,
-                            // child: Text(
-                            //   button1text == null ? "OK" : button1text,
-                            //   style: Theme.of(context)
-                            //       .textTheme
-                            //       .button
-                            //       .copyWith(
-                            //           color: config.Colors().secondColor(1)),
-                            // ),
-                            // ),
-                            ),
+                            )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
@@ -111,20 +93,7 @@ Future popUpAlertDialog({
                                 button2text == null ? "OK" : button2text,
                                 style: Theme.of(context).textTheme.button,
                               ),
-                            )
-                            // RaisedButton(
-                            //   color: Color(0xFF004445),
-                            //   elevation: 0.0,
-                            //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.circular(32.0),
-                            //   ),
-                            //   onPressed: func2 == null ? () {} : func2,
-                            // child: Text(
-                            //   button2text == null ? "OK" : button2text,
-                            //   style: Theme.of(context).textTheme.button,
-                            // ),
-                            // ),
-                            ),
+                            )),
                       ),
                     ],
                   )
@@ -161,20 +130,7 @@ Future popUpAlertDialog({
                             button1text == null ? "OK" : button1text,
                             style: Theme.of(context).textTheme.button,
                           ),
-                        )
-                        // RaisedButton(
-                        //   color: Color(0xFF004445),
-                        //   elevation: 0.0,
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(32.0),
-                        //   ),
-                        //   onPressed: func1 == null ? () {} : func1,
-                        // child: Text(
-                        //   button1text == null ? "OK" : button1text,
-                        //   style: Theme.of(context).textTheme.button,
-                        // ),
-                        // ),
-                        ),
+                        )),
                   ),
           ],
         );

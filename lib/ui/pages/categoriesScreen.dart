@@ -125,7 +125,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
-                  print("Search");
                   Navigator.pushNamed(context, SearchRoute);
                 },
                 color: Colors.black,

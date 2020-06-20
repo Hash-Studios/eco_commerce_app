@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:eco_commerce_app/core/auth/google_auth.dart';
 import 'package:eco_commerce_app/core/provider/user.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/gradientResponsiveContainer.dart';
@@ -9,19 +6,12 @@ import 'package:eco_commerce_app/ui/widgets/submitButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:eco_commerce_app/ui/widgets/googleButton.dart' as googleButton;
-import 'package:eco_commerce_app/core/auth/mail.dart' as mail;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
-import 'package:eco_commerce_app/ui/widgets/toasts.dart' as toasts;
-
-final GoogleAuth gAuth = googleButton.gAuth;
 
 class UserOptionalScreen extends StatefulWidget {
   final List<String> arguements;
   UserOptionalScreen({this.arguements});
-
   @override
   _UserOptionalScreenState createState() => _UserOptionalScreenState();
 }
@@ -47,9 +37,6 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
   void initState() {
     isLoading = false;
     super.initState();
-    name = widget.arguements[0];
-    email = widget.arguements[1];
-    password = widget.arguements[2];
   }
 
   @override
@@ -325,20 +312,12 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
                 builder: (_, currentUser, __) => Padding(
                   padding: EdgeInsets.fromLTRB(40, 103.68, 40, 0),
                   child: SubmitButton(
-                    validatorSeq: isEmailValid && isPhoneValid,
+                    validatorSeq: true,
                     isLoading: isLoading,
                     width: width,
                     buttonText: 'Submit',
                     func: () {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      HapticFeedback.vibrate();
-                      formOptional.currentState.validate();
-                      formOptional.currentState.save();
-                      print(
-                          "corporate_email:${emailController.text},org_name:${orgController.text}");
-                      registerUser(currentUser);
+                      _redirectUser();
                     },
                   ),
                 ),
@@ -362,54 +341,7 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
     );
   }
 
-  void registerUser(CurrentUser currentUser) async {
-    try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
-        'username': name,
-        'email': email,
-        'password': password,
-        'orgemail': emailController.text,
-        'organisation': orgController.text,
-        'phone': phoneController.text
-      }).then((http.Response response) {
-        res = (json.decode(response.body));
-        print(res);
-        if (response.statusCode == 200) {
-          toasts.successReg();
-          currentUser.getUserfromResp(res);
-          currentUser.saveUsertoSP();
-          _redirectUser();
-        } else {
-          gAuth.signOutGoogle();
-          toasts.error(res['message'][0]['messages'][0]['message']);
-          formOptional.currentState.reset();
-          setState(() {
-            isLoading = false;
-          });
-        }
-      }).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          gAuth.signOutGoogle();
-          toasts.timeout();
-          formOptional.currentState.reset();
-          setState(() {
-            isLoading = false;
-          });
-        },
-      );
-    } on SocketException {
-      gAuth.signOutGoogle();
-      toasts.network();
-      formOptional.currentState.reset();
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
   void _redirectUser() {
-    mail.sendUserConfirmMail(email, name);
     Navigator.pushReplacementNamed(context, HomeRoute);
   }
 }

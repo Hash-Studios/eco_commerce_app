@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
-import 'package:eco_commerce_app/ui/widgets/gradientBanner.dart';
 import 'package:flutter/material.dart';
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
@@ -48,7 +47,6 @@ class _LandingSliderState extends State<LandingSlider> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
@@ -77,27 +75,7 @@ class _LandingSliderState extends State<LandingSlider> {
                           image: DecorationImage(
                               image: AssetImage(image), fit: BoxFit.cover),
                         ),
-                        // child: Container(
-                        //   alignment: AlignmentDirectional.bottomEnd,
-                        //   width: double.infinity,
-                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //   child: Container(
-                        //     width: width * 0.4,
-                        //     child: Column(
-                        //       crossAxisAlignment: CrossAxisAlignment.stretch,
-                        //       mainAxisSize: MainAxisSize.max,
-                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //       children: <Widget>[],
-                        //     ),
-                        //   ),
-                        // ),
                       ),
-                      // Opacity(
-                      //   opacity: 0.7,
-                      //   child: GradientBanner(
-                      //       gradient: gradients[images.indexOf(image)],
-                      //       message: messages[images.indexOf(image)]),
-                      // ),
                     ],
                   ),
                   onTap: () {
@@ -120,11 +98,6 @@ class _LandingSliderState extends State<LandingSlider> {
                   height: 8.0,
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
-                      // border: Border.all(
-                      //     color: _current == images.indexOf(image)
-                      //         ? Colors.white
-                      //         : Colors.white70,
-                      //     width: 1),
                       borderRadius: BorderRadius.all(
                         Radius.circular(500),
                       ),

@@ -1,4 +1,3 @@
-// import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
 import 'package:eco_commerce_app/ui/widgets/ButtonBounceAnimation.dart';
@@ -25,8 +24,6 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
   @override
   void initState() {
     super.initState();
-    // 'https://ecocommerce.herokuapp.com' +
-    // products[index]["images"][0]["url"],
     image = 'assets/images' +
         widget.arguements[0].images[0].url
             .toString()
@@ -61,7 +58,6 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
         child: FlatButton(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           onPressed: () {
-            print('card');
             Navigator.pushNamed(context, ProductRoute,
                 arguments: widget.arguements);
           },
@@ -81,7 +77,6 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
                     child: Container(
                         width: height * 0.21,
                         height: height * 0.235,
-                        // child: Image.network(
                         child: Image.asset(
                           image,
                           fit: BoxFit.cover,
@@ -152,7 +147,6 @@ class _ProductGridTileDynamicState extends State<ProductGridTileDynamic> {
                                       ? Colors.black
                                       : Colors.red),
                               onTap: () {
-                                print('heart');
                                 setState(() {
                                   updateWishList(widget.arguements[0].id, true);
                                   isWishListed = !isWishListed;

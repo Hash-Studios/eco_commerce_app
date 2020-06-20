@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:eco_commerce_app/core/model/image.dart';
 import 'package:eco_commerce_app/core/model/product.dart';
 import 'package:eco_commerce_app/routing_constants.dart';
@@ -8,7 +7,6 @@ import 'package:eco_commerce_app/ui/widgets/productGridTileDynamic.dart';
 import 'package:eco_commerce_app/ui/widgets/productListTileDynamic.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
-import 'package:http/http.dart' as http;
 import 'package:eco_commerce_app/ui/theme/config.dart' as config;
 
 class CategoryScreen extends StatefulWidget {
@@ -24,80 +22,374 @@ class _CategoryScreenState extends State<CategoryScreen> {
   List<Product> products;
   bool isLoading = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  static List response = [
+    {
+      "images": [
+        {
+          "_id": "5ee28f75f2e2d8224311edc9",
+          "name": "mugs",
+          "alternativeText": "",
+          "caption": "",
+          "hash": "mugs_eb94d10351",
+          "ext": ".jpeg",
+          "mime": "image/jpeg",
+          "size": 30.77,
+          "width": 640,
+          "height": 512,
+          "url": "/uploads/mugs_eb94d10351.jpeg",
+          "formats": {
+            "thumbnail": {
+              "hash": "thumbnail_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 195,
+              "height": 156,
+              "size": 4.73,
+              "path": null,
+              "url": "/uploads/thumbnail_mugs_eb94d10351.jpeg"
+            },
+            "small": {
+              "hash": "small_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 500,
+              "height": 400,
+              "size": 20.94,
+              "path": null,
+              "url": "/uploads/small_mugs_eb94d10351.jpeg"
+            }
+          },
+          "provider": "local",
+          "related": [
+            "5ee2904cf2e2d8224311edde",
+            "5ee509920e493c0017e05563",
+            "5ee934e3fdf1dd0017fac521",
+            "5ee93502fdf1dd0017fac523",
+            "5ee93588fdf1dd0017fac525"
+          ],
+          "createdAt": "2020-06-11T20:09:25.229Z",
+          "updatedAt": "2020-06-16T21:11:36.848Z",
+          "__v": 0,
+          "id": "5ee28f75f2e2d8224311edc9"
+        }
+      ],
+      "users": ["5ee94f48fdf1dd0017fac529"],
+      "_id": "5ee2904cf2e2d8224311edde",
+      "reviews": null,
+      "name": "White Ceramic Mug",
+      "price": 250,
+      "desc":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis interdum ligula in lorem interdum, eu suscipit ex malesuada. Donec consequat fringilla tincidunt. Praesent porttitor finibus lorem a dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras ultricies est ac mi volutpat, in imperdiet lacus blandit. Nullam a dapibus nisi. Cras suscipit velit eget nisl cursus, mattis dapibus diam rutrum. Praesent vulputate elit at odio lacinia, at lacinia ipsum commodo. Nunc pellentesque, eros ut vulputate dapibus, velit neque eleifend tellus, ac suscipit elit velit id mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque accumsan metus ut lorem porta, fermentum aliquam enim auctor. Aenean vel nisl velit. Nunc est elit, luctus ac feugiat eu, iaculis vitae ligula. Vestibulum vestibulum purus vitae dui mattis hendrerit.",
+      "features":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis interdum ligula in lorem interdum, eu suscipit ex malesuada. Donec consequat fringilla tincidunt. Praesent porttitor finibus lorem a dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras ultricies est ac mi volutpat, in imperdiet lacus blandit. Nullam a dapibus nisi. Cras suscipit velit eget nisl cursus, mattis dapibus diam rutrum. Praesent vulputate elit at odio lacinia, at lacinia ipsum commodo. Nunc pellentesque, eros ut vulputate dapibus, velit neque eleifend tellus, ac suscipit elit velit id mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque accumsan metus ut lorem porta, fermentum aliquam enim auctor. Aenean vel nisl velit. Nunc est elit, luctus ac feugiat eu, iaculis vitae ligula. Vestibulum vestibulum purus vitae dui mattis hendrerit.",
+      "rating": null,
+      "createdAt": "2020-06-11T20:13:00.730Z",
+      "updatedAt": "2020-06-17T22:25:27.838Z",
+      "__v": 0,
+      "tags": "mug,white mug,ceramic,crockery",
+      "id": "5ee2904cf2e2d8224311edde"
+    },
+    {
+      "images": [
+        {
+          "_id": "5ee28f75f2e2d8224311edc9",
+          "name": "mugs",
+          "alternativeText": "",
+          "caption": "",
+          "hash": "mugs_eb94d10351",
+          "ext": ".jpeg",
+          "mime": "image/jpeg",
+          "size": 30.77,
+          "width": 640,
+          "height": 512,
+          "url": "/uploads/mugs_eb94d10351.jpeg",
+          "formats": {
+            "thumbnail": {
+              "hash": "thumbnail_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 195,
+              "height": 156,
+              "size": 4.73,
+              "path": null,
+              "url": "/uploads/thumbnail_mugs_eb94d10351.jpeg"
+            },
+            "small": {
+              "hash": "small_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 500,
+              "height": 400,
+              "size": 20.94,
+              "path": null,
+              "url": "/uploads/small_mugs_eb94d10351.jpeg"
+            }
+          },
+          "provider": "local",
+          "related": [
+            "5ee2904cf2e2d8224311edde",
+            "5ee509920e493c0017e05563",
+            "5ee934e3fdf1dd0017fac521",
+            "5ee93502fdf1dd0017fac523",
+            "5ee93588fdf1dd0017fac525"
+          ],
+          "createdAt": "2020-06-11T20:09:25.229Z",
+          "updatedAt": "2020-06-16T21:11:36.848Z",
+          "__v": 0,
+          "id": "5ee28f75f2e2d8224311edc9"
+        }
+      ],
+      "users": ["5ee68d6e6465270017589fe4"],
+      "_id": "5ee509920e493c0017e05563",
+      "reviews": null,
+      "desc":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis interdum ligula in lorem interdum, eu suscipit ex malesuada. Donec consequat fringilla tincidunt. Praesent porttitor finibus lorem a dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras ultricies est ac mi volutpat, in imperdiet lacus blandit. Nullam a dapibus nisi. Cras suscipit velit eget nisl cursus, mattis dapibus diam rutrum. Praesent vulputate elit at odio lacinia, at lacinia ipsum commodo. Nunc pellentesque, eros ut vulputate dapibus, velit neque eleifend tellus, ac suscipit elit velit id mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque accumsan metus ut lorem porta, fermentum aliquam enim auctor. Aenean vel nisl velit. Nunc est elit, luctus ac feugiat eu, iaculis vitae ligula. Vestibulum vestibulum purus vitae dui mattis hendrerit.",
+      "features":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis interdum ligula in lorem interdum, eu suscipit ex malesuada. Donec consequat fringilla tincidunt. Praesent porttitor finibus lorem a dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras ultricies est ac mi volutpat, in imperdiet lacus blandit. Nullam a dapibus nisi. Cras suscipit velit eget nisl cursus, mattis dapibus diam rutrum. Praesent vulputate elit at odio lacinia, at lacinia ipsum commodo. Nunc pellentesque, eros ut vulputate dapibus, velit neque eleifend tellus, ac suscipit elit velit id mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque accumsan metus ut lorem porta, fermentum aliquam enim auctor. Aenean vel nisl velit. Nunc est elit, luctus ac feugiat eu, iaculis vitae ligula. Vestibulum vestibulum purus vitae dui mattis hendrerit.",
+      "name": "Coffee Mug Set",
+      "price": 599,
+      "createdAt": "2020-06-13T17:14:58.835Z",
+      "updatedAt": "2020-06-17T20:30:31.967Z",
+      "__v": 0,
+      "tags": "coffee mug,coffee,mug,crockery,ceramic",
+      "id": "5ee509920e493c0017e05563"
+    },
+    {
+      "images": [
+        {
+          "_id": "5ee28f75f2e2d8224311edc9",
+          "name": "mugs",
+          "alternativeText": "",
+          "caption": "",
+          "hash": "mugs_eb94d10351",
+          "ext": ".jpeg",
+          "mime": "image/jpeg",
+          "size": 30.77,
+          "width": 640,
+          "height": 512,
+          "url": "/uploads/mugs_eb94d10351.jpeg",
+          "formats": {
+            "thumbnail": {
+              "hash": "thumbnail_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 195,
+              "height": 156,
+              "size": 4.73,
+              "path": null,
+              "url": "/uploads/thumbnail_mugs_eb94d10351.jpeg"
+            },
+            "small": {
+              "hash": "small_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 500,
+              "height": 400,
+              "size": 20.94,
+              "path": null,
+              "url": "/uploads/small_mugs_eb94d10351.jpeg"
+            }
+          },
+          "provider": "local",
+          "related": [
+            "5ee2904cf2e2d8224311edde",
+            "5ee509920e493c0017e05563",
+            "5ee934e3fdf1dd0017fac521",
+            "5ee93502fdf1dd0017fac523",
+            "5ee93588fdf1dd0017fac525"
+          ],
+          "createdAt": "2020-06-11T20:09:25.229Z",
+          "updatedAt": "2020-06-16T21:11:36.848Z",
+          "__v": 0,
+          "id": "5ee28f75f2e2d8224311edc9"
+        }
+      ],
+      "users": [],
+      "_id": "5ee934e3fdf1dd0017fac521",
+      "reviews": null,
+      "name": "The Champ Mug",
+      "price": 999,
+      "desc":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rhoncus mollis sapien at condimentum. Aliquam ullamcorper odio ac velit mattis tristique. Sed ac turpis rhoncus, rutrum augue posuere, varius odio. Aliquam vehicula mauris id leo accumsan, sit amet consequat libero fermentum. Praesent finibus, mi eu ultricies bibendum, lorem ex rutrum felis, a finibus enim elit eu ipsum. Sed sed justo sagittis, feugiat ante at, posuere dui. In non lacus ullamcorper elit hendrerit dictum et nec mi. Cras congue auctor velit, vitae gravida massa fermentum a. Mauris dictum, ligula a volutpat faucibus, turpis justo faucibus neque, vitae vestibulum orci magna sit amet nulla. Maecenas cursus iaculis varius. Morbi vel nibh iaculis, tincidunt nibh vitae, eleifend mi.",
+      "features":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rhoncus mollis sapien at condimentum. Aliquam ullamcorper odio ac velit mattis tristique. Sed ac turpis rhoncus, rutrum augue posuere, varius odio. Aliquam vehicula mauris id leo accumsan, sit amet consequat libero fermentum. Praesent finibus, mi eu ultricies bibendum, lorem ex rutrum felis, a finibus enim elit eu ipsum. Sed sed justo sagittis, feugiat ante at, posuere dui. In non lacus ullamcorper elit hendrerit dictum et nec mi. Cras congue auctor velit, vitae gravida massa fermentum a. Mauris dictum, ligula a volutpat faucibus, turpis justo faucibus neque, vitae vestibulum orci magna sit amet nulla. Maecenas cursus iaculis varius. Morbi vel nibh iaculis, tincidunt nibh vitae, eleifend mi.",
+      "createdAt": "2020-06-16T21:08:51.112Z",
+      "updatedAt": "2020-06-17T20:34:03.568Z",
+      "__v": 0,
+      "tags": "coffee mug,coffee,mug,crockery,ceramic",
+      "id": "5ee934e3fdf1dd0017fac521"
+    },
+    {
+      "images": [
+        {
+          "_id": "5ee28f75f2e2d8224311edc9",
+          "name": "mugs",
+          "alternativeText": "",
+          "caption": "",
+          "hash": "mugs_eb94d10351",
+          "ext": ".jpeg",
+          "mime": "image/jpeg",
+          "size": 30.77,
+          "width": 640,
+          "height": 512,
+          "url": "/uploads/mugs_eb94d10351.jpeg",
+          "formats": {
+            "thumbnail": {
+              "hash": "thumbnail_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 195,
+              "height": 156,
+              "size": 4.73,
+              "path": null,
+              "url": "/uploads/thumbnail_mugs_eb94d10351.jpeg"
+            },
+            "small": {
+              "hash": "small_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 500,
+              "height": 400,
+              "size": 20.94,
+              "path": null,
+              "url": "/uploads/small_mugs_eb94d10351.jpeg"
+            }
+          },
+          "provider": "local",
+          "related": [
+            "5ee2904cf2e2d8224311edde",
+            "5ee509920e493c0017e05563",
+            "5ee934e3fdf1dd0017fac521",
+            "5ee93502fdf1dd0017fac523",
+            "5ee93588fdf1dd0017fac525"
+          ],
+          "createdAt": "2020-06-11T20:09:25.229Z",
+          "updatedAt": "2020-06-16T21:11:36.848Z",
+          "__v": 0,
+          "id": "5ee28f75f2e2d8224311edc9"
+        }
+      ],
+      "users": [],
+      "_id": "5ee93502fdf1dd0017fac523",
+      "reviews": null,
+      "name": "Red Mug",
+      "desc":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rhoncus mollis sapien at condimentum. Aliquam ullamcorper odio ac velit mattis tristique. Sed ac turpis rhoncus, rutrum augue posuere, varius odio. Aliquam vehicula mauris id leo accumsan, sit amet consequat libero fermentum. Praesent finibus, mi eu ultricies bibendum, lorem ex rutrum felis, a finibus enim elit eu ipsum. Sed sed justo sagittis, feugiat ante at, posuere dui. In non lacus ullamcorper elit hendrerit dictum et nec mi. Cras congue auctor velit, vitae gravida massa fermentum a. Mauris dictum, ligula a volutpat faucibus, turpis justo faucibus neque, vitae vestibulum orci magna sit amet nulla. Maecenas cursus iaculis varius. Morbi vel nibh iaculis, tincidunt nibh vitae, eleifend mi.",
+      "features":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rhoncus mollis sapien at condimentum. Aliquam ullamcorper odio ac velit mattis tristique. Sed ac turpis rhoncus, rutrum augue posuere, varius odio. Aliquam vehicula mauris id leo accumsan, sit amet consequat libero fermentum. Praesent finibus, mi eu ultricies bibendum, lorem ex rutrum felis, a finibus enim elit eu ipsum. Sed sed justo sagittis, feugiat ante at, posuere dui. In non lacus ullamcorper elit hendrerit dictum et nec mi. Cras congue auctor velit, vitae gravida massa fermentum a. Mauris dictum, ligula a volutpat faucibus, turpis justo faucibus neque, vitae vestibulum orci magna sit amet nulla. Maecenas cursus iaculis varius. Morbi vel nibh iaculis, tincidunt nibh vitae, eleifend mi.",
+      "price": 250,
+      "createdAt": "2020-06-16T21:09:22.148Z",
+      "updatedAt": "2020-06-17T20:34:42.690Z",
+      "__v": 0,
+      "tags": "mug,red mug,white mug,red,utensils,ceramic,crockery,coffee",
+      "id": "5ee93502fdf1dd0017fac523"
+    },
+    {
+      "images": [
+        {
+          "_id": "5ee28f75f2e2d8224311edc9",
+          "name": "mugs",
+          "alternativeText": "",
+          "caption": "",
+          "hash": "mugs_eb94d10351",
+          "ext": ".jpeg",
+          "mime": "image/jpeg",
+          "size": 30.77,
+          "width": 640,
+          "height": 512,
+          "url": "/uploads/mugs_eb94d10351.jpeg",
+          "formats": {
+            "thumbnail": {
+              "hash": "thumbnail_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 195,
+              "height": 156,
+              "size": 4.73,
+              "path": null,
+              "url": "/uploads/thumbnail_mugs_eb94d10351.jpeg"
+            },
+            "small": {
+              "hash": "small_mugs_eb94d10351",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "width": 500,
+              "height": 400,
+              "size": 20.94,
+              "path": null,
+              "url": "/uploads/small_mugs_eb94d10351.jpeg"
+            }
+          },
+          "provider": "local",
+          "related": [
+            "5ee2904cf2e2d8224311edde",
+            "5ee509920e493c0017e05563",
+            "5ee934e3fdf1dd0017fac521",
+            "5ee93502fdf1dd0017fac523",
+            "5ee93588fdf1dd0017fac525"
+          ],
+          "createdAt": "2020-06-11T20:09:25.229Z",
+          "updatedAt": "2020-06-16T21:11:36.848Z",
+          "__v": 0,
+          "id": "5ee28f75f2e2d8224311edc9"
+        }
+      ],
+      "users": [],
+      "_id": "5ee93588fdf1dd0017fac525",
+      "reviews": null,
+      "name": "Brown Mug",
+      "price": 245,
+      "desc":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rhoncus mollis sapien at condimentum. Aliquam ullamcorper odio ac velit mattis tristique. Sed ac turpis rhoncus, rutrum augue posuere, varius odio. Aliquam vehicula mauris id leo accumsan, sit amet consequat libero fermentum. Praesent finibus, mi eu ultricies bibendum, lorem ex rutrum felis, a finibus enim elit eu ipsum. Sed sed justo sagittis, feugiat ante at, posuere dui. In non lacus ullamcorper elit hendrerit dictum et nec mi. Cras congue auctor velit, vitae gravida massa fermentum a. Mauris dictum, ligula a volutpat faucibus, turpis justo faucibus neque, vitae vestibulum orci magna sit amet nulla. Maecenas cursus iaculis varius. Morbi vel nibh iaculis, tincidunt nibh vitae, eleifend mi.",
+      "features":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rhoncus mollis sapien at condimentum. Aliquam ullamcorper odio ac velit mattis tristique. Sed ac turpis rhoncus, rutrum augue posuere, varius odio. Aliquam vehicula mauris id leo accumsan, sit amet consequat libero fermentum. Praesent finibus, mi eu ultricies bibendum, lorem ex rutrum felis, a finibus enim elit eu ipsum. Sed sed justo sagittis, feugiat ante at, posuere dui. In non lacus ullamcorper elit hendrerit dictum et nec mi. Cras congue auctor velit, vitae gravida massa fermentum a. Mauris dictum, ligula a volutpat faucibus, turpis justo faucibus neque, vitae vestibulum orci magna sit amet nulla. Maecenas cursus iaculis varius. Morbi vel nibh iaculis, tincidunt nibh vitae, eleifend mi.",
+      "createdAt": "2020-06-16T21:11:36.282Z",
+      "updatedAt": "2020-06-17T20:35:49.980Z",
+      "__v": 0,
+      "tags": "coffee mug,coffee,mug,crockery,ceramic,utensils,red,brown,tea",
+      "id": "5ee93588fdf1dd0017fac525"
+    }
+  ];
   void getData() async {
     setState(() {
       isLoading = true;
     });
-    http
-        .get(
-      'https://ecocommerce.herokuapp.com/categories',
-    )
-        .then((http.Response response) {
-      if (response.statusCode == 200) {
-        for (int c = 0; c < json.decode(response.body).length; c++) {
-          if (json.decode(response.body)[c]["name"] ==
-              categoryName.toLowerCase().replaceAll(" ", "_")) {
-            categoryId = json.decode(response.body)[c]["id"];
-          }
-        }
-        print(categoryId);
-        http
-            .get(
-          'https://ecocommerce.herokuapp.com/categories/$categoryId',
-        )
-            .then((http.Response res) {
-          products = [];
-          print(res.body);
-          if (res.statusCode == 200) {
-            for (int c = 0; c < json.decode(res.body)["products"].length; c++) {
-              products.add(
-                Product(
-                  id: json.decode(res.body)["products"][c]["id"],
-                  name: json.decode(res.body)["products"][c]["name"],
-                  price:
-                      json.decode(res.body)["products"][c]["price"].toString(),
-                  images: new List<ProductImage>.generate(
-                      jsonDecode(res.body)["products"][c]["images"].length,
-                      (image) {
-                    return ProductImage(
-                        id: jsonDecode(res.body)["products"][c]["images"][image]
-                            ["id"],
-                        name: jsonDecode(res.body)["products"][c]["images"]
-                            [image]["name"],
-                        ext: jsonDecode(res.body)["products"][c]["images"]
-                            [image]["ext"],
-                        size: jsonDecode(res.body)["products"][c]["images"][image]["size"]
-                            .toString(),
-                        width: jsonDecode(res.body)["products"][c]["images"][image]["width"]
-                            .toString(),
-                        height: jsonDecode(res.body)["products"][c]["images"]
-                                [image]["height"]
-                            .toString(),
-                        url: jsonDecode(res.body)["products"][c]["images"]
-                            [image]["url"],
-                        thumbnailUrl: jsonDecode(res.body)["products"][c]
-                            ["images"][image]["formats"]["thumbnail"]["url"],
-                        smallUrl: jsonDecode(res.body)["products"][c]["images"]
-                            [image]["formats"]["small"]["url"],
-                        createdAt: jsonDecode(res.body)["products"][c]["images"][image]["createdAt"]);
-                  }),
-                  category: json.decode(res.body)["name"],
-                  desc: json.decode(res.body)["products"][c]["desc"],
-                  features: json.decode(res.body)["products"][c]["features"],
-                  createdAt: json.decode(res.body)["products"][c]["createdAt"],
-                ),
-              );
-            }
-            if (this.mounted) {
-              setState(() {
-                isLoading = false;
-              });
-            }
-          }
-        });
-      }
-    });
+
+    products = [];
+    for (int c = 0; c < response.length; c++) {
+      products.add(
+        Product(
+          id: response[c]["id"],
+          name: response[c]["name"],
+          price: response[c]["price"].toString(),
+          images: new List<ProductImage>.generate(response[c]["images"].length,
+              (image) {
+            return ProductImage(
+                id: response[c]["images"][image]["id"],
+                name: response[c]["images"][image]["name"],
+                ext: response[c]["images"][image]["ext"],
+                size: response[c]["images"][image]["size"].toString(),
+                width: response[c]["images"][image]["width"].toString(),
+                height: response[c]["images"][image]["height"].toString(),
+                url: response[c]["images"][image]["url"],
+                thumbnailUrl: response[c]["images"][image]["formats"]
+                    ["thumbnail"]["url"],
+                smallUrl: response[c]["images"][image]["formats"]["small"]
+                    ["url"],
+                createdAt: response[c]["images"][image]["createdAt"]);
+          }),
+          category: widget.arguements[0],
+          desc: response[c]["desc"],
+          features: response[c]["features"],
+          createdAt: response[c]["createdAt"],
+        ),
+      );
+    }
+    if (this.mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -123,7 +415,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
             color: Colors.transparent,
             child: IconButton(
               onPressed: () {
-                print("Nav Drawer");
                 _scaffoldKey.currentState.openDrawer();
               },
               color: Colors.black,
@@ -144,7 +435,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
               color: Colors.transparent,
               child: IconButton(
                 onPressed: () {
-                  print("Search");
                   Navigator.pushNamed(context, SearchRoute);
                 },
                 color: Colors.black,
