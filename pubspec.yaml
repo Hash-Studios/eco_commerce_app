@@ -37,7 +37,7 @@ dependencies:
   firebase_core: ^0.4.5
   device_preview: ^0.4.5
   firebase_admob: ^0.9.3+2
-
+  device_simulator: ^0.9.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
