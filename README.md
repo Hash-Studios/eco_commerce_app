@@ -13,7 +13,7 @@
 ![Stars](https://img.shields.io/github/stars/Hash-Studios/eco_commerce_app)
 
 </div>
-<!-- <a href='https://play.google.com/store/apps/details?id=com.hash.eco_commerce_app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='eco_commerce_app UI Mockup' src='demo/eco_commerce_app_Mockup.png'/></a> -->
+<img alt='eco_commerce_app UI Mockup' src='demo/mockup1.png'/>
 
 This app is a starting template for your e-commerce app. You can simply clone this repo, to start creating your application. `master` branch has backend enabled, but if you need only UI/Frontend, switch over to the `UIKit` branch for only UI.
 
@@ -107,7 +107,7 @@ If you like what we do, and would want to help us continue doing it, consider sp
 
 <a href='https://play.google.com/store/apps/details?id=com.hash.eco_commerce_app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=200 /></a> -->
 
-![eco_commerce_app UI Mockup](demo/eco_commerce_app_Mockup2.png)
+![eco_commerce_app UI Mockup](demo/mockup2.png)
 
 ## Dependencies
 
