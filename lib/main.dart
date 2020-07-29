@@ -9,7 +9,6 @@ import 'package:eco_commerce_app/router.dart' as router;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'routing_constants.dart';
-import 'package:device_preview/device_preview.dart';
 
 SharedPreferences prefs;
 final FirebaseAnalyticsObserver observer =
@@ -26,11 +25,8 @@ Future<void> main() async {
           create: (context) => CurrentUser(),
         ),
       ],
-      child: DevicePreview(
-        enabled: false,
-        builder: (context) => MyApp(
-          email: email,
-        ),
+      child: MyApp(
+        email: email,
       ),
     ),
   );
@@ -43,7 +39,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorObservers: <NavigatorObserver>[observer],
-      locale: DevicePreview.of(context).locale,
       onGenerateRoute: router.generateRoute,
       debugShowCheckedModeBanner: false,
       onUnknownRoute: (settings) => MaterialPageRoute(
@@ -51,7 +46,6 @@ class MyApp extends StatelessWidget {
                 name: settings.name,
               )),
       theme: kDefaultTheme,
-      builder: DevicePreview.appBuilder,
       initialRoute: email == null ? OnboardRoute1 : HomeRoute,
     );
   }

@@ -1,102 +1,52 @@
-# <div align="center"><img src="android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="icon" width=30> Prism</div>
+# <div align="center"><img src="android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="icon" width=30> Eco Commerce</div>
 
-<div align="center">Prism is a beautiful open-source wallpapers app for Android. It is built with Dart on top of Google's Flutter Framework.
+<div align="center">Eco Commerce is a beautiful app build with Google's Flutter Framework. It aims to build a useful, and functional platform helping people to sell stuff.
 
 
 ![flutter](https://img.shields.io/badge/Flutter-Framework-green?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-Language-blue?logo=dart)
-![Play Store Downloads](https://img.shields.io/badge/Play%20Store%20Downloads-1K+-green.svg)
-![Play Store Rating](https://img.shields.io/badge/Play%20Store%20Rating-4.7-blue.svg)
-![Size](https://img.shields.io/github/repo-size/Hash-Studios/Prism?color=green)
-![Release](https://img.shields.io/github/v/release/Hash-Studios/Prism)
-![License](https://img.shields.io/github/license/Hash-Studios/Prism)
-![Stars](https://img.shields.io/github/stars/Hash-Studios/Prism)
+<!-- ![Play Store Downloads](https://img.shields.io/badge/Play%20Store%20Downloads-1K+-green.svg) -->
+<!-- ![Play Store Rating](https://img.shields.io/badge/Play%20Store%20Rating-4.7-blue.svg) -->
+![Size](https://img.shields.io/github/repo-size/Hash-Studios/eco_commerce_app?color=green)
+![Release](https://img.shields.io/github/v/release/Hash-Studios/eco_commerce_app)
+![License](https://img.shields.io/github/license/Hash-Studios/eco_commerce_app)
+![Stars](https://img.shields.io/github/stars/Hash-Studios/eco_commerce_app)
 
 </div>
-<a href='https://play.google.com/store/apps/details?id=com.hash.prism&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Prism UI Mockup' src='demo/Prism_Mockup.png'/></a>
+<!-- <a href='https://play.google.com/store/apps/details?id=com.hash.eco_commerce_app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='eco_commerce_app UI Mockup' src='demo/eco_commerce_app_Mockup.png'/></a> -->
 
-Prism offers an exclusive collection of wallpapers that are beautifully hand-crafted for your very specific device. This exclusive collection is hand-picked from all around the world to give you the best illustration, graphics, and photographs that look amazing in any setup that you want. Now Prism also offers an exclusive range of home screen setups, that you can simply apply. Each setup includes a wallpaper, an icon pack and a widget.
+This app is a starting template for your e-commerce app. You can simply clone this repo, to start creating your application. `master` branch has backend enabled, but if you need only UI/Frontend, switch over to the `UIKit` branch for only UI.
 
-Prism relies on its Community and [WallHaven](https://wallhaven.cc/help/api) and [Pexels](https://www.pexels.com/api/) APIs as its source of beautiful and large collection of Wallpapers. By utilizing their API, it provides the user with a fast and smooth experience filled with subtle animations and minimal design. The main goal of Prism is to make the smartphone customization experience, smooth and easy, yet giving the users amazing wallpapers, and features like downloading infinite (as much your storage allows) wallpapers or sharing the ones they like with others.
-
-Now users can upload wallpapers, which will be shown in the Community section. They can also view the wallpapers they uploaded in the Profile section.
-
-Prism offers a never-ending feed of wallpapers on its home screen. It also has a Curated section that is filled with the best photos/wallpapers updated every day. It also features categories like Abstract, Nature, 4K, Art, Landscape, Minimal, Space, Neon, etc. if you are into these. Then it allows one to find wallpapers based on colors, i.e. you can find wallpapers with a color that matches your icons or home screen setup. Not even that, it also shows you a palette of colors from any wallpaper in the app, on clicking which you can find wallpapers of that specific color.
-
-Main features like finding and setting up wallpapers don't require Google Sign In, while features like Favourites or Downloads require you to sign up using Google. This signup is facilitated by Google Firebase, so it is secure and we only get your name, email, and profile photo for identification purposes. The app also has Dark Mode, if you want to save your phone's battery while getting in love with those wallpapers. The app also allows users to share wallpapers with others by giving them a unique link for every wallpaper, using Dynamic Links so that anyone can directly view the wallpaper.
-
-### Introducing Prism Premium
-
-Now get access to more premium and exclusive stuff by buying Prism Premium.
-
-You get access to Variants (Download or set up to 5 color variants of each wallpaper!) and Setups (Get more exclusive Home Screen setups! Free version includes only 5 free setups).
-Your uploads are also reviewed instantly, rather than the 24 hours time constraint in the free version.
-You also get a PRO badge in front of your profile, plus you directly support the development of this forever ad-free app.
-
-- The ability to view setups (only 5 are present in the free version)
-- The ability to download or set variants of wallpapers
-- Get PRO badge in front of your profile
-- Get uploads reviewed instantly
-- Support development of the app
+Eco Commerce app has strong backend, built with Strapi CMS, MongoDB Atlas and Heroku, with a responsive frontend. It supports sign in through Google, or emails. The app features quote based order system in which users can directly pitch the prices and the quantity of items they want. One can also add products to thier wishlist. With features like reset password and login through Google, one can think of a secure login system. It has a built-in tag based search system that search through the products on the basis of tags and product names. It has 6 major categories like Office Products, Utensils, etc. which is divided into more sub-categories.
 
 ## List of Contents
 
 1. [Features](#features)
-2. [Changelog](#changelog)
-3. [Demo](#demo)
-4. [Support](#support)
-5. [Dependencies](#dependencies)
-6. [Usage](#usage)
-7. [Contributing](#contributing)
-8. [License](#license)
-9. [Privacy Policy](#privacy)
-10. [Contributors](#contributors)
-11. [To-Do](#to-do)
+2. [Demo](#demo)
+3. [Support](#support)
+4. [Dependencies](#dependencies)
+5. [Usage](#usage)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Privacy Policy](#privacy)
+9. [Contributors](#contributors)
+10. [To-Do](#to-do)
 
 ## Features
 
-- High-Quality Wallpapers from [WallHaven](https://wallhaven.cc/help/api) and [Pexels](https://www.pexels.com/api/)
-- Over 300+ exclusive wallpapers, making it the best selection ever
-- Community wallpapers uploaded by users all-around the world
-- Homescreen setups - Unique and exclusive setups designed with the perfect combination of wallpapers, icon pack and widgets
-- Each wallpaper comes with 5 color variants
-- Dark Mode supported
-- Optional Sign-in
-- Each wallpaper has a unique link, makes sharing them easier
-- Low Internet usage due to minimal loading and persistent data using Provider
-- Save Liked Images for later (works even after uninstalling the app)
-- Download any wallpaper to Gallery
-- Secure data and favorites storage on Google Firebase
-- Search for Wallpapers by keyword
-- Check how the wallpaper will look with fake clock and app icons
-- Search for Wallpapers by color
-- Find wallpapers with a similar color
-- Set any wallpaper on the home screen, lock screen or both
-- Find wallpapers by category (Curated, Abstract, Nature, Landscape, Art, 4K, Sports, Architecture, Marvel, Neon, etc.)
-- Extensive settings menu with various options
-- Toast/Snackbar supported buttons
-- Minimal design with smooth transitions and animations
-- Clear Cache, Downloads and Favourites with one-tap
+- Sign-in through Google and Email supported
+- Email sign-in backed up by Reset Password
+- Beautiful onboarding layout and animations
+- Shop by category and trending products
+- Orders, Wishlist can be accessed in-app
+- Edit account details easily
+- Order products through quote based system
+- Easily editable product widgets (Cards, Slider, Grids, Lists and more!)
+- Beautiful Product pages with reviews, description and features
+- Search products with filters, tags, price
 - Optimized storage using minimal packages
 - Application size under 11 MB
 - Adaptive UI (changes color based on wallpaper)
-
-## Changelog
-
-Full changelog can be found [here](https://github.com/Hash-Studios/Prism/tree/master/CHANGELOG.md).
-
-### v2.4.7
-- Added Prism Premium, for the personalisation lords
-- Setups added, change the way of personalisation
-- Favourites moved to profile
-
-### v2.4.6
-- Added Hive for improved data caching
-- Fixed excessive requests and rebuilding
-
-### v2.4.5
-- Removed excessive notifications
-- Added Internet connectivity checks
 
 
 ## Demo
@@ -146,67 +96,51 @@ If you like what we do, and would want to help us continue doing it, consider sp
 
 <a href="https://www.buymeacoffee.com/HashStudios" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height=51 width=217></a>
 
-Prism Wallpapers app is now available on Google Play, so you can support us by reviewing the app.
+<!-- eco_commerce_app Wallpapers app is now available on Google Play, so you can support us by reviewing the app.
 
-<a href='https://play.google.com/store/apps/details?id=com.hash.prism&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=200 /></a>
+<a href='https://play.google.com/store/apps/details?id=com.hash.eco_commerce_app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=200 /></a> -->
 
-![Prism UI Mockup](demo/Prism_Mockup2.png)
+![eco_commerce_app UI Mockup](demo/eco_commerce_app_Mockup2.png)
 
 ## Dependencies
 
 The following packages are needed for the development of this application.
 
-- `provider: ^4.1.3` for caching data, and state management
-- `cached_network_image: ^2.2.0+1` for caching wallpapers
-- `palette_generator: ^0.2.2` for generating wallpaper colors
+- `carousel_slider: ^2.1.0` for sliders
+- `flutter_screenutil: ^1.1.0` for responsive UI
+- `line_awesome_icons: ^1.0.4+2` for icons
+- `http: ^0.12.1` for network requests
+- `shared_preferences: ^0.5.7+3` for state management
 - `fluttertoast: ^4.0.1` for toast notifications
-- `gallery_saver: ^2.0.1` for saving wallpapers to gallery
-- `shared_preferences: ^0.5.7` for storing settings like theme
-- `share: ^0.6.4` for sharing the wallpaper links
-- `url_launcher: ^5.4.5` for launching urls
-- `cloud_firestore: ^0.13.5` for storing liked images and other user based data
-- `firebase_core: ^0.4.4+3` for firebase support
-- `firebase_auth: ^0.16.0` for user authentication
-- `firebase_dynamic_links: ^0.5.1` for wallpaper link generation and handling
-- `google_sign_in: ^4.4.4` for Google sign in support
-- `permission_handler: ^5.0.1+1` for handling required device permissions
-- `flare_splash_screen: ^3.0.1` for the animated splash screen
-- `flutter_svg: 0.17.4` for svg assets
-- `sliding_up_panel: ^1.0.2` for sliding info panel
-- `firebase_analytics: ^5.0.16` for analytics
-- `firebase_messaging: ^6.0.16` for notifications
-- `in_app_purchase: ^0.3.4+1` for in-app purchases
-- `connectivity_widget: ^0.1.7` for checking Internet connectivity
-- `firebase_crashlytics: ^0.1.3+3` for handling crashes, and better reporting
-- `screenshot: ^0.2.0` for setting wallpapers
-- `tutorial_coach_mark: ^0.3.0` for showing new user tutorial
-- `scroll_to_index: ^1.0.6` for scrolling lists
-- `image_picker: ^0.6.7+4` for picking images
-- `github: ^6.2.2` for communicating with GitHub API
-- `photo_view: ^0.9.2` for showing images before uploading
-- `flare_flutter: ^2.0.5` for animations
-- `image: 2.1.12` for editing wallpapers
-- `hive: ^1.4.1+1` for caaching data
-- `hive_flutter: ^0.3.0+1` for caching data
-- `path_provider: ^1.6.11` for getting Application storage directory path
+- `visibility_detector: ^0.1.5` for widget visibility
+- `mailer: ^3.0.4` for sending mails
+- `pin_code_fields: ^3.1.2` for OTP pin fields
+- `flutter_speed_dial: ^1.2.5` for FAB Speed Dial button
+- `firebase_analytics: ^5.0.15` for analytics
+- `firebase_core: ^0.4.5` for Firebase
+- `cupertino_icons: ^0.1.3` for icons
+- `firebase_auth: ^0.16.1` for Google Authentication
+- `provider: ^4.1.3` for state management
+- `google_sign_in: ^4.5.1` for Google Sign-in
+- `expand_widget: ^0.2.0+2` for expanding widget
 
-More details about these can be found in the [`pubspec.yaml`](https://github.com/Hash-Studios/Prism/tree/master/pubspec.yaml) file.
+More details about these can be found in the [`pubspec.yaml`](https://github.com/Hash-Studios/eco_commerce_app/tree/master/pubspec.yaml) file.
 
 ## Usage
 
-The application files for Android devices can be found on [Google Play Store](https://play.google.com/store/apps/details?id=com.hash.prism).
+<!-- The application files for Android devices can be found on [Google Play Store](https://play.google.com/store/apps/details?id=com.hash.eco_commerce_app). -->
 
-More information about the releases can be found in the [Release](https://github.com/Hash-Studios/Prism/releases) tab.
+More information about the releases can be found in the [Release](https://github.com/Hash-Studios/eco_commerce_app/releases) tab.
 
 ## Contributing
 
-First off, thank you for considering contributing to Prism. It's people like you that make Prism such a great app.
+First off, thank you for considering contributing to Eco Commerce. It's people like you that make Eco Commerce such a great app.
 
-To start your lovely journey with Prism, first read the [`contributing guidelines`](https://github.com/Hash-Studios/Prism/tree/master/CONTRIBUTING.md) and then fork the repo to start contributing!
+To start your lovely journey with Eco Commerce, first read the [`contributing guidelines`](https://github.com/Hash-Studios/eco_commerce_app/tree/master/CONTRIBUTING.md) and then fork the repo to start contributing!
 
 ## License
 
-This app is licensed under the [`BSD 3-Clause License`](https://github.com/Hash-Studios/Prism/tree/master/LICENSE.txt).
+This app is licensed under the [`BSD 3-Clause License`](https://github.com/Hash-Studios/eco_commerce_app/tree/master/LICENSE.txt).
 Any Usage of the source code must follow the below license.
 
 ```
@@ -247,17 +181,17 @@ DISCLAIMER: Google Play and the Google Play logo are trademarks of Google LLC.
 ## Privacy
 
 We store all our data on Firebase and GitHub servers, and we do not store personal information of the user.
-Link to the full privacy policy can be found [here](https://github.com/Hash-Studios/Prism/tree/master/PRIVACY.md).
+Link to the full privacy policy can be found [here](https://github.com/Hash-Studios/eco_commerce_app/tree/master/PRIVACY.md).
 
 **Privacy Policy**
 
-Hash Studios built the Prism app as an Open Source app. This SERVICE is provided by Hash Studios at no cost and is intended for use as is.
+Hash Studios built the Eco Commerce app as an Open Source app. This SERVICE is provided by Hash Studios at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
 
 If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Prism unless otherwise defined in this Privacy Policy.
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Eco Commerce unless otherwise defined in this Privacy Policy.
 
 **Information Collection and Use**
 
@@ -316,8 +250,8 @@ If you have any questions or suggestions about our Privacy Policy, do not hesita
 
 ## Contributors
 
-<a href="https://github.com/Hash-Studios/Prism/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=Hash-Studios/Prism" />
+<a href="https://github.com/Hash-Studios/eco_commerce_app/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=Hash-Studios/eco_commerce_app" />
 </a>
 
 ## If you made it here, thanks for your support. You can show more support by forking or starring this repo. Thanks forever.
