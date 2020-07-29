@@ -16,7 +16,6 @@ import 'package:eco_commerce_app/ui/pages/resetPasswordScreen.dart';
 import 'package:eco_commerce_app/ui/pages/search.dart';
 import 'package:eco_commerce_app/ui/pages/signupLandingScreen.dart';
 import 'package:eco_commerce_app/ui/pages/terms.dart';
-import 'package:eco_commerce_app/ui/pages/homeScreen.dart';
 import 'package:eco_commerce_app/ui/pages/homeNew.dart';
 import 'package:eco_commerce_app/ui/pages/loginScreen.dart';
 // import 'package:eco_commerce_app/ui/pages/preSignUpSlider.dart';
@@ -28,8 +27,6 @@ import 'package:eco_commerce_app/ui/pages/userOptionalScreen.dart';
 import 'package:eco_commerce_app/ui/pages/wishListScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'ui/pages/homeScreen.dart';
-import 'package:eco_commerce_app/main.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
