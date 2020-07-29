@@ -1,4 +1,4 @@
-# Contributing to Prism
+# Contributing to Eco Commerce
 We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
 
 - Reporting a bug
@@ -63,8 +63,8 @@ If you need to create your own products you can follow the schema below in your 
 ## Any contributions you make will be under the BSD-3 Software License
 In short, when you submit code changes, your submissions are understood to be under the same [BSD-3 License](https://choosealicense.com/licenses/bsd-3-clause/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issues](https://github.com/Hash-Studios/Prism/issues)
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/Hash-Studios/Prism/issues/new); it's that easy!
+## Report bugs using Github's [issues](https://github.com/Hash-Studios/eco-commerce-app/issues)
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/Hash-Studios/eco-commerce-app/issues/new); it's that easy!
 
 ## Write bug reports with detail, background, and sample code
 **Great Bug Reports** tend to have:
