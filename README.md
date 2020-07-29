@@ -53,42 +53,49 @@ Eco Commerce app has strong backend, built with Strapi CMS, MongoDB Atlas and He
 
 **Screens**
 
-| ![](demo/1.jpg) | ![](demo/2.jpg) | ![](demo/6.jpg) | ![](demo/8.jpg) | ![](demo/4.jpg) |
+| ![](demo/41.jpg) | ![](demo/42.jpg) | ![](demo/43.jpg) |
+| :-------------:  | :-------------:  | :-------------:  |
+|    Onboarding 1    |    Onboarding 2     |     Onboarding 3      |
+
+
+| ![](demo/2.jpg) | ![](demo/3.jpg) | ![](demo/4.jpg) | ![](demo/5.jpg) |
+| :-------------:  | :-------------:  | :-------------:  | :-------------:  |
+|    Onboarding Sign in    |    New Sign up     |     New Sign up Wrong Password      |     New Sign up Correct Password     |
+
+
+| ![](demo/6.jpg) | ![](demo/7.jpg) | ![](demo/8.jpg) | ![](demo/9.jpg) | ![](demo/10.jpg) |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     Explore     |    Curated    |    Abstract     |     Nature       |     Color Based     |
+|     New Sign up Details     |    More info    |    More info filled    |     Home       |     Main Drawer     |
 
 
-| ![](demo/5.jpg) | ![](demo/24.jpg) | ![](demo/11.jpg) | ![](demo/16.jpg) | ![](demo/19.jpg) |
+| ![](demo/11.jpg) | ![](demo/12.jpg) | ![](demo/13.jpg) | ![](demo/14.jpg) | ![](demo/15.jpg) |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     For you     |    Sports    |    Pattern     |     Monochrome       |     Cars     |
+|     Categories    |    Product Page    |    Product Page 2     |     Grid Layout       |     Trending Products     |
 
 
-| ![](demo/3.jpg) | ![](demo/31.jpg) | ![](demo/34.jpg) | ![](demo/27.jpg) | ![](demo/62.jpg) |
+| ![](demo/16.jpg) | ![](demo/17.jpg) | ![](demo/18.jpg) | ![](demo/19.jpg) | ![](demo/20.jpg) |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     Color Picker    |    Favourites    |    Downloads     |     Search       |     Profile     |
+|     Wishlist     |    About Page    |     Contact Us       |     Help    |     Terms and conditions    |
 
 
-| ![](demo/60.jpg) | ![](demo/61.jpg) | ![](demo/63.jpg) | ![](demo/64.jpg) |
-| :-------------: | :-------------:  | :-------------:  | :-------------:  |
-|     Setups     |    Setups Info    |     Premium Info       |     Premium Pop Up    |
-
-
-| ![](demo/28.jpg) | ![](demo/30.jpg)| ![](demo/37.jpg)       | ![](demo/38.jpg)  | ![](demo/39.jpg)|
+| ![](demo/21.jpg) | ![](demo/22.jpg)| ![](demo/23.jpg)       | ![](demo/24.jpg)  | ![](demo/25.jpg)|
 | :-------------:  | :-------------: | :-------------:       | :-------------:  | :-------------: |
-|  Upload Popup    |    Uploading Screen       |  Wallpaper Display    | Clock for testing   | Wallpaper Info  |
+|  FAQs    |    Mugs       |  Pens    | Search 1   | Search 2  |
 
-| ![](demo/41.jpg) | ![](demo/40.jpg) | ![](demo/33.jpg) | ![](demo/35.jpg) | ![](demo/36.jpg) |
+
+| ![](demo/26.jpg) | ![](demo/27.jpg) | ![](demo/28.jpg) | ![](demo/29.jpg) | ![](demo/30.jpg) |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     Splash Screen    |    Quick Action Menu    |    Settings     |     Theme Switcher Dark       |     Theme Switcher Light    |
+|     Search 3 (Price)    |    Sort by Name    |    Search 4 (Name)     |     Sort by Price       |     Order Form    |
 
-This theme switcher toggle button was inspired by [Shubham](https://github.com/shubhamhackz) and you can check out his code [here](https://github.com/shubhamhackz/light_dark_toggle).
 
-**Light Theme**
-
-| ![](demo/42.jpg) | ![](demo/43.jpg)| ![](demo/44.jpg)| ![](demo/50.jpg) | ![](demo/47.jpg)|
+| ![](demo/1.jpg) | ![](demo/31.jpg)| ![](demo/32.jpg)| ![](demo/34.jpg) | ![](demo/35.jpg)|
 | :-------------:  | :-------------: | :-------------: | :-------------:  | :-------------: |
-|  Explore  |Search|  Favourites    |      Downloads   |      Profile  |
+|  Date Entry  |Login PopUp|  Exit PopUp    |      Login    |      Reset Password  |
 
+
+| ![](demo/36.jpg) | ![](demo/37.jpg)| ![](demo/38.jpg)| ![](demo/39.jpg) | ![](demo/40.jpg)|
+| :-------------:  | :-------------: | :-------------: | :-------------:  | :-------------: |
+|  Code Sent  |Incorrect Email|  Home 2    |      Home 3   |      Home 4  |
 
 ## Support
 

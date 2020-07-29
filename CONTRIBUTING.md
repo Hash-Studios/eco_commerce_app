@@ -19,6 +19,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 const String username = 'username';
 const String password = 'password';
 ```
+Whatever account you use make sure to turn the less secure app access on, as it is required by the mailing service to work.
+![](demo/lesssecure.png)
 3. You also need to create a Firebase project, download the google-services.json to `android/app/` directory.
 If you need to create your own products you can follow the schema below in your MongoDB or other NoSQL backend.
 ```
