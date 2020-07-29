@@ -36,7 +36,6 @@ dependencies:
   firebase_analytics: ^5.0.15
   firebase_core: ^0.4.5
   device_preview: ^0.4.5
-  firebase_admob: ^0.9.3+2
 
 
   # The following adds the Cupertino Icons font to your application.
