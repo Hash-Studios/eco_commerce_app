@@ -12,7 +12,6 @@ class GoogleAuth {
   String errorMsg = "";
 
   Future<String> signInWithGoogle() async {
-    // try {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
@@ -39,10 +38,6 @@ class GoogleAuth {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
     return 'signInWithGoogle succeeded: $user';
-    // } catch (error) {
-    //   errorMsg = error.toString();
-    //   return error.toString();
-    // }
   }
 
   void signOutGoogle() async {

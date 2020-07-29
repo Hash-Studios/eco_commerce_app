@@ -1,10 +1,8 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:eco_commerce_app/core/keys/smtpKey.dart';
 
 sendUserConfirmMail(String email, String name) async {
-  String username = 'ecofriendlycommerceapp@gmail.com';
-  String password = 'Eco123App';
-
   final smtpServer = gmail(username, password);
   final message = Message()
     ..from = Address(username)
@@ -23,9 +21,6 @@ sendUserConfirmMail(String email, String name) async {
 }
 
 sendOrderConfirmMail(String email, String name) async {
-  String username = 'ecofriendlycommerceapp@gmail.com';
-  String password = 'Eco123App';
-
   final smtpServer = gmail(username, password);
   final message = Message()
     ..from = Address(username)
@@ -43,9 +38,6 @@ sendOrderConfirmMail(String email, String name) async {
 }
 
 sendForgotPasswordMail(String email, String code) async {
-  String username = 'ecofriendlycommerceapp@gmail.com';
-  String password = 'Eco123App';
-
   final smtpServer = gmail(username, password);
   final message = Message()
     ..from = Address(username)
@@ -63,9 +55,6 @@ sendForgotPasswordMail(String email, String code) async {
 }
 
 sendContactUsMail(String email, String phone, String name, String msg) async {
-  String username = 'ecofriendlycommerceapp@gmail.com';
-  String password = 'Eco123App';
-
   final smtpServer = gmail(username, password);
   final message = Message()
     ..from = Address(username)
@@ -85,9 +74,6 @@ sendContactUsMail(String email, String phone, String name, String msg) async {
 
 sendOrderMail(String email, String phone, String name, String msg, String qty,
     String price, String date, String productname, String orgPrice) async {
-  String username = 'ecofriendlycommerceapp@gmail.com';
-  String password = 'Eco123App';
-
   final smtpServer = gmail(username, password);
   final message = Message()
     ..from = Address(username)
