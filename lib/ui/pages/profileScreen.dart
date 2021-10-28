@@ -101,7 +101,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           CustomScrollView(
