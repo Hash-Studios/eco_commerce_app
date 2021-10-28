@@ -28,7 +28,7 @@ class _TrendingScreenState extends State<TrendingScreen> {
     });
     http
         .get(
-      'https://ecocommerce.herokuapp.com/products',
+      Uri.parse('https://ecocommerce.herokuapp.com/products'),
     )
         .then((http.Response res) {
       print(json.decode(res.body));

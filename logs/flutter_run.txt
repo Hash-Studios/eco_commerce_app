@@ -1,0 +1,30 @@
+[5:54:09 pm]: Spawning C:\src\flutter\bin\flutter.bat with args ["run","--machine","--start-paused","-d","RZ8N82EBWVZ","--dart-define=flutter.inspector.structuredErrors=true","--web-allow-expose-url","--devtools-server-address","http://127.0.0.1:9101/","--target","lib\\main.dart","--web-hostname","any"]
+[5:54:09 pm]: ..  in D:\Hash Studios\eco_commerce_app
+[5:54:09 pm]: ..  with {"toolEnv":{"FLUTTER_HOST":"VSCode","PUB_ENVIRONMENT":"vscode.dart-code"}}
+[5:54:09 pm]: PID: 3740
+[5:54:12 pm]: <== [{"event":"daemon.connected","params":{"version":"0.6.1","pid":13876}}]
+[5:54:12 pm]: <== [{"event":"app.start","params":{"appId":"955ca253-8acc-4e43-9d57-197a13852675","deviceId":"RZ8N82EBWVZ","directory":"D:\\Hash Studios\\eco_commerce_app","supportsRestart":true,"launchMode":"run"}}]
+[5:54:12 pm]: <== Launching lib\main.dart on SM M215F in debug mode...
+[5:54:13 pm]: <== [{"event":"app.progress","params":{"appId":"955ca253-8acc-4e43-9d57-197a13852675","id":"0","progressId":null,"message":"Running Gradle task 'assembleDebug'...","finished":false}}]
+[5:55:46 pm]: <== Parameter format not correct -
+[5:55:49 pm]: 
+[5:55:49 pm]: FAILURE: Build failed with an exception.
+
+* What went wrong:
+[5:55:49 pm]: Execution failed for task ':app:processDebugGoogleServices'.
+> File google-services.json is missing. The Google Services Plugin cannot function without it. 
+   Searched Location: 
+  D:\Hash Studios\eco_commerce_app\android\app\src\nullnull\google-services.json
+[5:55:49 pm]: D:\Hash Studios\eco_commerce_app\android\app\src\debug\google-services.json
+  D:\Hash Studios\eco_commerce_app\android\app\src\nullnullDebug\google-services.json
+  D:\Hash Studios\eco_commerce_app\android\app\src\nullnull\debug\google-services.json
+[5:55:49 pm]: D:\Hash Studios\eco_commerce_app\android\app\src\debug\nullnull\google-services.json
+  D:\Hash Studios\eco_commerce_app\android\app\google-services.json
+
+* Try:
+[5:55:49 pm]: Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+[5:55:49 pm]: * Get more help at https://help.gradle.org
+[5:55:49 pm]: BUILD FAILED in 1m 34s
+[5:55:50 pm]: <== [{"event":"app.progress","params":{"appId":"955ca253-8acc-4e43-9d57-197a13852675","id":"0","progressId":null,"finished":true}}]
+[5:55:50 pm]: Exception: Gradle task assembleDebug failed with exit code 1
+[5:55:50 pm]: <== [{"event":"app.stop","params":{"appId":"955ca253-8acc-4e43-9d57-197a13852675"}}]

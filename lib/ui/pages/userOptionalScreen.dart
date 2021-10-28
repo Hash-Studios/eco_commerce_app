@@ -364,14 +364,16 @@ class _UserOptionalScreenState extends State<UserOptionalScreen> {
 
   void registerUser(CurrentUser currentUser) async {
     try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/register', body: {
-        'username': name,
-        'email': email,
-        'password': password,
-        'orgemail': emailController.text,
-        'organisation': orgController.text,
-        'phone': phoneController.text
-      }).then((http.Response response) {
+      http.post(
+          Uri.parse('https://ecocommerce.herokuapp.com/auth/local/register'),
+          body: {
+            'username': name,
+            'email': email,
+            'password': password,
+            'orgemail': emailController.text,
+            'organisation': orgController.text,
+            'phone': phoneController.text
+          }).then((http.Response response) {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {

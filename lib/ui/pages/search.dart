@@ -90,8 +90,8 @@ class _SearchScreenState extends State<SearchScreen>
       search = search + "name_contains=${query.split(" ")[q]}";
     }
     http
-        .get(
-      'https://ecocommerce.herokuapp.com/products?$search$sorting',
+        .get(Uri.parse(
+      'https://ecocommerce.herokuapp.com/products?$search$sorting'),
     )
         .then((http.Response response) {
       if (response.statusCode == 200) {

@@ -16,26 +16,27 @@ class GoogleAuth {
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
     assert(user.email != null);
     assert(user.displayName != null);
-    assert(user.photoUrl != null);
+    assert(user.photoURL != null);
     name = user.displayName;
     email = user.email;
     SharedPreferences.getInstance().then((value) {
       value.setString('googlename', user.displayName);
       value.setString('googleemail', user.email);
-      value.setString('googleimage', user.photoUrl);
+      value.setString('googleimage', user.photoURL);
     });
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
-    final FirebaseUser currentUser = await _auth.currentUser();
+    final User currentUser = _auth.currentUser;
     assert(user.uid == currentUser.uid);
     return 'signInWithGoogle succeeded: $user';
   }
