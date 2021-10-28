@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     print(id);
     http
         .put(
-      'https://ecocommerce.herokuapp.com/users/$id',
+      Uri.parse('https://ecocommerce.herokuapp.com/users/$id'),
     )
         .then((http.Response res) {
       print(json.decode(res.body));
@@ -101,7 +101,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           CustomScrollView(

@@ -26,7 +26,8 @@ class _ProductCarouselState extends State<ProductCarousel> {
                 });
               }),
           itemCount: widget.imgList.length,
-          itemBuilder: (BuildContext context, int itemIndex) => Container(
+          itemBuilder: (BuildContext context, int itemIndex, int g) =>
+              Container(
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

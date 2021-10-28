@@ -449,7 +449,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   void resetPassword(CurrentUser currentUser) async {
     try {
-      http.put('http://ecocommerce.herokuapp.com/users/${widget.arguements[1]}',
+      http.put(
+          Uri.parse(
+              'http://ecocommerce.herokuapp.com/users/${widget.arguements[1]}'),
           body: {
             'password': passwordController.text
           }).then((http.Response response) {
@@ -500,10 +502,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   void loginUser(CurrentUser currentUser) async {
     try {
-      http.post('https://ecocommerce.herokuapp.com/auth/local/', body: {
-        'identifier': widget.arguements[2],
-        'password': passwordController.text
-      }).then((http.Response response) {
+      http.post(Uri.parse('https://ecocommerce.herokuapp.com/auth/local/'),
+          body: {
+            'identifier': widget.arguements[2],
+            'password': passwordController.text
+          }).then((http.Response response) {
         res = (json.decode(response.body));
         print(res);
         if (response.statusCode == 200) {

@@ -65,7 +65,8 @@ class _GoogleButtonState extends State<GoogleButton> {
                       if (!isError) {
                         try {
                           http.post(
-                              'https://ecocommerce.herokuapp.com/auth/local/',
+                              Uri.parse(
+                                  'https://ecocommerce.herokuapp.com/auth/local/'),
                               body: {
                                 'identifier':
                                     main.prefs.getString('googleemail'),

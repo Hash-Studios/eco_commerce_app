@@ -31,8 +31,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
     // String jwt = main.prefs.getString("jwt");
     print(id);
     http
-        .put(
-      'https://ecocommerce.herokuapp.com/users/$id',
+        .put(Uri.parse(
+      'https://ecocommerce.herokuapp.com/users/$id'),
     )
         .then((http.Response res) {
       print(json.decode(res.body));

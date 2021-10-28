@@ -44,8 +44,8 @@ abstract class ProductLoader {
   static _loader({String id}) async {
     await http
         .get(
-      'https://ecocommerce.herokuapp.com/products' +
-          ((id != null) ? '/' + id : ""),
+      Uri.parse('https://ecocommerce.herokuapp.com/products' +
+          ((id != null) ? '/' + id : "")),
     )
         .then((http.Response res) {
       String response = res.body.toString();

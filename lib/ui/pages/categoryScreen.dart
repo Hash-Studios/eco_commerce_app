@@ -31,7 +31,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     });
     http
         .get(
-      'https://ecocommerce.herokuapp.com/categories',
+      Uri.parse('https://ecocommerce.herokuapp.com/categories'),
     )
         .then((http.Response response) {
       if (response.statusCode == 200) {
@@ -43,8 +43,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
         }
         print(categoryId);
         http
-            .get(
-          'https://ecocommerce.herokuapp.com/categories/$categoryId',
+            .get(Uri.parse(
+          'https://ecocommerce.herokuapp.com/categories/$categoryId'),
         )
             .then((http.Response res) {
           products = [];
